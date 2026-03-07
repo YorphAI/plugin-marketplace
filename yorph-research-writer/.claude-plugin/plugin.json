@@ -1,0 +1,8 @@
+{
+  "name": "yorph-research-writer",
+  "version": "1.0.0",
+  "description": "A LaTeX research paper authoring environment. Create, edit, compile, and critique academic papers directly through Claude — with a live browser-based PDF viewer that auto-refreshes on recompile.",
+  "author": {
+    "name": "Yorph AI"
+  }
+}
