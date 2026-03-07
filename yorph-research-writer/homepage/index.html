@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>yorph-research-writer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #111;
+      color: #ccc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0 auto;
+      max-width: 1140px;
+      padding: 60px 32px 100px;
+    }
+
+    /* Text content stays narrow for readability */
+    .prose {
+      max-width: 560px;
+    }
+
+    header {
+      margin-bottom: 64px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #eee;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: #888;
+    }
+
+    header .meta {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    header .meta a {
+      color: #666;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .feature {
+      margin-bottom: 72px;
+    }
+
+    .feature h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #eee;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    .feature img {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid #222;
+      display: block;
+    }
+
+    .feature .two-up {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #1e1e1e;
+      margin-bottom: 72px;
+    }
+
+    footer {
+      font-size: 13px;
+      color: #444;
+    }
+
+    footer code {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 12px;
+      color: #888;
+    }
+
+    footer p + p {
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .feature .two-up {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="prose">
+    <h1>yorph-research-writer</h1>
+    <p>A Claude plugin for working on LaTeX papers and dissertations. Includes a live PDF viewer, structural navigation, and citation exploration. Free, no account required.</p>
+    <div class="meta">
+      Available on the <a href="#">Yorph Marketplace</a> · Built for Claude Code
+    </div>
+  </header>
+
+  <div class="feature">
+    <div class="prose">
+      <h2>Live editor + PDF preview</h2>
+      <p>Edit your <code>.tex</code> files alongside a compiled PDF that updates on demand. Click the PDF to jump to the corresponding source line, or click in the editor to sync the PDF view.</p>
+    </div>
+    <img src="ui.png" alt="Side-by-side LaTeX editor and PDF viewer">
+  </div>
+
+  <hr class="divider">
+
+  <div class="feature">
+    <div class="prose">
+      <h2>Navigate large documents efficiently</h2>
+      <p>The navigate skill builds a section-level skeleton of your paper and caches it — so Claude can find any section, chapter, or argument without reading the whole file every time. Token-efficient by design.</p>
+    </div>
+    <div class="two-up">
+      <img src="build_my_skeleton.png" alt="Building the document skeleton">
+      <img src="show_my_skeleton.png" alt="Formatted dissertation outline">
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="feature">
+    <div class="prose">
+      <h2>Summarize structure on demand</h2>
+      <p>Ask for an outline and get a chapter-by-chapter summary table. Useful for getting oriented before a writing session or sharing structure with an advisor.</p>
+    </div>
+    <img src="outline_my_dissertation.png" alt="Dissertation structure summary">
+  </div>
+
+  <hr class="divider">
+
+  <div class="feature">
+    <div class="prose">
+      <h2>Diagnose structural problems</h2>
+      <p>Describe a structural concern in plain language. Claude reads the relevant sections, identifies the specific problem, and explains exactly what needs to move and why.</p>
+    </div>
+    <img src="diagnose_bad_order.png" alt="Diagnosing a misplaced section">
+  </div>
+
+  <hr class="divider">
+
+  <div class="feature">
+    <div class="prose">
+      <h2>Move content across chapters</h2>
+      <p>Tell Claude what to move and where. It handles the edits across multiple files — removing from one section, inserting into another, updating cross-references — and shows a summary of everything that changed.</p>
+    </div>
+    <div class="two-up">
+      <img src="move_parts.png" alt="Instruction to split a section">
+      <img src="results_of_moving_parts.png" alt="Summary of changes made">
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="feature">
+    <div class="prose">
+      <h2>Explore your citation graph</h2>
+      <p>Given a topic, Claude finds the most relevant papers in your bibliography, looks them up on OpenAlex (free, no API key), and retrieves newer papers that cite them — ranked by relevance and impact. Useful for checking related work coverage before submission.</p>
+    </div>
+    <img src="explore_citations.png" alt="Citation exploration request">
+    <div class="two-up" style="margin-top: 12px;">
+      <img src="results_of_finding_my_citations.png" alt="Resolved bibliography papers with citation counts">
+      <img src="results_of_finding_forward_citations.png" alt="Forward citations ranked by relevance">
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <footer class="prose">
+    <p>Works with any LaTeX project. Point it at a directory containing your <code>.tex</code> and <code>.bib</code> files.</p>
+    <p>Requires Claude Code and a local TeX installation (e.g. MacTeX or TeX Live).</p>
+  </footer>
+
+</body>
+</html>

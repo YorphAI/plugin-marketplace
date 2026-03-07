@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yorph Research Writer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    /* ── Variables ───────────────────────────────────────────────────────── */
+    :root {
+      --bg:          #1e1e2e;
+      --sidebar-bg:  #181825;
+      --pdf-bg:      #45475a;
+      --surface:     #313244;
+      --text:        #cdd6f4;
+      --text-muted:  #6c7086;
+      --accent:      #89b4fa;
+      --green:       #a6e3a1;
+      --yellow:      #f9e2af;
+      --red:         #f38ba8;
+      --border:      #313244;
+      --toolbar-h:   42px;
+      --file-w:      200px;
+      --font-mono:   'JetBrains Mono', 'Fira Mono', 'Cascadia Code', 'Consolas', monospace;
+    }
+
+    /* ── Reset ───────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+           background: var(--bg); color: var(--text);
+           height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+    /* ── Toolbar ─────────────────────────────────────────────────────────── */
+    #toolbar {
+      height: var(--toolbar-h);
+      background: var(--sidebar-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 12px; gap: 8px;
+      flex-shrink: 0; user-select: none;
+    }
+    .logo { font-weight: 700; font-size: 13px; color: var(--accent); margin-right: 4px; }
+    .tb-sep { width: 1px; height: 18px; background: var(--border); margin: 0 2px; }
+    .tb-btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-muted); padding: 3px 10px; border-radius: 4px;
+      font-size: 12px; cursor: pointer; transition: color .12s, border-color .12s;
+    }
+    .tb-btn:hover:not(:disabled) { color: var(--accent); border-color: var(--accent); }
+    .tb-btn:disabled { opacity: .45; cursor: default; }
+    #btn-compile { color: var(--text); border-color: var(--surface); }
+    #tb-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .tb-label { font-size: 12px; color: var(--text-muted); min-width: 52px; text-align: center; }
+
+    /* compile status pill */
+    #compile-status {
+      font-size: 11px; padding: 2px 8px; border-radius: 10px;
+      border: 1px solid transparent; transition: all .2s;
+    }
+    .cs-idle    { color: var(--text-muted); border-color: transparent; }
+    .cs-working { color: var(--yellow); border-color: var(--yellow); animation: pulse 1s infinite; }
+    .cs-ok      { color: var(--green);  border-color: var(--green); }
+    .cs-error   { color: var(--red);    border-color: var(--red); }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    /* ── Main panels ─────────────────────────────────────────────────────── */
+    #panels {
+      display: grid;
+      grid-template-columns: var(--file-w) 1fr 1.35fr;
+      flex: 1; overflow: hidden;
+    }
+
+    /* ── File panel ──────────────────────────────────────────────────────── */
+    #file-panel {
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .panel-header {
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--text-muted);
+      padding: 10px 12px 6px; flex-shrink: 0;
+    }
+    #file-tree { flex: 1; overflow-y: auto; padding-bottom: 16px; }
+    #file-tree::-webkit-scrollbar { width: 3px; }
+    #file-tree::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    .file-dir {
+      font-size: 11px; color: var(--text-muted);
+      padding: 8px 12px 3px; font-style: italic;
+    }
+    .file-item {
+      display: block; padding: 4px 12px 4px 16px;
+      font-size: 12px; color: var(--text-muted);
+      cursor: pointer; border-left: 2px solid transparent;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      transition: color .1s, border-color .1s, background .1s;
+    }
+    .file-item.indented { padding-left: 24px; }
+    .file-item:hover { color: var(--text); background: rgba(137,180,250,.05); }
+    .file-item.active { color: var(--accent); border-left-color: var(--accent); }
+    .file-item.changed::after { content: ' ●'; color: var(--yellow); font-size: 9px; }
+
+    /* ── Editor panel ────────────────────────────────────────────────────── */
+    #editor-panel {
+      display: flex; flex-direction: column; overflow: hidden;
+      position: relative;
+    }
+    #editor-header {
+      height: 32px; background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 12px; gap: 6px;
+      flex-shrink: 0; font-size: 12px;
+    }
+    #editor-filename { color: var(--text); font-family: var(--font-mono); }
+    #editor-dirty { color: var(--yellow); font-size: 10px; display: none; }
+    #editor-dirty.show { display: inline; }
+    #editor {
+      flex: 1; min-height: 0;
+      font-family: var(--font-mono); font-size: 13px; line-height: 1.65;
+      background: var(--bg); color: var(--text);
+      border: none; outline: none; resize: none;
+      padding: 16px; tab-size: 2;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    #editor::placeholder { color: var(--text-muted); }
+
+    /* disk change banner */
+    #disk-banner {
+      display: none; align-items: center; gap: 8px;
+      background: rgba(249,226,175,.08); border-top: 1px solid var(--yellow);
+      padding: 6px 12px; font-size: 12px; color: var(--yellow); flex-shrink: 0;
+    }
+    #disk-banner.show { display: flex; }
+    #disk-banner button {
+      background: transparent; border: 1px solid var(--yellow); color: var(--yellow);
+      padding: 2px 8px; border-radius: 4px; font-size: 11px; cursor: pointer;
+    }
+    #disk-banner button:hover { background: rgba(249,226,175,.12); }
+    #disk-banner .dismiss { margin-left: auto; border: none; opacity: .7; font-size: 13px; }
+
+    /* log panel */
+    #log-panel {
+      display: none; flex-direction: column; flex-shrink: 0;
+      max-height: 220px; border-top: 2px solid var(--red);
+      background: #150f14;
+    }
+    #log-panel.show { display: flex; }
+    #log-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 10px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    #log-title { font-size: 12px; color: var(--red); font-weight: 600; }
+    .log-btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-muted); padding: 2px 8px; border-radius: 4px;
+      font-size: 11px; cursor: pointer;
+    }
+    .log-btn:hover { color: var(--text); border-color: var(--text-muted); }
+    #log-copy { margin-left: auto; }
+    #log-close { border: none; font-size: 13px; }
+    #log-body { flex: 1; overflow-y: auto; padding: 8px 10px; }
+    #log-body::-webkit-scrollbar { width: 3px; }
+    #log-body::-webkit-scrollbar-thumb { background: var(--border); }
+    .log-error {
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--text); padding: 3px 0; border-bottom: 1px solid var(--border);
+      white-space: pre-wrap; word-break: break-all;
+    }
+    .log-error:last-child { border-bottom: none; }
+    #log-hint { font-size: 11px; color: var(--text-muted); padding: 6px 10px; flex-shrink: 0; }
+
+    /* ── SyncTeX ─────────────────────────────────────────────────────────── */
+    .pdf-page canvas { cursor: crosshair; }
+    @keyframes sync-flash { 0%{background:rgba(137,180,250,.25)} 100%{background:transparent} }
+    .sync-flash { animation: sync-flash .7s ease-out; }
+
+    /* ── PDF panel ───────────────────────────────────────────────────────── */
+    #pdf-panel {
+      background: var(--pdf-bg);
+      overflow-y: scroll; overflow-x: auto;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 24px; gap: 16px;
+    }
+    #pdf-panel::-webkit-scrollbar { width: 10px; }
+    #pdf-panel::-webkit-scrollbar-track { background: rgba(0,0,0,.25); }
+    #pdf-panel::-webkit-scrollbar-thumb { background: #7f849c; border-radius: 5px; border: 2px solid #45475a; }
+    #pdf-panel::-webkit-scrollbar-thumb:hover { background: #a6adc8; }
+    .pdf-page { box-shadow: 0 4px 24px rgba(0,0,0,.5); flex-shrink: 0; }
+    canvas { display: block; }
+    #pdf-empty {
+      color: var(--text-muted); font-size: 13px;
+      text-align: center; margin-top: 80px; line-height: 1.8;
+    }
+
+    /* ── Diff overlay ────────────────────────────────────────────────────── */
+    #diff-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.6); z-index: 100;
+      align-items: center; justify-content: center;
+    }
+    #diff-overlay.show { display: flex; }
+    #diff-modal {
+      background: var(--sidebar-bg); border: 1px solid var(--border);
+      border-radius: 8px; width: min(820px, 92vw); max-height: 80vh;
+      display: flex; flex-direction: column; overflow: hidden;
+      box-shadow: 0 16px 64px rgba(0,0,0,.6);
+    }
+    #diff-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      font-size: 13px; flex-shrink: 0;
+    }
+    #diff-header span { color: var(--text-muted); }
+    #diff-header code { color: var(--text); font-family: var(--font-mono); font-size: 12px; }
+    #diff-actions { margin-left: auto; display: flex; gap: 8px; }
+    #diff-actions button {
+      padding: 5px 12px; border-radius: 5px; font-size: 12px; cursor: pointer; border: 1px solid;
+    }
+    #btn-accept-disk { background: rgba(166,227,161,.1); border-color: var(--green); color: var(--green); }
+    #btn-keep-mine   { background: transparent; border-color: var(--border); color: var(--text-muted); }
+    #diff-body { flex: 1; overflow-y: auto; padding: 12px 0; }
+    #diff-body::-webkit-scrollbar { width: 4px; }
+    #diff-body::-webkit-scrollbar-thumb { background: var(--border); }
+    .diff-separator { font-size: 11px; color: var(--text-muted); padding: 4px 16px; font-style: italic; }
+    .diff-line {
+      font-family: var(--font-mono); font-size: 12px; line-height: 1.6;
+      padding: 1px 16px; white-space: pre-wrap; word-break: break-all;
+    }
+    .diff-line .gutter { display: inline-block; width: 16px; color: var(--text-muted); user-select: none; }
+    .diff-eq  { color: var(--text-muted); }
+    .diff-ins { background: rgba(166,227,161,.1); color: var(--green); }
+    .diff-del { background: rgba(243,139,168,.1); color: var(--red); }
+    .diff-info { color: var(--text-muted); font-size: 12px; padding: 8px 16px; font-style: italic; }
+
+    /* ── Toast ───────────────────────────────────────────────────────────── */
+    #toast {
+      position: fixed; bottom: 20px; right: 20px;
+      background: var(--sidebar-bg); border: 1px solid var(--border);
+      color: var(--text); padding: 7px 14px; border-radius: 5px;
+      font-size: 12px; opacity: 0; transition: opacity .2s;
+      pointer-events: none; z-index: 200;
+    }
+    #toast.show { opacity: 1; }
+    #toast.err  { border-color: var(--red); color: var(--red); }
+  </style>
+</head>
+<body>
+
+<!-- ── Toolbar ───────────────────────────────────────────────────────────── -->
+<div id="toolbar">
+  <span class="logo">◆ Yorph</span>
+  <div class="tb-sep"></div>
+  <button id="btn-compile" class="tb-btn" onclick="compile()">▶ Compile</button>
+  <span id="compile-status" class="cs-idle">Ready</span>
+  <div class="tb-sep"></div>
+  <button class="tb-btn" onclick="syncForward()" title="Editor → PDF: Ctrl+Click or this button  |  PDF → Editor: click anywhere on PDF">⇄ Sync</button>
+  <div class="tb-sep"></div>
+  <button class="tb-btn" onclick="commitChanges()" title="Commit current changes to git">⊙ Commit</button>
+
+  <div id="tb-right">
+    <button class="tb-btn" onclick="pdfPrevPage()">←</button>
+    <span class="tb-label" id="pdf-page-info">— / —</span>
+    <button class="tb-btn" onclick="pdfNextPage()">→</button>
+    <div class="tb-sep"></div>
+    <button class="tb-btn" onclick="pdfZoom(-.15)">−</button>
+    <span class="tb-label" id="pdf-zoom-label">140%</span>
+    <button class="tb-btn" onclick="pdfZoom(+.15)">+</button>
+    <button class="tb-btn" onclick="pdfFitWidth()">Fit</button>
+  </div>
+</div>
+
+<!-- ── Main panels ────────────────────────────────────────────────────────── -->
+<div id="panels">
+
+  <!-- File tree -->
+  <div id="file-panel">
+    <div class="panel-header">Project</div>
+    <div id="file-tree"></div>
+  </div>
+
+  <!-- Editor -->
+  <div id="editor-panel">
+    <div id="editor-header">
+      <span id="editor-filename">No file open</span>
+      <span id="editor-dirty">●</span>
+    </div>
+    <textarea id="editor" spellcheck="false" placeholder="Open a file from the project panel to start editing."></textarea>
+
+    <div id="disk-banner">
+      <span>File changed on disk</span>
+      <button onclick="viewDiff()">View diff</button>
+      <button onclick="acceptDiskChanges()">Accept</button>
+      <button class="dismiss" onclick="dismissBanner()">✕</button>
+    </div>
+
+    <div id="log-panel">
+      <div id="log-header">
+        <span id="log-title">Build errors</span>
+        <button class="log-btn" id="log-toggle" onclick="toggleFullLog()">Full log</button>
+        <button class="log-btn" id="log-copy" onclick="copyErrors()">Copy errors</button>
+        <button class="log-btn" id="log-close" onclick="closeLog()">✕</button>
+      </div>
+      <div id="log-body"></div>
+      <div id="log-hint">→ Paste errors into Claude to fix them automatically</div>
+    </div>
+  </div>
+
+  <!-- PDF -->
+  <div id="pdf-panel">
+    <div id="pdf-empty">No PDF compiled yet.<br>Press ▶ Compile to build.</div>
+  </div>
+
+</div>
+
+<!-- ── Diff overlay ────────────────────────────────────────────────────────── -->
+<div id="diff-overlay" onclick="if(event.target===this)closeDiff()">
+  <div id="diff-modal">
+    <div id="diff-header">
+      <span>Changes on disk — <code id="diff-fname"></code></span>
+      <div id="diff-actions">
+        <button id="btn-accept-disk" onclick="acceptDiskChanges()">Accept changes</button>
+        <button id="btn-keep-mine"   onclick="closeDiff()">Keep my edits</button>
+      </div>
+    </div>
+    <div id="diff-body"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ── PDF.js setup ──────────────────────────────────────────────────────────── */
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+/* ── State ─────────────────────────────────────────────────────────────────── */
+const S = {
+  // editor
+  currentFile: null,
+  savedContent: '',    // content as last written to or loaded from disk
+  diskContent:  '',    // last polled disk content
+  diskMtime:    0,
+  isDirty:      false,
+  // compile log
+  lastErrors:  [],
+  lastFullLog: '',
+  showingFullLog: false,
+  // pdf
+  pdfPath:     null,
+  pdfDoc:      null,
+  pdfScale:    1.4,
+  pdfPage:     1,
+  pdfMtime:    null,
+  // ui
+  compiling: false,
+};
+
+/* ── API helpers ────────────────────────────────────────────────────────────── */
+async function GET(url)  { const r = await fetch(url); if (!r.ok) throw r; return r.json(); }
+async function PUT(url, body) {
+  const r = await fetch(url, {method:'PUT', body});
+  if (!r.ok) throw r;
+  return r.json();
+}
+async function POST(url) { const r = await fetch(url, {method:'POST'}); if (!r.ok) throw r; return r.json(); }
+
+/* ── Toast ──────────────────────────────────────────────────────────────────── */
+let _toastTimer;
+function toast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show' + (type ? ' ' + type : '');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => el.className = '', 2200);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  FILE TREE                                                                  */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+async function loadFileTree() {
+  try {
+    const {files} = await GET('/api/files');
+    renderFileTree(files);
+  } catch (e) { console.warn('File tree load failed', e); }
+}
+
+function renderFileTree(files) {
+  // Group by directory
+  const byDir = {};
+  for (const f of files) {
+    const dir = f.dir || '';
+    (byDir[dir] = byDir[dir] || []).push(f);
+  }
+
+  const tree = document.getElementById('file-tree');
+  tree.innerHTML = '';
+
+  // Root-level files first
+  for (const f of (byDir[''] || [])) tree.appendChild(mkFileItem(f));
+
+  // Subdirectories
+  for (const [dir, items] of Object.entries(byDir).sort()) {
+    if (!dir) continue;
+    const hdr = document.createElement('div');
+    hdr.className = 'file-dir';
+    hdr.textContent = dir + '/';
+    tree.appendChild(hdr);
+    for (const f of items) tree.appendChild(mkFileItem(f, true));
+  }
+}
+
+function mkFileItem(file, indented = false) {
+  const el = document.createElement('div');
+  el.className = 'file-item' + (indented ? ' indented' : '');
+  el.textContent = file.name;
+  el.dataset.path = file.path;
+  el.title = file.path;
+  if (S.currentFile === file.path) el.classList.add('active');
+  el.addEventListener('click', () => openFile(file.path));
+  return el;
+}
+
+function setActiveFile(path) {
+  document.querySelectorAll('.file-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.path === path);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  EDITOR                                                                     */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+async function openFile(path) {
+  if (S.isDirty && S.currentFile) {
+    // Save current file automatically before switching
+    await saveCurrentFile(true);
+  }
+  try {
+    const {content, mtime} = await GET(`/api/file?path=${encodeURIComponent(path)}`);
+    S.currentFile = path;
+    S.savedContent = content;
+    S.diskContent  = content;
+    S.diskMtime    = mtime;
+    S.isDirty      = false;
+
+    const ed = document.getElementById('editor');
+    ed.value = content;
+    ed.disabled = false;
+    document.getElementById('editor-filename').textContent = path;
+    setDirtyIndicator(false);
+    dismissBanner();
+    closeLog();
+    setActiveFile(path);
+  } catch (e) {
+    toast('Could not open file', 'err');
+  }
+}
+
+async function saveCurrentFile(silent = false) {
+  if (!S.currentFile) return;
+  const content = document.getElementById('editor').value;
+  try {
+    const {mtime} = await PUT(`/api/file?path=${encodeURIComponent(S.currentFile)}`, content);
+    S.savedContent = content;
+    S.diskContent  = content;
+    S.diskMtime    = mtime;
+    S.isDirty = false;
+    setDirtyIndicator(false);
+    if (!silent) toast('Saved');
+  } catch (e) {
+    if (!silent) toast('Save failed', 'err');
+  }
+}
+
+function setDirtyIndicator(dirty) {
+  document.getElementById('editor-dirty').className = dirty ? 'show' : '';
+}
+
+function setupEditor() {
+  const ed = document.getElementById('editor');
+
+  ed.addEventListener('input', () => {
+    S.isDirty = (ed.value !== S.savedContent);
+    setDirtyIndicator(S.isDirty);
+  });
+
+  // Ctrl+Click in editor → forward sync to PDF (Overleaf-style)
+  ed.addEventListener('click', (e) => {
+    if (e.ctrlKey || e.metaKey) {
+      e.preventDefault();
+      syncForward();
+    }
+  });
+
+  ed.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+      saveCurrentFile();
+    }
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'S') {
+      e.preventDefault();
+      syncForward();
+    }
+    // Tab → 2 spaces (don't blur)
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const s = ed.selectionStart, end = ed.selectionEnd;
+      ed.value = ed.value.slice(0, s) + '  ' + ed.value.slice(end);
+      ed.selectionStart = ed.selectionEnd = s + 2;
+      ed.dispatchEvent(new Event('input'));
+    }
+  });
+}
+
+/* ── File watcher (poll disk for changes made by Claude) ───────────────────── */
+setInterval(async () => {
+  if (!S.currentFile) return;
+  try {
+    const {content, mtime} = await GET(`/api/file?path=${encodeURIComponent(S.currentFile)}`);
+    if (mtime !== S.diskMtime) {
+      S.diskContent = content;
+      S.diskMtime   = mtime;
+      if (!S.isDirty) {
+        // Not dirty — silently reload
+        document.getElementById('editor').value = content;
+        S.savedContent = content;
+        // Refresh file tree to pick up any new files
+        loadFileTree();
+        toast('File updated');
+      } else {
+        // Dirty — ask user
+        document.getElementById('disk-banner').classList.add('show');
+        // Mark in tree
+        const item = document.querySelector(`.file-item[data-path="${S.currentFile}"]`);
+        if (item) item.classList.add('changed');
+      }
+    }
+  } catch (_) {}
+}, 3000);
+
+function dismissBanner() {
+  document.getElementById('disk-banner').classList.remove('show');
+}
+
+function acceptDiskChanges() {
+  const ed = document.getElementById('editor');
+  ed.value = S.diskContent;
+  S.savedContent = S.diskContent;
+  S.isDirty = false;
+  setDirtyIndicator(false);
+  dismissBanner();
+  closeDiff();
+  const item = document.querySelector(`.file-item[data-path="${S.currentFile}"]`);
+  if (item) item.classList.remove('changed');
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  DIFF                                                                       */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/** LCS-based unified diff. Returns array of {type, text} edit operations. */
+function computeDiff(oldText, newText) {
+  const A = oldText.split('\n'), B = newText.split('\n');
+  if (A.length > 500 || B.length > 500)
+    return [{type:'info', text:'File too large for inline diff — check the raw files.'}];
+
+  const m = A.length, n = B.length;
+  // DP table (backward LCS)
+  const dp = Array.from({length: m + 1}, () => new Int32Array(n + 1));
+  for (let i = m - 1; i >= 0; i--)
+    for (let j = n - 1; j >= 0; j--)
+      dp[i][j] = A[i] === B[j]
+        ? dp[i+1][j+1] + 1
+        : Math.max(dp[i+1][j], dp[i][j+1]);
+
+  // Trace
+  const edits = [];
+  let i = 0, j = 0;
+  while (i < m || j < n) {
+    if (i < m && j < n && A[i] === B[j]) {
+      edits.push({type:'eq',  text: A[i]}); i++; j++;
+    } else if (j < n && (i >= m || dp[i][j+1] >= dp[i+1][j])) {
+      edits.push({type:'ins', text: B[j]}); j++;
+    } else {
+      edits.push({type:'del', text: A[i]}); i++;
+    }
+  }
+  return edits;
+}
+
+function renderDiff(oldText, newText, context = 3) {
+  const edits = computeDiff(oldText, newText);
+  if (edits.length === 1 && edits[0].type === 'info')
+    return `<div class="diff-info">${edits[0].text}</div>`;
+
+  // Find which indices are changed
+  const changed = new Set(edits.map((e, i) => e.type !== 'eq' ? i : -1).filter(i => i >= 0));
+  if (changed.size === 0) return '<div class="diff-info">No changes detected.</div>';
+
+  // Expand to context range
+  const visible = new Set();
+  for (const idx of changed)
+    for (let k = Math.max(0, idx - context); k <= Math.min(edits.length - 1, idx + context); k++)
+      visible.add(k);
+
+  // Render hunks
+  let html = '', prevIdx = -2;
+  for (let i = 0; i < edits.length; i++) {
+    if (!visible.has(i)) continue;
+    if (prevIdx !== -2 && i - prevIdx > 1)
+      html += `<div class="diff-separator">··· ${i - prevIdx - 1} unchanged lines ···</div>`;
+
+    const {type, text} = edits[i];
+    const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    html += `<div class="diff-line diff-${type}">` +
+            `<span class="gutter">${type==='ins'?'+':type==='del'?'-':' '}</span>${esc}</div>`;
+    prevIdx = i;
+  }
+  return html;
+}
+
+async function commitChanges() {
+  const msg = prompt('Commit message (leave blank for timestamped checkpoint):');
+  if (msg === null) return; // cancelled
+  if (S.isDirty) await saveCurrentFile(true);
+  try {
+    const r = await fetch('/api/commit', {method: 'POST', body: msg});
+    const res = await r.json();
+    if (res.success) toast(res.detail || 'Committed');
+    else toast(res.detail || 'Commit failed', 'err');
+  } catch (e) { toast('Commit failed', 'err'); }
+}
+
+function viewDiff() {
+  document.getElementById('diff-fname').textContent = S.currentFile || '';
+  document.getElementById('diff-body').innerHTML = renderDiff(S.savedContent, S.diskContent);
+  document.getElementById('diff-overlay').classList.add('show');
+}
+
+function closeDiff() {
+  document.getElementById('diff-overlay').classList.remove('show');
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  COMPILER                                                                   */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+async function compile() {
+  if (S.compiling) return;
+  // Auto-save first
+  if (S.isDirty) await saveCurrentFile(true);
+
+  S.compiling = true;
+  const btn = document.getElementById('btn-compile');
+  const status = document.getElementById('compile-status');
+  btn.disabled = true;
+  status.className = 'cs-working';
+  status.textContent = 'Building…';
+  closeLog();
+
+  try {
+    const res = await POST('/api/compile');
+    if (res.success) {
+      status.className = 'cs-ok';
+      status.textContent = `Compiled · ${new Date().toLocaleTimeString()}`;
+      // PDF will reload via polling
+    } else {
+      const n = res.errors.length;
+      status.className = 'cs-error';
+      status.textContent = `✗ ${n} error${n !== 1 ? 's' : ''}`;
+      showLog(res.errors, res.log);
+    }
+  } catch (e) {
+    status.className = 'cs-error';
+    status.textContent = '✗ Server error';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '▶ Compile';
+    S.compiling = false;
+  }
+}
+
+function showLog(errors, fullLog) {
+  S.lastErrors = errors;
+  S.lastFullLog = fullLog;
+  S.showingFullLog = false;
+  document.getElementById('log-title').textContent =
+    `${errors.length} error${errors.length !== 1 ? 's' : ''}`;
+  document.getElementById('log-toggle').textContent = 'Full log';
+  renderErrors(errors);
+  document.getElementById('log-panel').classList.add('show');
+}
+
+function renderErrors(errors) {
+  document.getElementById('log-body').innerHTML = errors.map(e => {
+    const esc = e.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    return `<div class="log-error">${esc}</div>`;
+  }).join('');
+}
+
+function closeLog() {
+  document.getElementById('log-panel').classList.remove('show');
+}
+
+function toggleFullLog() {
+  S.showingFullLog = !S.showingFullLog;
+  document.getElementById('log-toggle').textContent = S.showingFullLog ? 'Errors only' : 'Full log';
+  if (S.showingFullLog) {
+    const esc = S.lastFullLog.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    document.getElementById('log-body').innerHTML = `<div class="log-error">${esc}</div>`;
+  } else {
+    renderErrors(S.lastErrors);
+  }
+}
+
+function copyErrors() {
+  if (!S.lastErrors.length) return;
+  const text = `LaTeX compilation failed with these errors:\n\n${S.lastErrors.join('\n')}`;
+  navigator.clipboard.writeText(text).then(() => toast('Copied to clipboard'));
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  PDF VIEWER                                                                 */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+async function loadPDF() {
+  if (!S.pdfPath) return;
+  try {
+    const url = S.pdfPath + '?t=' + Date.now();
+    S.pdfDoc = await pdfjsLib.getDocument(url).promise;
+    // Record mtime for change polling
+    try {
+      const r = await fetch(S.pdfPath, {method:'HEAD'});
+      S.pdfMtime = r.headers.get('Last-Modified');
+    } catch (_) {}
+    document.getElementById('pdf-empty').style.display = 'none';
+    await renderPDFPages();
+    updatePageInfo();
+  } catch (e) {
+    // PDF doesn't exist yet — that's fine
+  }
+}
+
+async function renderPDFPages() {
+  const panel = document.getElementById('pdf-panel');
+  panel.querySelectorAll('.pdf-page').forEach(el => el.remove());
+  for (let n = 1; n <= S.pdfDoc.numPages; n++) {
+    const page = await S.pdfDoc.getPage(n);
+    const vp   = page.getViewport({scale: S.pdfScale});
+    const wrap  = document.createElement('div');
+    wrap.className = 'pdf-page';
+    wrap.id = `page-${n}`;
+    const canvas = document.createElement('canvas');
+    canvas.width  = vp.width;
+    canvas.height = vp.height;
+    // Inverse sync: click on PDF canvas → jump to source line
+    canvas.addEventListener('click', async (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x_pt = (e.clientX - rect.left)  / S.pdfScale;
+      const y_pt = (e.clientY - rect.top)   / S.pdfScale;
+      await syncInverse(n, x_pt, y_pt);
+    });
+    wrap.appendChild(canvas);
+    panel.appendChild(wrap);
+    await page.render({canvasContext: canvas.getContext('2d'), viewport: vp}).promise;
+  }
+}
+
+function updatePageInfo() {
+  const total = S.pdfDoc ? S.pdfDoc.numPages : '—';
+  document.getElementById('pdf-page-info').textContent = `${S.pdfPage} / ${total}`;
+}
+
+function pdfPrevPage() { if (S.pdfPage > 1) scrollToPage(--S.pdfPage); }
+function pdfNextPage() { if (S.pdfDoc && S.pdfPage < S.pdfDoc.numPages) scrollToPage(++S.pdfPage); }
+
+function scrollToPage(n) {
+  S.pdfPage = n;
+  updatePageInfo();
+  document.getElementById(`page-${n}`)?.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// Track visible page from scroll
+document.getElementById('pdf-panel').addEventListener('scroll', () => {
+  if (!S.pdfDoc) return;
+  const panel = document.getElementById('pdf-panel');
+  const mid   = panel.scrollTop + panel.clientHeight / 2;
+  for (let n = 1; n <= S.pdfDoc.numPages; n++) {
+    const el = document.getElementById(`page-${n}`);
+    if (el && el.offsetTop + el.offsetHeight >= mid) { S.pdfPage = n; updatePageInfo(); break; }
+  }
+}, {passive: true});
+
+function pdfZoom(delta) {
+  S.pdfScale = Math.min(3, Math.max(0.4, S.pdfScale + delta));
+  document.getElementById('pdf-zoom-label').textContent = `${Math.round(S.pdfScale * 100)}%`;
+  if (S.pdfDoc) renderPDFPages();
+}
+
+function pdfFitWidth() {
+  const panel = document.getElementById('pdf-panel');
+  S.pdfScale  = (panel.clientWidth - 48) / 595; // A4 width ≈ 595pt
+  document.getElementById('pdf-zoom-label').textContent = `${Math.round(S.pdfScale * 100)}%`;
+  if (S.pdfDoc) renderPDFPages();
+}
+
+// Poll for PDF changes (auto-refresh after compile)
+setInterval(async () => {
+  if (!S.pdfPath) return;
+  try {
+    const r = await fetch(S.pdfPath, {method:'HEAD'});
+    const mtime = r.headers.get('Last-Modified');
+    if (mtime && mtime !== S.pdfMtime) {
+      S.pdfMtime = mtime;
+      await loadPDF();
+    }
+  } catch (_) {}
+}, 2000);
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  SYNCTEX                                                                    */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/** Forward sync: editor cursor → PDF page */
+async function syncForward() {
+  if (!S.currentFile || !S.pdfDoc) { toast('Open a file and compile first', 'err'); return; }
+  const ed = document.getElementById('editor');
+  const line = ed.value.slice(0, ed.selectionStart).split('\n').length;
+  try {
+    const res = await GET(`/api/synctex/forward?file=${encodeURIComponent(S.currentFile)}&line=${line}`);
+    if (res.page) {
+      scrollToPage(res.page);
+      toast(`→ PDF page ${res.page}`);
+    } else {
+      toast('No sync point at cursor', 'err');
+    }
+  } catch (e) { toast('Sync failed', 'err'); }
+}
+
+/** Inverse sync: PDF click → editor file + line */
+async function syncInverse(pageNum, x_pt, y_pt) {
+  try {
+    const res = await GET(`/api/synctex/inverse?page=${pageNum}&x=${Math.round(x_pt)}&y=${Math.round(y_pt)}`);
+    if (res.file && res.line) {
+      if (res.file !== S.currentFile) await openFile(res.file);
+      scrollEditorToLine(res.line);
+      toast(`← ${res.file} : line ${res.line}`);
+    } else {
+      toast('No source for this position', 'err');
+    }
+  } catch (e) {
+    toast('Sync failed — try recompiling', 'err');
+  }
+}
+
+/** Scroll the editor textarea to a 1-indexed line and flash it */
+function scrollEditorToLine(lineNum) {
+  const ed = document.getElementById('editor');
+  const lines = ed.value.split('\n');
+  let offset = 0;
+  for (let i = 0; i < Math.min(lineNum - 1, lines.length); i++) offset += lines[i].length + 1;
+  ed.focus();
+  ed.setSelectionRange(offset, offset);
+  // Scroll textarea — estimate from line-height
+  const lh = parseFloat(getComputedStyle(ed).lineHeight) || 21;
+  ed.scrollTop = Math.max(0, (lineNum - 4) * lh);
+  // Brief flash on the editor border
+  ed.classList.add('sync-flash');
+  setTimeout(() => ed.classList.remove('sync-flash'), 700);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  KEYBOARD SHORTCUTS                                                         */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  const inEditor = document.activeElement === document.getElementById('editor');
+  if (inEditor) return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') pdfNextPage();
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   pdfPrevPage();
+  if (e.key === '=' || e.key === '+') pdfZoom(+.15);
+  if (e.key === '-')                  pdfZoom(-.15);
+  if (e.key === '0')                  pdfFitWidth();
+  if (e.key === 'Escape') closeDiff();
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') compile();
+});
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  INIT                                                                       */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+async function init() {
+  setupEditor();
+  await loadFileTree();
+
+  // Load config to discover the main file → derive PDF path
+  try {
+    const config = await GET('/api/config');
+    const mainTex = config.main || 'main.tex';
+    S.pdfPath = mainTex.replace(/\.tex$/, '.pdf');
+    await loadPDF();
+  } catch (_) {}
+
+  // Open main.tex automatically if it exists
+  try {
+    await openFile('main.tex');
+  } catch (_) {}
+}
+
+init();
+</script>
+</body>
+</html>

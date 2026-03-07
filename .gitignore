@@ -36,3 +36,6 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
+
+# Claude Code local config (machine-specific, not for repo)
+.claude/
