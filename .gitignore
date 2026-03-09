@@ -37,5 +37,8 @@ Thumbs.db
 .vscode/
 *.swp
 
+# Conversation memory (agent working context)
+.memory/
+
 # Claude Code local config (machine-specific, not for repo)
 .claude/

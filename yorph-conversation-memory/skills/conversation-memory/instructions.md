@@ -32,17 +32,23 @@ Triggered when the user says "checkpoint", "save memory", "checkpoint as {name}"
    mkdir -p .memory/{session-name}
    ```
 
-3. **Categorize what you know** into topics. Good topic boundaries:
+3. **Categorize what you know** into topics. Focus on **ephemeral knowledge that only exists in the conversation** — the reasoning, debate, and decision process. Do NOT checkpoint things that are already persisted in files (code, configs, schemas, docs). If it's in the repo, it doesn't need to be in memory.
+
+   **What to capture:**
 
    | Topic type | What goes in it | Example filename |
    |---|---|---|
-   | Schema / data shape | Column names, types, nullability, FK relationships, sample values | `data-schema.md` |
-   | Decisions | Choices made and why, rejected alternatives | `decisions.md` |
-   | Errors & fixes | Problems encountered, root causes, solutions applied | `errors-resolved.md` |
-   | Findings / analysis | Key numbers, patterns, intermediate results | `findings.md` |
-   | Plan / progress | Current plan state, what's done, what's next | `plan.md` |
-   | Configuration | Connection strings, env setup, tool versions | `config.md` |
-   | Open questions | Unresolved issues, things to investigate | `open-questions.md` |
+   | Decisions & rationale | Why we chose X over Y, rejected alternatives and why, user preferences and constraints | `decisions.md` |
+   | Exploration & dead ends | Approaches tried and abandoned, why they failed, what we learned from them | `dead-ends.md` |
+   | Agent reasoning | Your own analysis, hypotheses, mental models that shaped your recommendations | `reasoning.md` |
+   | User intent & context | The user's goals in their own words, unstated constraints you inferred, corrections they gave you | `user-context.md` |
+   | Discoveries | Non-obvious findings from investigation — things not written in any file but learned through analysis | `discoveries.md` |
+   | Open questions | Unresolved debates, things to investigate, known unknowns | `open-questions.md` |
+
+   **What NOT to capture:**
+   - File contents, code, schemas, configs — already in the repo
+   - Current state of the project — read the files instead
+   - Anything the agent can re-derive by reading existing files
 
    Use judgment — not every checkpoint needs all topics. Only write topics where you have meaningful content. Merge small topics rather than creating many thin files.
 
@@ -53,17 +59,18 @@ Triggered when the user says "checkpoint", "save memory", "checkpoint as {name}"
    Last updated: {YYYY-MM-DD HH:MM}
 
    ## {Subtopic or category}
-   - Concrete facts, specific values, exact names
-   - Reference column names, file paths, error messages verbatim
-   - Note reasoning and trade-offs, not just conclusions
+   - The reasoning and trade-offs, not just the conclusion
+   - What was considered and why it was rejected
+   - User's exact words when they expressed a preference or constraint
+   - Your own analysis that led to a recommendation
 
    ## {Another subtopic}
    ...
    ```
 
    Rules:
-   - Be specific. Write `customer_id (INT, FK→orders.id, not null)` not "the customer ID column."
-   - Include both the fact and the reasoning. "Chose LEFT JOIN because source has orphan records (14% of rows)" is better than "used LEFT JOIN."
+   - Capture the **why**, not the **what**. "Chose self-modifying SKILL.md because static description can't trigger recall — the keywords ARE the search index" beats "SKILL.md is self-modifying."
+   - Record rejected alternatives with their failure reasons. These are the most valuable memories — they prevent the agent from re-proposing dead ideas.
    - If updating an existing topic file: update in place. Don't append duplicates — replace stale content with current state.
 
 5. **Write INDEX.md** for the session:
