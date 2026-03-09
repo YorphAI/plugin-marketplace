@@ -1,0 +1,8 @@
+{
+  "name": "yorph-conversation-memory",
+  "version": "0.1.0",
+  "description": "Conversation memory that survives context compaction",
+  "author": {
+    "name": "Yorph AI"
+  }
+}
