@@ -1,0 +1,100 @@
+# Agent DAG — declarative dependency graph for semantic layer agents.
+#
+# The Orchestrator reads this file to determine execution order.
+# Agents within the same tier run in parallel.
+# Tier N agents receive outputs from all Tier 0..N-1 agents.
+
+agents:
+  # ── Tier 0: Foundation (no inter-agent dependencies) ──────────────
+  schema_annotator:
+    class: SchemaAnnotator
+    requires: [profiles, user_context]
+    produces: [domain_context, candidate_measures]
+    tier: 0
+    description: "Merged domain classifier + metric discovery. Classifies tables, tags columns, ranks measures."
+
+  quality_sentinel:
+    class: QualitySentinel
+    requires: [profiles]
+    produces: [quality_flags]
+    tier: 0
+    description: "Scans for data quality issues: null rates, stale dates, constant columns, negative values."
+
+  scd_detector:
+    class: SCDDetector
+    requires: [profiles]
+    produces: [scd_tables]
+    tier: 0
+    description: "Identifies slowly-changing dimensions and temporal patterns."
+
+  # ── Tier 1: Analysis (depend on Tier 0 outputs) ──────────────────
+  join_validator:
+    class: JoinValidator
+    requires: [profiles, domain_context, quality_flags, scd_tables, entity_disambiguation]
+    produces: [joins_jv1, joins_jv2, joins_jv3, join_conflicts]
+    tier: 1
+    description: "Validates joins at three strictness levels (Strict, Explorer, Trap Hunter)."
+
+  measures_builder:
+    class: MeasuresBuilder
+    requires: [profiles, domain_context, candidate_measures, quality_flags, joins_jv3]
+    produces: [measures_mb1, measures_mb2, measures_mb3, measure_conflicts]
+    tier: 1
+    description: "Builds measure definitions at three levels (Minimalist, Analyst, Strategist)."
+
+  grain_detector:
+    class: GrainDetector
+    requires: [profiles, domain_context, quality_flags]
+    produces: [grain_gd1, grain_gd2, grain_gd3, grain_conflicts]
+    tier: 1
+    description: "Defines grain at three levels (Purist, Pragmatist, Architect)."
+
+  business_rules:
+    class: BusinessRulesAgent
+    requires: [profiles, domain_context, standard_exclusions]
+    produces: [business_rules]
+    tier: 1
+    description: "Extracts business rules from user input and data patterns."
+
+  glossary:
+    class: GlossaryBuilder
+    requires: [profiles, domain_context, candidate_measures]
+    produces: [open_questions, glossary]
+    tier: 1
+    description: "Builds glossary and surfaces open questions."
+
+  time_intelligence:
+    class: TimeIntelligenceAgent
+    requires: [profiles, domain_context, candidate_measures]
+    produces: [time_intelligence]
+    tier: 1
+    description: "Detects date columns, generates period-over-period, rolling window, and YTD calculations."
+
+  dimension_hierarchies:
+    class: DimensionHierarchiesAgent
+    requires: [profiles, domain_context, joins_jv3]
+    produces: [dimension_hierarchies]
+    tier: 1
+    description: "Detects parent-child hierarchies within dimensions via cardinality ratios."
+
+# ── Cross-validation rules (run after all tiers complete) ────────────
+cross_validation:
+  - source: scd_tables
+    target: [joins_jv1, joins_jv2, joins_jv3]
+    rule: "SCD type-2 tables joined without temporal filter get a warning annotation"
+
+  - source: quality_flags
+    target: [measures_mb1, measures_mb2, measures_mb3]
+    rule: "Measures on quality-flagged columns get severity annotations"
+
+  - source: join_conflicts
+    target: [measures_mb1, measures_mb2, measures_mb3]
+    rule: "Measures depending on JV-1 rejected joins are flagged as unimplementable at Strict level"
+
+  - source: time_intelligence
+    target: [grain_gd1, grain_gd2, grain_gd3]
+    rule: "Time intelligence date spine recommendation aligns with grain detector's temporal grain"
+
+  - source: dimension_hierarchies
+    target: [scd_tables]
+    rule: "Hierarchies on SCD Type-2 tables warn about historical hierarchy changes"

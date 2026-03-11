@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "yorph-semantic-layer": {
+      "command": "python3",
+      "args": ["-m", "runtime.cli", "serve"],
+      "cwd": "${CLAUDE_PLUGIN_ROOT}",
+      "env": {
+        "PYTHONPATH": "${CLAUDE_PLUGIN_ROOT}"
+      }
+    }
+  }
+}
