@@ -1,0 +1,64 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "yorph-semantic-layer"
+version = "0.1.0"
+description = "Yorph Semantic Layer Assistant — Python runtime"
+requires-python = ">=3.10"
+dependencies = [
+    # MCP server framework
+    "mcp>=1.0.0",
+
+    # Warehouse connectors
+    "snowflake-connector-python>=3.6.0",
+    "google-cloud-bigquery>=3.17.0",
+    "google-cloud-storage>=2.14.0",
+    "boto3>=1.34.0",                        # S3 + Redshift
+    "redshift-connector>=2.1.0",
+    "pyodbc>=5.1.0",                        # SQL Server
+    "psycopg2-binary>=2.9.9",              # Supabase (PostgreSQL)
+
+    # Data handling
+    "pyarrow>=15.0.0",                      # parquet read/write
+    "pandas>=2.2.0",
+
+    # Async + parallelism
+    "asyncio>=3.4.3",
+    "aiofiles>=23.2.1",
+
+    # Security
+    "keyring>=24.3.0",                      # OS keychain
+    "cryptography>=42.0.0",                 # local vault fallback
+
+    # Document parsing
+    "pdfplumber>=0.10.0",                   # PDF text + table extraction
+    "python-docx>=1.1.0",                   # Word document parsing
+    "openpyxl>=3.1.0",                      # Excel (.xlsx) parsing
+    "httpx>=0.27.0",                        # async HTTP for URL fetching
+    "beautifulsoup4>=4.12.0",               # HTML content extraction
+    "PyYAML>=6.0.1",                        # YAML parsing (already transitive, pin explicitly)
+
+    # Utilities
+    "pydantic>=2.6.0",                      # data validation
+    "rich>=13.7.0",                         # terminal output
+    "click>=8.1.7",                         # CLI entrypoint
+]
+
+[project.scripts]
+yorph = "runtime.cli:main"
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "duckdb>=0.10.0",        # mock warehouse — no real Snowflake needed for tests
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.hatch.build.targets.wheel]
+packages = ["runtime"]

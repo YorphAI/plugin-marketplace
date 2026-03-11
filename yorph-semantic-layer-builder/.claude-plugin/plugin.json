@@ -1,0 +1,795 @@
+{
+  "name": "yorph-semantic-layer-builder",
+  "display_name": "Yorph Semantic Layer Builder",
+  "version": "0.1.0",
+  "description": "A guided, AI-powered semantic layer builder that connects to your data warehouse and generates optimized semantic layer definitions using parallel Claude agents.",
+  "author": "Yorph AI",
+  "server": {
+    "type": "stdio",
+    "command": "python3",
+    "args": ["-m", "runtime.cli", "serve"],
+    "cwd": ".",
+    "env": {
+      "PYTHONPATH": "."
+    }
+  },
+  "mcpServers": "./.mcp.json",
+  "claude": {
+    "model": "claude-opus-4-5",
+    "system_prompt_file": "CLAUDE.md"
+  },
+  "capabilities": {
+    "data_sources": {
+      "databases": [
+        "snowflake",
+        "bigquery",
+        "redshift",
+        "sql_server",
+        "supabase",
+        "postgres"
+      ],
+      "object_stores": [
+        "google_cloud_storage",
+        "s3"
+      ]
+    },
+    "mcp_servers": {
+      "snowflake": {
+        "type": "official",
+        "repo": "https://github.com/Snowflake-Labs/mcp",
+        "command": "uvx",
+        "args": ["snowflake-mcp"],
+        "required_credentials": [
+          "SNOWFLAKE_ACCOUNT",
+          "SNOWFLAKE_USER",
+          "SNOWFLAKE_PRIVATE_KEY_FILE",
+          "SNOWFLAKE_WAREHOUSE",
+          "SNOWFLAKE_ROLE"
+        ],
+        "optional_credentials": [
+          "SNOWFLAKE_PRIVATE_KEY_PASSPHRASE",
+          "SNOWFLAKE_PASSWORD",
+          "SNOWFLAKE_DATABASE"
+        ],
+        "auth_methods": ["key_pair", "password", "sso"],
+        "tools": [
+          "query_manager",
+          "semantic_manager",
+          "object_manager",
+          "cortex_search",
+          "cortex_analyst"
+        ]
+      },
+      "bigquery": {
+        "type": "official",
+        "repo": "https://github.com/googleapis/genai-toolbox",
+        "command": "toolbox",
+        "args": ["--prebuilt", "bigquery", "--stdio"],
+        "required_credentials": [
+          "BIGQUERY_PROJECT"
+        ],
+        "optional_credentials": [
+          "BIGQUERY_KEY_FILE",
+          "BIGQUERY_LOCATION"
+        ],
+        "auth_methods": ["gcloud_adc", "service_account_json"],
+        "tools": [
+          "execute_sql",
+          "list_dataset_ids",
+          "list_table_ids",
+          "get_table_info",
+          "search_catalog",
+          "ask_data_insights"
+        ]
+      },
+      "google_cloud_storage": {
+        "type": "official",
+        "repo": "https://github.com/googleapis/gcloud-mcp",
+        "command": "npx",
+        "args": ["-y", "@google-cloud/storage-mcp"],
+        "required_credentials": [],
+        "optional_credentials": [
+          "GOOGLE_APPLICATION_CREDENTIALS"
+        ],
+        "auth_methods": ["gcloud_adc", "service_account_json"],
+        "tools": [
+          "list_buckets",
+          "list_objects",
+          "read_object_content",
+          "read_object_metadata",
+          "get_bucket_metadata"
+        ]
+      },
+      "s3": {
+        "type": "official",
+        "repo": "https://github.com/awslabs/mcp/tree/main/src/s3-tables-mcp-server",
+        "command": "uvx",
+        "args": ["awslabs.s3-tables-mcp-server@latest"],
+        "required_credentials": [
+          "AWS_ACCESS_KEY_ID",
+          "AWS_SECRET_ACCESS_KEY",
+          "AWS_REGION"
+        ],
+        "optional_credentials": [
+          "AWS_SESSION_TOKEN",
+          "AWS_PROFILE"
+        ],
+        "auth_methods": ["access_key", "aws_profile", "iam_role"],
+        "flags": {
+          "allow_write": false
+        },
+        "tools": [
+          "list_buckets",
+          "list_objects",
+          "execute_query",
+          "table_management",
+          "namespace_management"
+        ]
+      },
+      "redshift": {
+        "type": "official",
+        "repo": "https://github.com/awslabs/mcp/tree/main/src/redshift-mcp-server",
+        "command": "uvx",
+        "args": ["awslabs.redshift-mcp-server@latest"],
+        "required_credentials": [
+          "AWS_REGION"
+        ],
+        "optional_credentials": [
+          "AWS_PROFILE",
+          "AWS_ACCESS_KEY_ID",
+          "AWS_SECRET_ACCESS_KEY"
+        ],
+        "auth_methods": ["aws_profile", "access_key", "iam_role"],
+        "tools": [
+          "list_clusters",
+          "list_databases",
+          "list_schemas",
+          "list_tables",
+          "list_columns",
+          "execute_query"
+        ]
+      },
+      "sql_server": {
+        "type": "community",
+        "note": "Microsoft has no official SQL Server MCP server. Using best community option.",
+        "repo": "https://github.com/RichardHan/mssql_mcp_server",
+        "command": "uvx",
+        "args": ["microsoft_sql_server_mcp"],
+        "required_credentials": [
+          "MSSQL_SERVER",
+          "MSSQL_DATABASE",
+          "MSSQL_USER",
+          "MSSQL_PASSWORD"
+        ],
+        "optional_credentials": [
+          "MSSQL_PORT",
+          "MSSQL_ENCRYPT"
+        ],
+        "auth_methods": ["sql_auth", "windows_auth"],
+        "tools": [
+          "list_tables",
+          "execute_query"
+        ]
+      },
+      "supabase": {
+        "type": "official",
+        "repo": "https://github.com/supabase-community/supabase-mcp",
+        "hosted_endpoint": "https://mcp.supabase.com/mcp",
+        "local_endpoint": "http://localhost:54321/mcp",
+        "required_credentials": [],
+        "optional_credentials": [
+          "SUPABASE_PROJECT_REF",
+          "SUPABASE_DB_PASSWORD",
+          "SUPABASE_ACCESS_TOKEN"
+        ],
+        "auth_methods": ["oauth2", "project_ref"],
+        "recommended_flags": {
+          "read_only": true
+        },
+        "tools": [
+          "list_tables",
+          "execute_sql",
+          "apply_migration",
+          "get_logs",
+          "list_projects"
+        ]
+      },
+      "postgres": {
+        "type": "official",
+        "repo": "https://github.com/modelcontextprotocol/servers/tree/main/src/postgres",
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-postgres", "${PG_CONNECTION_STRING}"],
+        "required_credentials": ["PG_CONNECTION_STRING"],
+        "optional_credentials": [],
+        "auth_methods": ["password"],
+        "note": "Connection string format: postgresql://user:password@host:port/database",
+        "tools": [
+          "query",
+          "list_tables",
+          "describe_table"
+        ]
+      }
+    },
+    "document_ingestion": {
+      "accepted_types": [
+        "data_dictionary",
+        "saas_app_context",
+        "business_context",
+        "existing_semantic_layer"
+      ],
+      "accepted_formats": [
+        "pdf",
+        "csv",
+        "json",
+        "yaml",
+        "xlsx",
+        "txt",
+        "md"
+      ]
+    },
+    "output_formats": [
+      "json",
+      "yaml",
+      "document",
+      "snowflake",
+      "dbt",
+      "osi_spec",
+      "custom"
+    ],
+    "agents": {
+      "parallel_execution": true,
+      "dag_config": "runtime/agents/dag.yaml",
+      "orchestrator": "runtime/agents/orchestrator.py",
+      "total_agents": 10,
+      "note": "10 agent roles organized into 2 tiers. Tier 0 (foundation, parallel): Schema Annotator (merged domain classifier + metric discovery), Quality Sentinel, SCD Detector. Tier 1 (analysis, parallel, depends on Tier 0): Join Validator (3 personas), Measures Builder (3 personas), Grain Detector (3 personas), Business Rules, Glossary Builder, Time Intelligence, Dimension Hierarchies. Cross-validation runs after all tiers. Total sub-agents including personas: 16.",
+      "roles": [
+        {
+          "id": "schema_annotator",
+          "tier": 0,
+          "prompt_file": "agents/schema-annotator.md",
+          "code_module": "runtime/agents/schema_annotator.py",
+          "description": "Merged domain classifier + metric discovery. Single pass: classify domain, tag columns, rank measures."
+        },
+        {
+          "id": "quality_sentinel",
+          "tier": 0,
+          "prompt_file": "agents/quality-sentinel.md",
+          "code_module": "runtime/agents/quality_sentinel.py",
+          "description": "Data quality checks: null rates, stale dates, constant columns, negative values."
+        },
+        {
+          "id": "scd_detector",
+          "tier": 0,
+          "prompt_file": "agents/scd-detector.md",
+          "code_module": "runtime/agents/scd_detector.py",
+          "description": "Identifies slowly-changing dimensions and temporal patterns."
+        },
+        {
+          "id": "join_validator",
+          "tier": 1,
+          "prompt_file": "agents/join-validator.md",
+          "code_module": "runtime/agents/join_validator.py",
+          "sub_agents": [
+            { "id": "jv_strict",      "alias": "JV-1 (Strict)",      "philosophy": "Only validates joins with clean 1:1 or 1:many cardinality confirmed by uniqueness checks" },
+            { "id": "jv_explorer",    "alias": "JV-2 (Explorer)",    "philosophy": "Maps all possible join paths including many:many, annotates with safety ratings" },
+            { "id": "jv_trap_hunter", "alias": "JV-3 (Trap Hunter)", "philosophy": "Specialises in detecting fan-out, chasm traps, and ambiguous multi-path joins" }
+          ]
+        },
+        {
+          "id": "measure_builder",
+          "tier": 1,
+          "prompt_file": "agents/measure-builder.md",
+          "code_module": "runtime/agents/measures_builder.py",
+          "sub_agents": [
+            { "id": "mb_minimalist",  "alias": "MB-1 (Minimalist)",  "philosophy": "Core KPIs only — the 5–15 metrics every analyst would immediately agree on" },
+            { "id": "mb_analyst",     "alias": "MB-2 (Analyst)",     "philosophy": "All derivable metrics including ratios, growth, and funnel measures, annotated by complexity" },
+            { "id": "mb_strategist",  "alias": "MB-3 (Strategist)",  "philosophy": "Business-domain grouping, human-readable labels, metric families, and gap analysis" }
+          ]
+        },
+        {
+          "id": "granularity_definer",
+          "tier": 1,
+          "prompt_file": "agents/granularity-definer.md",
+          "code_module": "runtime/agents/grain_detector.py",
+          "sub_agents": [
+            { "id": "gd_purist",      "alias": "GD-1 (Purist)",      "philosophy": "Atomic grain for maximum analyst flexibility — lowest possible granularity for every fact" },
+            { "id": "gd_pragmatist",  "alias": "GD-2 (Pragmatist)",  "philosophy": "Reporting grain — optimised for the most common BI query patterns" },
+            { "id": "gd_architect",   "alias": "GD-3 (Architect)",   "philosophy": "Hybrid grain — atomic exploration layer + pre-aggregated reporting layer" }
+          ]
+        },
+        {
+          "id": "business_rules",
+          "tier": 1,
+          "prompt_file": "agents/business-rules.md",
+          "code_module": "runtime/agents/business_rules.py",
+          "description": "Extracts business rules from user input and data patterns."
+        },
+        {
+          "id": "glossary_builder",
+          "tier": 1,
+          "prompt_file": "agents/glossary-builder.md",
+          "code_module": "runtime/agents/glossary.py",
+          "description": "Builds glossary and surfaces open questions."
+        },
+        {
+          "id": "time_intelligence",
+          "tier": 1,
+          "prompt_file": "agents/time-intelligence.md",
+          "code_module": "runtime/agents/time_intelligence.py",
+          "description": "Detects date columns, generates period-over-period, rolling window, and YTD calculations."
+        },
+        {
+          "id": "dimension_hierarchies",
+          "tier": 1,
+          "prompt_file": "agents/dimension-hierarchies.md",
+          "code_module": "runtime/agents/dimension_hierarchies.py",
+          "description": "Detects parent-child hierarchies within dimensions via cardinality ratios."
+        }
+      ],
+      "assumption_questions": {
+        "strategy": "progressive",
+        "note": "Agents emit assumption_questions during their analysis. The orchestrator surfaces these to the user one topic at a time, in priority order, before generating recommendations.",
+        "priority_order": ["blocking", "high_impact", "data_quality", "preference"]
+      },
+      "shared_skills": [
+        {
+          "id": "document_context_protocol",
+          "file": "docs/document-context-protocol.md",
+          "used_by": ["schema_annotator", "join_validator", "measure_builder", "granularity_definer", "glossary_builder", "time_intelligence", "dimension_hierarchies"],
+          "description": "How to interpret enriched profile tags (documented / inferred / conflict)"
+        },
+        {
+          "id": "escalation_protocol",
+          "file": "docs/escalation-protocol.md",
+          "used_by": ["all"],
+          "description": "When and how to escalate issues to the user"
+        },
+        {
+          "id": "tier_inputs",
+          "file": "docs/tier-inputs.md",
+          "used_by": ["join_validator", "measure_builder", "granularity_definer", "business_rules", "glossary_builder", "time_intelligence", "dimension_hierarchies"],
+          "description": "Documents Tier 0 outputs consumed by Tier 1 agents"
+        },
+        {
+          "id": "output_format",
+          "file": "docs/output-format.md",
+          "used_by": ["all"],
+          "description": "Standard format conventions for agent outputs"
+        },
+        {
+          "id": "verified_metrics",
+          "file": "docs/verified-metrics.md",
+          "used_by": ["schema_annotator", "measure_builder", "business_rules"],
+          "description": "How to handle user-provided metrics and standard exclusions"
+        },
+        {
+          "id": "skew_analysis",
+          "file": "skills/skew-analysis/SKILL.md",
+          "used_by": ["schema_annotator", "measure_builder", "time_intelligence"]
+        }
+      ],
+      "reconciliation": {
+        "within_role": "agents_vote_then_surface_conflicts",
+        "across_roles": "orchestrator_synthesises",
+        "conflict_prompt_file": "prompts/clarification.md"
+      },
+      "recommendations": {
+        "count": 3,
+        "mapping": {
+          "recommendation_1": "Conservative — JV-1 (Strict) + MB-1 (Core KPIs) + GD-1 (Atomic)",
+          "recommendation_2": "Comprehensive — JV-2 (Explorer) + MB-2 (Analyst) + GD-2 (Reporting)",
+          "recommendation_3": "Balanced — synthesis of all agents, adapted to user's stated context and answers"
+        }
+      }
+    }
+  },
+  "local_storage": {
+    "base_path": "~/.yorph",
+    "directories": {
+      "profiles":     "~/.yorph/profiles",
+      "samples":      "~/.yorph/samples",
+      "documents":    "~/.yorph/documents",
+      "sessions":     "~/.yorph/sessions",
+      "output":       "~/.yorph/output"
+    },
+    "column_profiles": {
+      "note": "Column profiles are compact statistical summaries loaded into Claude's context. NOT raw rows. A profile for a 50-column table is ~300-600 tokens vs ~50,000 for raw rows. Profiles are saved to ~/.yorph/profiles/ as JSON and loaded in batches of 100 tables.",
+      "generated_at": "profiling_phase",
+      "profile_format": "json",
+      "context_batch_size": 100,
+      "per_column": {
+        "core": [
+          "name", "data_type", "total_rows", "pct_null", "approx_distinct", "sample_values"
+        ],
+        "numeric_columns": [
+          "min_numeric", "max_numeric", "avg_numeric",
+          "p05", "p25", "median_numeric", "p75", "p95"
+        ],
+        "string_columns": [
+          "avg_len", "max_len", "min_string", "max_string",
+          "pct_numeric_like", "pct_integer_like",
+          "pct_contains_currency_symbol", "pct_contains_percent"
+        ],
+        "date_format_detection": [
+          "pct_date_iso_yyyy_mm_dd",
+          "pct_date_ymd_slash",
+          "pct_date_mdy_slash",
+          "pct_date_dmy_slash",
+          "pct_date_mdy_hyphen",
+          "pct_date_dmy_hyphen",
+          "pct_timestamp_iso_like",
+          "pct_timestamp_basic",
+          "pct_timestamp_mdy_12h",
+          "pct_timestamp_mdy_24h",
+          "pct_timestamp_mdy_12h_hyphen",
+          "pct_timestamp_mdy_24h_hyphen",
+          "pct_timestamp_dmy_12h_hyphen",
+          "pct_timestamp_dmy_24h_hyphen"
+        ],
+        "null_like_string_patterns": [
+          "pct_empty_string", "pct_blank",
+          "pct_na", "pct_n_slash_a",
+          "pct_null_string", "pct_none",
+          "pct_unknown", "pct_missing", "pct_undefined",
+          "pct_dash", "pct_dot", "pct_question_mark",
+          "pct_hash_n_slash_a", "pct_hash_null_exclamation",
+          "pct_hash_div_zero", "pct_hash_value_exclamation",
+          "pct_hash_ref_exclamation", "pct_hash_name_question",
+          "pct_hash_num_exclamation",
+          "pct_no_like", "pct_yes_like"
+        ],
+        "sample_value_count": 5,
+        "excluded_column_patterns": [
+          "password", "passwd", "ssn", "social_security",
+          "credit_card", "card_number", "cvv", "secret",
+          "private_key", "api_key", "api_secret",
+          "token", "access_token", "refresh_token",
+          "hash", "salt", "encrypted"
+        ]
+      },
+      "per_table": {
+        "always_include": [
+          "table_name", "schema_name", "warehouse_type",
+          "total_rows", "size_bytes", "last_modified", "profiled_at"
+        ]
+      },
+      "cost_control": {
+        "method": "TABLESAMPLE BERNOULLI",
+        "sample_pct": 10,
+        "note": "All profiling queries run on a 10% random sample. Percentiles and distinct counts use warehouse-native approximate functions."
+      },
+      "estimated_tokens_per_table": "300-600",
+      "max_tables_in_context": 100
+    },
+    "raw_sample_cache": {
+      "note": "Raw rows are stored locally only — never loaded into Claude's context by default. Agents can request specific slices from the cache during validation (e.g. 'show me 20 rows where status = refunded').",
+      "default_row_limit": 5000,
+      "max_row_limit": 50000,
+      "excluded_column_patterns": ["password", "ssn", "credit_card", "secret", "token", "api_key", "hash", "salt"],
+      "sample_format": "parquet",
+      "retention_policy": "session",
+      "encrypt_at_rest": true,
+      "agent_slice_limit": 100
+    },
+    "object_store_sampling": {
+      "note": "For S3 and GCS, the plugin lists files, identifies structured formats, builds column profiles from a sample of each file, and caches raw rows locally.",
+      "supported_file_types": ["csv", "parquet", "json", "jsonl", "avro"],
+      "max_file_size_mb": 500,
+      "profile_rows_per_file": 5000,
+      "cache_rows_per_file": 5000
+    }
+  },
+  "credential_ui": {
+    "storage": {
+      "strategy": "os_keychain",
+      "note": "Credentials are never written to disk or stored in plugin.json. They are injected as env vars at MCP server launch time and discarded after the session ends.",
+      "fallback": "encrypted_local_vault"
+    },
+    "popup": {
+      "style": "modal",
+      "show_test_connection_button": true,
+      "show_connection_status_indicator": true,
+      "close_on_success": true
+    },
+    "connectors": {
+      "snowflake": {
+        "title": "Connect to Snowflake",
+        "logo": "snowflake",
+        "auth_method_switcher": true,
+        "default_auth_method": "key_pair",
+        "auth_methods": {
+          "key_pair": {
+            "label": "Key Pair (Recommended)",
+            "description": "The most secure option. Your private key stays on your machine — no codes to re-enter between sessions.",
+            "setup_guide": [
+              "1. Generate a private key on your machine (run in Terminal):\n   openssl genrsa 2048 | openssl pkcs8 -topk8 -inform PEM -out ~/.ssh/snowflake_rsa_key.p8 -nocrypt",
+              "2. Extract the public key:\n   openssl rsa -in ~/.ssh/snowflake_rsa_key.p8 -pubout | grep -v 'PUBLIC KEY' | tr -d '\\n'",
+              "3. Register the public key in Snowflake (run as ACCOUNTADMIN):\n   ALTER USER your_username SET RSA_PUBLIC_KEY='<paste public key here>';",
+              "4. Select your .p8 file below."
+            ],
+            "fields": [
+              { "id": "SNOWFLAKE_ACCOUNT",                "label": "Account Identifier",     "type": "text",      "placeholder": "myorg-myaccount",           "hint": "Find this in Snowflake → Admin → Accounts. Format: orgname-accountname.", "required": true },
+              { "id": "SNOWFLAKE_USER",                   "label": "Username",               "type": "text",      "placeholder": "your_username",             "required": true },
+              { "id": "SNOWFLAKE_PRIVATE_KEY_FILE",       "label": "Private Key File (.p8)", "type": "filepicker","accept": ".p8,.pem",                       "hint": "Your generated private key file.", "required": true },
+              { "id": "SNOWFLAKE_PRIVATE_KEY_PASSPHRASE", "label": "Key Passphrase",         "type": "password",  "placeholder": "Leave blank if unencrypted", "hint": "Only required if you generated your key with a passphrase.", "required": false },
+              { "id": "SNOWFLAKE_WAREHOUSE",              "label": "Warehouse",              "type": "text",      "placeholder": "COMPUTE_WH",                "required": true },
+              { "id": "SNOWFLAKE_ROLE",                   "label": "Role",                   "type": "text",      "placeholder": "SYSADMIN",                  "required": true },
+              { "id": "SNOWFLAKE_DATABASE",               "label": "Default Database",       "type": "text",      "placeholder": "MY_DB",                     "required": false }
+            ]
+          },
+          "password": {
+            "label": "Username & Password",
+            "fields": [
+              { "id": "SNOWFLAKE_ACCOUNT",      "label": "Account Identifier", "type": "text",     "placeholder": "myorg-myaccount", "hint": "Find this in Snowflake → Admin → Accounts.", "required": true },
+              { "id": "SNOWFLAKE_USER",         "label": "Username",           "type": "text",     "placeholder": "your_username",   "required": true },
+              { "id": "SNOWFLAKE_PASSWORD",     "label": "Password",           "type": "password", "placeholder": "••••••••",        "required": true },
+              { "id": "SNOWFLAKE_MFA_PASSCODE", "label": "MFA Passcode",       "type": "text",     "placeholder": "123456",          "hint": "Current 6-digit code from your authenticator app. Only required if MFA is enforced.", "required": false },
+              { "id": "SNOWFLAKE_WAREHOUSE",    "label": "Warehouse",          "type": "text",     "placeholder": "COMPUTE_WH",      "required": true },
+              { "id": "SNOWFLAKE_ROLE",         "label": "Role",               "type": "text",     "placeholder": "SYSADMIN",        "required": true },
+              { "id": "SNOWFLAKE_DATABASE",     "label": "Default Database",   "type": "text",     "placeholder": "MY_DB",           "required": false }
+            ]
+          },
+          "sso": {
+            "label": "SSO / Browser Auth",
+            "fields": [
+              { "id": "SNOWFLAKE_ACCOUNT",   "label": "Account Identifier", "type": "text", "placeholder": "myorg-myaccount", "hint": "Find this in Snowflake → Admin → Accounts.", "required": true },
+              { "id": "SNOWFLAKE_USER",      "label": "Username",           "type": "text", "placeholder": "your_username",   "required": true },
+              { "id": "SNOWFLAKE_WAREHOUSE", "label": "Warehouse",          "type": "text", "placeholder": "COMPUTE_WH",      "required": true },
+              { "id": "SNOWFLAKE_ROLE",      "label": "Role",               "type": "text", "placeholder": "SYSADMIN",        "required": true }
+            ],
+            "action": "open_browser_auth"
+          }
+        }
+      },
+      "bigquery": {
+        "title": "Connect to BigQuery",
+        "logo": "google_cloud",
+        "auth_method_switcher": true,
+        "default_auth_method": "adc",
+        "note": "This is a local plugin. OAuth client_id/secret flows are not used. ADC is the standard approach for local data tools (same as dbt, Terraform, etc.).",
+        "auth_methods": {
+          "adc": {
+            "label": "Application Default Credentials (Recommended)",
+            "description": "Uses your existing gcloud login. Run 'gcloud auth application-default login' once in your terminal, then the plugin picks it up automatically.",
+            "fields": [
+              { "id": "BIGQUERY_PROJECT",  "label": "GCP Project ID", "type": "text",   "placeholder": "my-gcp-project-123", "required": true },
+              { "id": "BIGQUERY_LOCATION", "label": "Region",         "type": "select", "options": ["US", "EU", "us-central1", "us-east1", "europe-west1", "asia-east1"], "default": "US", "required": false }
+            ],
+            "preflight_check": "gcloud auth application-default print-access-token",
+            "preflight_error_message": "No gcloud credentials found. Please run: gcloud auth application-default login"
+          },
+          "service_account": {
+            "label": "Service Account JSON",
+            "description": "Download a service account key from GCP Console → IAM → Service Accounts. Recommended for enterprise or shared environments.",
+            "fields": [
+              { "id": "BIGQUERY_PROJECT",  "label": "GCP Project ID",      "type": "text",       "placeholder": "my-gcp-project-123", "required": true },
+              { "id": "BIGQUERY_KEY_FILE", "label": "Service Account JSON", "type": "filepicker", "accept": ".json",                   "required": true },
+              { "id": "BIGQUERY_LOCATION", "label": "Region",               "type": "select",     "options": ["US", "EU", "us-central1", "us-east1", "europe-west1", "asia-east1"], "default": "US", "required": false }
+            ]
+          }
+        }
+      },
+      "google_cloud_storage": {
+        "title": "Connect to Google Cloud Storage",
+        "logo": "google_cloud",
+        "auth_method_switcher": true,
+        "default_auth_method": "adc",
+        "note": "Same Google credentials as BigQuery. If already connected to BQ via ADC, GCS will reuse the same session.",
+        "auth_methods": {
+          "adc": {
+            "label": "Application Default Credentials (Recommended)",
+            "description": "Uses your existing gcloud login. Run 'gcloud auth application-default login' once in your terminal.",
+            "fields": [],
+            "preflight_check": "gcloud auth application-default print-access-token",
+            "preflight_error_message": "No gcloud credentials found. Please run: gcloud auth application-default login"
+          },
+          "service_account": {
+            "label": "Service Account JSON",
+            "fields": [
+              { "id": "GOOGLE_APPLICATION_CREDENTIALS", "label": "Service Account JSON", "type": "filepicker", "accept": ".json", "required": true }
+            ]
+          }
+        }
+      },
+      "s3": {
+        "title": "Connect to Amazon S3",
+        "logo": "aws",
+        "auth_method_switcher": true,
+        "default_auth_method": "access_key",
+        "auth_methods": {
+          "access_key": {
+            "label": "Access Key & Secret",
+            "fields": [
+              { "id": "AWS_ACCESS_KEY_ID",     "label": "Access Key ID",     "type": "text",     "placeholder": "AKIAIOSFODNN7EXAMPLE",           "required": true },
+              { "id": "AWS_SECRET_ACCESS_KEY", "label": "Secret Access Key", "type": "password", "placeholder": "••••••••",                       "required": true },
+              { "id": "AWS_REGION",            "label": "Region",            "type": "select",   "options": ["us-east-1", "us-west-2", "eu-west-1", "ap-southeast-1"], "default": "us-east-1", "required": true },
+              { "id": "AWS_SESSION_TOKEN",     "label": "Session Token",     "type": "password", "placeholder": "Optional — for temporary creds", "required": false }
+            ]
+          },
+          "aws_profile": {
+            "label": "AWS Profile (local config)",
+            "fields": [
+              { "id": "AWS_PROFILE", "label": "Profile Name", "type": "text",   "placeholder": "default",  "required": true },
+              { "id": "AWS_REGION",  "label": "Region",       "type": "select", "options": ["us-east-1", "us-west-2", "eu-west-1", "ap-southeast-1"], "default": "us-east-1", "required": true }
+            ]
+          }
+        }
+      },
+      "redshift": {
+        "title": "Connect to Amazon Redshift",
+        "logo": "aws",
+        "auth_method_switcher": true,
+        "default_auth_method": "access_key",
+        "auth_methods": {
+          "access_key": {
+            "label": "Access Key & Secret",
+            "fields": [
+              { "id": "AWS_ACCESS_KEY_ID",     "label": "Access Key ID",     "type": "text",     "placeholder": "AKIAIOSFODNN7EXAMPLE", "required": true },
+              { "id": "AWS_SECRET_ACCESS_KEY", "label": "Secret Access Key", "type": "password", "placeholder": "••••••••",             "required": true },
+              { "id": "AWS_REGION",            "label": "Region",            "type": "select",   "options": ["us-east-1", "us-west-2", "eu-west-1", "ap-southeast-1"], "default": "us-east-1", "required": true }
+            ]
+          },
+          "aws_profile": {
+            "label": "AWS Profile (local config)",
+            "fields": [
+              { "id": "AWS_PROFILE", "label": "Profile Name", "type": "text",   "placeholder": "default",  "required": true },
+              { "id": "AWS_REGION",  "label": "Region",       "type": "select", "options": ["us-east-1", "us-west-2", "eu-west-1", "ap-southeast-1"], "default": "us-east-1", "required": true }
+            ]
+          }
+        }
+      },
+      "sql_server": {
+        "title": "Connect to SQL Server",
+        "logo": "microsoft",
+        "auth_method_switcher": true,
+        "default_auth_method": "sql_auth",
+        "auth_methods": {
+          "sql_auth": {
+            "label": "SQL Server Authentication",
+            "fields": [
+              { "id": "MSSQL_SERVER",   "label": "Server / Host",   "type": "text",     "placeholder": "myserver.database.windows.net", "required": true },
+              { "id": "MSSQL_DATABASE", "label": "Database Name",   "type": "text",     "placeholder": "my_database",                   "required": true },
+              { "id": "MSSQL_USER",     "label": "Username",         "type": "text",     "placeholder": "sa",                            "required": true },
+              { "id": "MSSQL_PASSWORD", "label": "Password",         "type": "password", "placeholder": "••••••••",                      "required": true },
+              { "id": "MSSQL_PORT",     "label": "Port",             "type": "text",     "placeholder": "1433",                          "required": false },
+              { "id": "MSSQL_ENCRYPT",  "label": "Encrypt Connection","type": "toggle",  "default": true,                                "required": false }
+            ]
+          },
+          "windows_auth": {
+            "label": "Windows Authentication",
+            "fields": [
+              { "id": "MSSQL_SERVER",   "label": "Server / Host", "type": "text", "placeholder": "myserver.database.windows.net", "required": true },
+              { "id": "MSSQL_DATABASE", "label": "Database Name", "type": "text", "placeholder": "my_database",                   "required": true }
+            ],
+            "note": "Uses your current Windows session credentials. Only available on Windows."
+          }
+        }
+      },
+      "supabase": {
+        "title": "Connect to Supabase",
+        "logo": "supabase",
+        "auth_method_switcher": true,
+        "default_auth_method": "oauth",
+        "auth_methods": {
+          "oauth": {
+            "label": "Sign in with Supabase (Recommended)",
+            "fields": [],
+            "action": "supabase_oauth",
+            "note": "Opens a browser window to authorize access to your Supabase project."
+          },
+          "project_ref": {
+            "label": "Project Ref & Password",
+            "fields": [
+              { "id": "SUPABASE_PROJECT_REF",   "label": "Project Reference ID", "type": "text",     "placeholder": "abcdefghijklmnop",  "hint": "Found in Supabase Dashboard → Project Settings → General", "required": true },
+              { "id": "SUPABASE_DB_PASSWORD",   "label": "Database Password",    "type": "password", "placeholder": "••••••••",           "required": true },
+              { "id": "SUPABASE_ACCESS_TOKEN",  "label": "Access Token",         "type": "password", "placeholder": "sbp_••••••••",       "hint": "Optional — for Management API access", "required": false }
+            ]
+          }
+        }
+      },
+      "postgres": {
+        "title": "Connect to PostgreSQL",
+        "logo": "postgres",
+        "auth_method_switcher": false,
+        "default_auth_method": "password",
+        "auth_methods": {
+          "password": {
+            "label": "Username & Password",
+            "fields": [
+              { "id": "PG_HOST",     "label": "Host",          "type": "text",     "placeholder": "localhost or mydb.example.com", "required": true },
+              { "id": "PG_PORT",     "label": "Port",          "type": "text",     "placeholder": "5432",                          "required": false },
+              { "id": "PG_DATABASE", "label": "Database",      "type": "text",     "placeholder": "my_database",                   "required": true },
+              { "id": "PG_USER",     "label": "Username",      "type": "text",     "placeholder": "postgres",                      "required": true },
+              { "id": "PG_PASSWORD", "label": "Password",      "type": "password", "placeholder": "••••••••",                      "required": true },
+              { "id": "PG_SSLMODE",  "label": "SSL Mode",      "type": "select",   "options": ["prefer", "require", "disable"],    "default": "prefer", "required": false }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "workflow": {
+    "system_prompt_file": "prompts/system.md",
+    "steps": [
+      {
+        "id": "data_source_connection",
+        "order": 1,
+        "type": "connector_setup",
+        "skill_file": "skills/connect/SKILL.md",
+        "title": "Connect Your Data Source",
+        "required": true,
+        "supported_sources": [
+          "snowflake", "bigquery", "redshift",
+          "sql_server", "supabase", "postgres", "google_cloud_storage", "s3"
+        ]
+      },
+      {
+        "id": "industry_and_data_context",
+        "order": 2,
+        "type": "guided_input",
+        "skill_file": "skills/onboarding/SKILL.md",
+        "title": "Industry & Data Context",
+        "required": true
+      },
+      {
+        "id": "document_upload",
+        "order": 3,
+        "type": "document_ingestion",
+        "skill_file": "skills/document-upload/SKILL.md",
+        "title": "Upload Supporting Documents",
+        "required": false,
+        "accepted_types": [
+          "data_dictionary",
+          "saas_app_context",
+          "business_context",
+          "existing_semantic_layer"
+        ],
+        "accepted_formats": ["pdf", "csv", "json", "yaml", "xlsx", "txt", "md"]
+      },
+      {
+        "id": "output_format_selection",
+        "order": 4,
+        "type": "format_selection",
+        "skill_file": "skills/format-selection/SKILL.md",
+        "title": "Choose Output Format",
+        "required": true,
+        "options": [
+          { "id": "dbt",      "label": "dbt",            "schema_file": "schemas/dbt.yaml" },
+          { "id": "snowflake","label": "Snowflake",       "schema_file": "schemas/snowflake.yaml" },
+          { "id": "json",     "label": "JSON",            "schema_file": "schemas/json.json" },
+          { "id": "yaml",     "label": "YAML",            "schema_file": "schemas/yaml.yaml" },
+          { "id": "osi_spec", "label": "OSI Spec",        "schema_file": "schemas/osi_spec.yaml" },
+          { "id": "document", "label": "Document",        "schema_file": "schemas/document.md" },
+          { "id": "custom",   "label": "Custom",          "schema_file": null }
+        ]
+      },
+      {
+        "id": "semantic_layer_build",
+        "order": 5,
+        "type": "dag_agent_build",
+        "skill_file": "skills/build/SKILL.md",
+        "title": "Building Your Semantic Layer",
+        "required": true,
+        "dag_config": "runtime/agents/dag.yaml",
+        "orchestrator": "runtime/agents/orchestrator.py",
+        "tiers": {
+          "0": ["schema_annotator", "quality_sentinel", "scd_detector"],
+          "1": ["join_validator", "measure_builder", "granularity_definer", "business_rules", "glossary_builder", "time_intelligence", "dimension_hierarchies"]
+        },
+        "cross_validation": true,
+        "on_conflict": {
+          "strategy": "ask_user",
+          "prompt_file": "prompts/clarification.md"
+        }
+      },
+      {
+        "id": "recommendations",
+        "order": 6,
+        "type": "output",
+        "skill_file": "skills/recommendations/SKILL.md",
+        "title": "Your Semantic Layer Recommendations",
+        "count": 3
+      }
+    ]
+  }
+}
