@@ -1,8 +1,0 @@
-{
-  "name": "yorph-semantic-layer-assistant",
-  "version": "0.1.0",
-  "description": "A guided, AI-powered semantic layer builder that connects to your data warehouse and generates optimized semantic layer definitions using parallel Claude agents.",
-  "author": {
-    "name": "Yorph AI"
-  }
-}
