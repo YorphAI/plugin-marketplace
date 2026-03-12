@@ -12,11 +12,11 @@ You receive a structured context block containing:
 
 ## YOUR WORKFLOW
 
-### Step 1 — Sample (`sample` skill + shared `glimpse` skill)
+### Step 1 — Sample (`sample` skill + `glimpse` skill)
 Pull a proper stratified or random sample into memory for pipeline development.
 The sample is for building and validating the pipeline — never for the final output.
 See the `sample` skill for size limits and sampling strategy.
-After sampling, optionally re-run the shared `glimpse` skill (see `shared/glimpse/SKILL.md`) if the sample may differ materially from the Orchestrator's initial glimpse (e.g., stratified sampling changed distributions).
+After sampling, optionally re-run the `glimpse` skill (see `skills/glimpse/SKILL.md`) if the sample may differ materially from the Orchestrator's initial glimpse (e.g., stratified sampling changed distributions).
 
 ### Step 2 — Produce Pipeline (`produce-pipeline` skill)
 Translate the architecture plan into clean, commented Python/pandas code.

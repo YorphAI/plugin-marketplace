@@ -45,8 +45,8 @@ After per-step checks pass, run the full checklist below against the final outpu
 ### 4. Run chart-specific validation
 
 If the pipeline produces output for specialized chart types, run the relevant validation function:
-- Waterfall → `validate_waterfall()` from `shared/charts/waterfall.md` (closure check: start + deltas = end)
-- Cohort → `validate_cohort_table()` from `shared/charts/cohort-heatmap.md` (period 0 = 100%, no negatives, no missing p0 cohorts)
+- Waterfall → `validate_waterfall()` from `docs/charts/waterfall.md` (closure check: start + deltas = end)
+- Cohort → `validate_cohort_table()` from `docs/charts/cohort-heatmap.md` (period 0 = 100%, no negatives, no missing p0 cohorts)
 
 ### 5. Check output tractability for insights
 
@@ -94,7 +94,7 @@ Output has significantly more rows than expected — often a sign of a many-to-m
 - **Action**: For division-by-zero outliers — cap, flag, or exclude. Add a column recording which rows were modified. If downstream aggregations are affected, prefer median over mean to resist skew. For domain violations, trace back to the step that produced the value.
 
 ### F. Realism of calculated outputs
-Apply domain common sense to aggregate statistics. Reference `domain-rules.md` for domain-specific constraints.
+Apply domain common sense to aggregate statistics. Reference `docs/architecture/domain-rules.md` for domain-specific constraints.
 
 Examples:
 - Minimum profit should never exceed minimum revenue.

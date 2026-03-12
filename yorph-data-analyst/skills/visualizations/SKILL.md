@@ -11,8 +11,8 @@ Produce a **single self-contained HTML file** using Chart.js. Data is embedded a
 
 Some charts have their own dedicated shared skill covering full rendering implementations. Load these before building the relevant chart:
 
-- **Waterfall / bridge / walk** → `shared/charts/waterfall.md` — floating bar setup, connector lines, value labels, closure validation, and common pitfalls. Do not attempt to build a waterfall from scratch; use that reference.
-- **Cohort heatmap + stacked bar** → `shared/charts/cohort-heatmap.md` — canvas-based heatmap rendering, stacked bar for absolute time, color scale, null cell handling, and annotations. Always build both charts together.
+- **Waterfall / bridge / walk** → `docs/charts/waterfall.md` — floating bar setup, connector lines, value labels, closure validation, and common pitfalls. Do not attempt to build a waterfall from scratch; use that reference.
+- **Cohort heatmap + stacked bar** → `docs/charts/cohort-heatmap.md` — canvas-based heatmap rendering, stacked bar for absolute time, color scale, null cell handling, and annotations. Always build both charts together.
 
 ---
 
@@ -194,7 +194,7 @@ Choose the most specific chart type that fits the analytical intent.
 Ordered stages with a metric that decreases (users, sessions, leads). Prefer over Bar when semantics are "stage progression." Label the biggest drop-off stage with the drop percentage.
 
 ### Start-to-end bridge via additive/subtractive deltas → **Waterfall**
-Variance bridges, budget walks, attribution analysis. When the x-axis represents drivers or time periods and each bar is a delta, Waterfall is almost always the right choice. Users love Waterfall for anything financial or attribution-related. → Load `shared/charts/waterfall.md`.
+Variance bridges, budget walks, attribution analysis. When the x-axis represents drivers or time periods and each bar is a delta, Waterfall is almost always the right choice. Users love Waterfall for anything financial or attribution-related. → Load `docs/charts/waterfall.md`.
 
 ### Sensitivity / directional impact drivers → **Tornado**
 When the question is "what matters most" and sign matters. Drivers on Y, impact magnitude on X. Prefer over a sorted bar chart whenever both positive and negative drivers are present.
@@ -228,7 +228,7 @@ Avoid if >10k points and not pre-aggregated. Add a trend line when the correlati
 - Totals + composition → **Stacked Bar**
 - Never use Line chart for unordered categories (product names, regions, segments)
 
-### Cohort analysis → load `shared/charts/cohort-heatmap.md`
+### Cohort analysis → load `docs/charts/cohort-heatmap.md`
 Always build both charts together — they answer complementary questions:
 - Retention table (cohort × period elapsed × rate) → **Heatmap** (canvas rendered)
 - Cohort contribution over absolute calendar time → **Stacked Bar** with cohort as series
@@ -306,7 +306,7 @@ new Chart(ctx, {
 ```
 
 ### Waterfall
-See `shared/charts/waterfall.md` — full floating bar implementation, connector lines, value labels, Python computation, and closure validation. Do not implement from scratch.
+See `docs/charts/waterfall.md` — full floating bar implementation, connector lines, value labels, Python computation, and closure validation. Do not implement from scratch.
 
 ### Heatmap (built on custom canvas rendering, not native Chart.js)
 ```javascript

@@ -15,20 +15,20 @@ Design the full transformation and analysis pipeline as named, ordered, plain-En
 ## Subskills — loading rules
 
 **Always load:**
-- `data-cleaning.md` — every pipeline needs cleaning decisions
-- `domain-rules.md` — domain context shapes every decision
+- `docs/architecture/data-cleaning.md` — every pipeline needs cleaning decisions
+- `docs/architecture/domain-rules.md` — domain context shapes every decision
 
 **Load when the user's goal involves explaining why a metric changed, comparing periods, or attribution:**
-- `attribution-analysis.md` — variance analysis, RCA, cohort/retention, funnel analysis, causal analysis
+- `docs/architecture/attribution-analysis.md` — variance analysis, RCA, cohort/retention, funnel analysis, causal analysis
 
 **Load when the data has messy text columns that need matching, grouping, filtering, or enrichment:**
-- `shared/semantic-join/SKILL.md` — semantic feature extraction and joining. Load when the glimpse reveals high-cardinality text with near-duplicate values, when a JOIN between tables has no exact key match, when GROUP BY on raw text would produce splintered groups, or when the user asks to categorize, normalize, or deduplicate text fields. The architecture plan must specify which columns need semantic extraction and what the downstream use is (join, group, filter, dedup).
+- `skills/semantic-join/SKILL.md` — semantic feature extraction and joining. Load when the glimpse reveals high-cardinality text with near-duplicate values, when a JOIN between tables has no exact key match, when GROUP BY on raw text would produce splintered groups, or when the user asks to categorize, normalize, or deduplicate text fields. The architecture plan must specify which columns need semantic extraction and what the downstream use is (join, group, filter, dedup).
 
 **Load when the pipeline will produce a waterfall, bridge, or walk visualization:**
-- `shared/charts/waterfall.md` — required data shape, column definitions, and the closure validation check. The architecture plan must specify the correct pipeline output (label, value, bar_type, sort_order) for the Pipeline Builder to produce.
+- `docs/charts/waterfall.md` — required data shape, column definitions, and the closure validation check. The architecture plan must specify the correct pipeline output (label, value, bar_type, sort_order) for the Pipeline Builder to produce.
 
 **Load when the pipeline will produce cohort retention or cohort revenue analysis:**
-- `shared/charts/cohort-heatmap.md` — required output tables (long-format heatmap + absolute-time stacked bar), period definition, contractual vs non-contractual distinction. The architecture plan must specify the correct pipeline output shape and define the cohort period (week/month/quarter) and activity window before handing off.
+- `docs/charts/cohort-heatmap.md` — required output tables (long-format heatmap + absolute-time stacked bar), period definition, contractual vs non-contractual distinction. The architecture plan must specify the correct pipeline output shape and define the cohort period (week/month/quarter) and activity window before handing off.
 
 ## How to architect
 
@@ -110,8 +110,8 @@ For specialized chart types, the architecture plan must specify an output shape 
 
 | Chart type | Required output shape | Reference |
 |---|---|---|
-| Waterfall / bridge | `[label, value, bar_type, sort_order]` | Load `shared/charts/waterfall.md` |
-| Cohort heatmap | Two tables: retention (cohort × period_elapsed × metric) + absolute time (cohort × calendar_period × metric) | Load `shared/charts/cohort-heatmap.md` |
+| Waterfall / bridge | `[label, value, bar_type, sort_order]` | Load `docs/charts/waterfall.md` |
+| Cohort heatmap | Two tables: retention (cohort × period_elapsed × metric) + absolute time (cohort × calendar_period × metric) | Load `docs/charts/cohort-heatmap.md` |
 | Funnel | One row per stage with a single metric (e.g., `[stage, user_count]`). Pre-aggregated to stage × metric grain — no extra dimensions. | Inline — simple shape |
 | Tornado | Driver column + signed impact column (e.g., `[driver, impact]` or `[variable, low_impact, high_impact]`). Sort by absolute impact descending. | Inline — simple shape |
 
@@ -122,7 +122,7 @@ For standard charts (bar, line, scatter, etc.), no special output shape is neede
 ## What the handoff to Pipeline Builder must include
 - Ordered list of named steps with plain-English descriptions
 - Decisions the user confirmed (with their exact wording)
-- Domain rules that apply (from `domain-rules.md`)
-- Which analytical methodology to use, if any (from `attribution-analysis.md`)
+- Domain rules that apply (from `docs/architecture/domain-rules.md`)
+- Which analytical methodology to use, if any (from `docs/architecture/attribution-analysis.md`)
 - Expected output shape for visualization — for specialized charts, reference the loaded shared skill
 - Known transformation side effects to handle (e.g., "Step 3 is a LEFT JOIN — handle NULLs in the unmatched column in Step 4")

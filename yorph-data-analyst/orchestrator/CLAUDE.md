@@ -22,9 +22,9 @@ Not every user message requires the full pipeline. Before starting the workflow,
 
 ## YOUR WORKFLOW
 
-### Step 1 — Connect (`connect` skill + shared `glimpse` skill)
+### Step 1 — Connect (`connect` skill + `glimpse` skill)
 Guide the user through connecting to their data source (database, file upload, cloud storage).
-Run the shared `glimpse` skill (see `shared/glimpse/SKILL.md`) to peek at the data and compute a full statistical profile. The glimpse output is the foundation for everything that follows — architecture, validation, and insights all depend on it.
+Run the `glimpse` skill (see `skills/glimpse/SKILL.md`) to peek at the data and compute a full statistical profile. The glimpse output is the foundation for everything that follows — architecture, validation, and insights all depend on it.
 Pass the glimpse summary to the Pipeline Builder as part of the context handoff.
 
 ### Step 2 — Plan
