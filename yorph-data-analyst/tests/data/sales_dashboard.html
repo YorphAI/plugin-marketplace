@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Performance Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous"></script>
+    <style>
+:root {
+    --bg-primary: #f8f9fa; --bg-card: #ffffff; --bg-header: #1a1a2e;
+    --text-primary: #212529; --text-secondary: #6c757d; --text-on-dark: #ffffff;
+    --positive: #28a745; --negative: #dc3545; --neutral: #6c757d;
+    --gap: 16px; --radius: 8px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-primary); color: var(--text-primary); line-height: 1.5; }
+.dashboard-container { max-width: 1400px; margin: 0 auto; padding: var(--gap); }
+.dashboard-header { background: var(--bg-header); color: var(--text-on-dark);
+    padding: 20px 24px; border-radius: var(--radius); margin-bottom: var(--gap); }
+.dashboard-header h1 { font-size: 20px; font-weight: 600; }
+.dashboard-subtitle { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--gap); margin-bottom: var(--gap); }
+.kpi-card { background: var(--bg-card); border-radius: var(--radius);
+    padding: 20px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.kpi-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 4px; }
+.kpi-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+.kpi-change { font-size: 13px; font-weight: 500; }
+.kpi-change.positive { color: var(--positive); }
+.kpi-change.negative { color: var(--negative); }
+.chart-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: var(--gap); margin-bottom: var(--gap); }
+.chart-container { background: var(--bg-card); border-radius: var(--radius);
+    padding: 20px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); position: relative; }
+.chart-container h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.chart-subtitle { font-size: 12px; color: var(--text-secondary); margin-bottom: 16px; }
+.chart-container canvas { max-height: 320px; }
+.chart-full { grid-column: 1 / -1; }
+.dashboard-footer { text-align: center; font-size: 12px;
+    color: var(--text-secondary); padding: 16px 0; }
+@media (max-width: 768px) {
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .chart-row { grid-template-columns: 1fr; }
+}
+    </style>
+</head>
+<body>
+<div class="dashboard-container">
+    <header class="dashboard-header">
+        <h1>Sales Performance Analysis</h1>
+        <p class="dashboard-subtitle">Jan 2003 – May 2005 · Shipped orders only (2,617 line items) · $9.3M total revenue</p>
+    </header>
+
+    <section class="kpi-row">
+        <div class="kpi-card">
+            <div class="kpi-label">Total Revenue</div>
+            <div class="kpi-value">$9.3M</div>
+            <div class="kpi-change">2,617 line items · 307 orders</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Jan–May Growth</div>
+            <div class="kpi-value" id="kpi-growth">+4.4%</div>
+            <div class="kpi-change negative">Down from +51.1% prior year</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">November Share</div>
+            <div class="kpi-value">22.3%</div>
+            <div class="kpi-change">3.2× the average month</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Top 2 Customer Share</div>
+            <div class="kpi-value">15.0%</div>
+            <div class="kpi-change">Euro Shopping + Mini Gifts</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Classic Cars Price Realization</div>
+            <div class="kpi-value" style="color: var(--negative)">72.6%</div>
+            <div class="kpi-change">Lowest of all 7 product lines</div>
+        </div>
+    </section>
+
+    <section class="chart-row">
+        <div class="chart-container chart-full">
+            <h3>November drives 3× more revenue than the average month</h3>
+            <p class="chart-subtitle">Average monthly revenue across all years — holiday buying creates a massive Q4 spike</p>
+            <canvas id="seasonalityChart"></canvas>
+        </div>
+    </section>
+
+    <section class="chart-row">
+        <div class="chart-container">
+            <h3>Classic Cars dominates revenue but discounts the most</h3>
+            <p class="chart-subtitle">Revenue by product line (bars) vs. price realization % (line)</p>
+            <canvas id="productChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Growth is decelerating: Trucks & Motorcycles now lead</h3>
+            <p class="chart-subtitle">Jan–May revenue change, 2004 → 2005, by product line</p>
+            <canvas id="growthChart"></canvas>
+        </div>
+    </section>
+
+    <section class="chart-row">
+        <div class="chart-container">
+            <h3>62% of customers needed to reach 80% of revenue</h3>
+            <p class="chart-subtitle">Cumulative revenue share — moderate concentration, but top 2 carry 15%</p>
+            <canvas id="paretoChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>USA and Europe account for 86% of all revenue</h3>
+            <p class="chart-subtitle">Revenue by territory — Japan declining 36.5% year-over-year</p>
+            <canvas id="territoryChart"></canvas>
+        </div>
+    </section>
+
+    <footer class="dashboard-footer">
+        Data: sales_data_sample.csv · Shipped orders only (excluded 206 cancelled/disputed/on-hold/in-process line items) · Territory "NA" assigned to US/Canada records
+    </footer>
+</div>
+
+<script>
+const COLORS = ['#4C72B0','#DD8452','#55A868','#C44E52','#8172B3','#937860','#DA8BC3'];
+const POS = '#28a745', NEG = '#dc3545';
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ── CHART 1: Seasonality ──
+    new Chart(document.getElementById('seasonalityChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            datasets: [{
+                label: 'Avg Monthly Revenue',
+                data: [247200,270147,233562,179659,213123,177169,257438,329655,292362,521977,1034273,317340],
+                backgroundColor: [
+                    '#4C72B0','#4C72B0','#4C72B0','#4C72B0','#4C72B0','#4C72B0',
+                    '#4C72B0','#4C72B0','#4C72B0','#DD8452','#C44E52','#DD8452'
+                ],
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: ctx => '$' + (ctx.raw/1000).toFixed(0) + 'K' }}
+            },
+            scales: {
+                y: { beginAtZero: true, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'K' }},
+                x: { grid: { display: false }}
+            }
+        }
+    });
+
+    // ── CHART 2: Product — revenue bars + price realization line ──
+    const prodLabels = ['Classic Cars','Vintage Cars','Motorcycles','Trucks & Buses','Planes','Ships','Trains'];
+    const prodRevenue = [3701760,1743078,1129574,1044097,866467,591173,215353];
+    const prodRealization = [72.6,90.7,85.6,85.5,92.6,96.6,103.8];
+
+    new Chart(document.getElementById('productChart'), {
+        type: 'bar',
+        data: {
+            labels: prodLabels,
+            datasets: [
+                {
+                    label: 'Revenue',
+                    data: prodRevenue,
+                    backgroundColor: COLORS.map(c => c + 'CC'),
+                    borderRadius: 4,
+                    yAxisID: 'y',
+                    order: 2,
+                },
+                {
+                    label: 'Price Realization %',
+                    data: prodRealization,
+                    type: 'line',
+                    borderColor: '#C44E52',
+                    backgroundColor: '#C44E5240',
+                    borderWidth: 2.5,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#C44E52',
+                    tension: 0.3,
+                    yAxisID: 'y1',
+                    order: 1,
+                }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: { callbacks: { label: ctx => ctx.dataset.label === 'Revenue' ? '$' + (ctx.raw/1e6).toFixed(1) + 'M' : ctx.raw + '%' }}
+            },
+            scales: {
+                y: { beginAtZero: true, position: 'left', ticks: { callback: v => '$' + (v/1e6).toFixed(1) + 'M' }},
+                y1: { min: 40, max: 110, position: 'right', grid: { drawOnChartArea: false }, ticks: { callback: v => v + '%' }},
+                x: { grid: { display: false }, ticks: { maxRotation: 45 }}
+            }
+        }
+    });
+
+    // ── CHART 3: Growth waterfall (Jan-May 2004→2005 deltas by product) ──
+    const growthLabels = ['Trucks & Buses','Motorcycles','Classic Cars','Trains','Planes','Vintage Cars','Ships'];
+    const growthData = [25271,24748,17502,3799,-2246,-5863,-7434];
+    const growthColors = growthData.map(v => v >= 0 ? POS + 'CC' : NEG + 'CC');
+
+    new Chart(document.getElementById('growthChart'), {
+        type: 'bar',
+        data: {
+            labels: growthLabels,
+            datasets: [{
+                data: growthData,
+                backgroundColor: growthColors,
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            indexAxis: 'y',
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: ctx => (ctx.raw >= 0 ? '+$' : '-$') + Math.abs(ctx.raw/1000).toFixed(0) + 'K' }}
+            },
+            scales: {
+                x: { ticks: { callback: v => (v >= 0 ? '+$' : '-$') + Math.abs(v/1000).toFixed(0) + 'K' }},
+                y: { grid: { display: false }}
+            }
+        }
+    });
+
+    // ── CHART 4: Pareto (cumulative revenue curve) ──
+    const pareto_x = [];
+    const pareto_y = [0.0,7.98,14.95,17.11,19.24,21.10,22.80,24.46,26.07,27.68,29.22,30.75,32.23,33.70,35.15,36.57,37.93,39.28,40.60,41.87,43.09,44.26,45.42,46.53,47.64,48.72,49.79,50.82,51.84,52.85,53.82,54.78,55.72,56.63,57.52,58.40,59.24,60.07,60.87,61.66,62.43,63.18,63.89,64.59,65.27,65.94,66.59,67.23,67.86,68.46,69.06,69.66,70.24,70.81,71.37,71.91,72.44,72.95,73.45,73.93,74.40,74.87,75.33,75.77,76.20,76.63,77.04,77.45,77.84,78.23,78.60,78.97,79.32,79.67,80.01,80.34,80.67,80.98,81.30,81.60,81.89,82.18,82.46,82.73,83.00,83.25,83.50,83.72,83.93,84.14,84.33,84.49,84.58];
+    for (let i = 0; i <= 92; i++) pareto_x.push(i);
+
+    new Chart(document.getElementById('paretoChart'), {
+        type: 'line',
+        data: {
+            labels: pareto_x.map(v => v === 0 ? '0' : v % 10 === 0 ? String(v) : ''),
+            datasets: [
+                {
+                    label: 'Cumulative Revenue %',
+                    data: pareto_y,
+                    borderColor: '#4C72B0',
+                    backgroundColor: '#4C72B020',
+                    borderWidth: 2.5,
+                    pointRadius: 0,
+                    fill: true,
+                    tension: 0.2,
+                },
+                {
+                    label: '80% line',
+                    data: pareto_x.map(() => 80),
+                    borderColor: '#C44E5280',
+                    borderWidth: 1.5,
+                    borderDash: [6, 4],
+                    pointRadius: 0,
+                    fill: false,
+                }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        title: ctx => 'Customer #' + pareto_x[ctx[0].dataIndex],
+                        label: ctx => ctx.dataset.label === '80% line' ? '' : ctx.raw.toFixed(1) + '% of revenue'
+                    }
+                }
+            },
+            scales: {
+                y: { min: 0, max: 100, ticks: { callback: v => v + '%' }},
+                x: {
+                    title: { display: true, text: 'Customers (ranked by revenue)' },
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+
+    // ── CHART 5: Territory breakdown ──
+    const terrLabels = ['EMEA','North America','APAC','Japan'];
+    const terrRevenue = [4552273,3596283,687772,455173];
+    const terrPcts = ['49.0%','38.7%','7.4%','4.9%'];
+
+    new Chart(document.getElementById('territoryChart'), {
+        type: 'bar',
+        data: {
+            labels: terrLabels,
+            datasets: [{
+                data: terrRevenue,
+                backgroundColor: [COLORS[0]+'CC', COLORS[1]+'CC', COLORS[2]+'CC', COLORS[3]+'CC'],
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: (ctx) => '$' + (ctx.raw/1e6).toFixed(1) + 'M (' + terrPcts[ctx.dataIndex] + ')' }}
+            },
+            scales: {
+                y: { beginAtZero: true, ticks: { callback: v => '$' + (v/1e6).toFixed(1) + 'M' }},
+                x: { grid: { display: false }}
+            }
+        }
+    });
+
+});
+</script>
+</body>
+</html>
