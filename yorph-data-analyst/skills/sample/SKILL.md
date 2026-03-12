@@ -209,7 +209,7 @@ def stratified_sample(df, strat_cols, min_n=100, row_limit=50000):
 
 ## After sampling
 
-1. Optionally re-run the shared `glimpse` skill (`shared/glimpse/SKILL.md`) on the sample if it may differ materially from the Orchestrator's initial glimpse (e.g., stratified sampling changed distributions).
+1. Optionally re-run the shared `glimpse` skill (`skills/glimpse/SKILL.md`) on the sample if it may differ materially from the Orchestrator's initial glimpse (e.g., stratified sampling changed distributions).
 2. Record the sampling metadata to pass back in the result summary:
    - Source row count
    - Sample row count

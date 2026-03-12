@@ -10,7 +10,7 @@ description: Use this skill at the start of every session to guide the user thro
 1. Ask the user what their data source is (if not already clear)
 2. Collect connection details or receive file upload
 3. Validate the connection is live and data is accessible
-4. Run the shared `glimpse` skill (`shared/glimpse/SKILL.md`) — both peek and profile steps
+4. Run the shared `glimpse` skill (`skills/glimpse/SKILL.md`) — both peek and profile steps
 5. Summarise the glimpse to the user in plain English (no raw stats dumps — headline findings only)
 6. Pass the full glimpse output to the architecture skill and eventually to the Pipeline Builder
 
