@@ -139,27 +139,30 @@ If no existing output is found, continue with trigger phrase detection.
 
 See also `skills/connect/SKILL.md` for per-warehouse env var reference, CLI install instructions, and error handling table.
 
-**Step 1 — Ask warehouse + business domain together (single message) using `AskUserQuestion`.**
+**Step 1 — Ask warehouse + business domain.**
 
-Use the `AskUserQuestion` tool with two questions in a single call:
+Warehouse selection does NOT use `AskUserQuestion` (the tool's 4-option limit can't show all 8 sources at once). Instead, display all 8 options as a numbered text list and ask the user to reply with their choice(s). Show this exact message:
 
 ```
+Which data source(s) do you want to connect? (pick up to 2)
+
+1. **Snowflake** — Cloud data warehouse with key-pair auth
+2. **BigQuery** — Google Cloud data warehouse
+3. **Redshift** — AWS data warehouse
+4. **SQL Server / Azure SQL** — Microsoft SQL Server or Azure SQL Database
+5. **Supabase** — PostgreSQL-based platform with MCP support
+6. **PostgreSQL** — Direct PostgreSQL connection
+7. **Amazon S3** — Object store (CSV, Parquet, JSON files from buckets)
+8. **Google Cloud Storage** — Object store (CSV, Parquet, JSON files from buckets)
+
+Just reply with the number(s), e.g. "1" or "1, 5".
+```
+
+These are the **only** supported warehouses. Do not add or remove options.
+
+After the user picks their warehouse(s), ask for business domain using `AskUserQuestion`:
+```
 AskUserQuestion(questions=[
-  {
-    question: "Which warehouse(s) do you want to connect? (pick up to 2)",
-    header: "Warehouse",
-    multiSelect: true,
-    options: [
-      { label: "Snowflake", description: "Cloud data warehouse with key-pair auth" },
-      { label: "BigQuery", description: "Google Cloud data warehouse" },
-      { label: "Redshift", description: "AWS data warehouse" },
-      { label: "SQL Server / Azure SQL", description: "Microsoft SQL Server or Azure SQL Database" },
-      { label: "Supabase", description: "PostgreSQL-based platform with MCP support" },
-      { label: "PostgreSQL", description: "Direct PostgreSQL connection" },
-      { label: "Amazon S3", description: "Object store — reads CSV, Parquet, JSON files from buckets" },
-      { label: "Google Cloud Storage", description: "Object store — reads CSV, Parquet, JSON files from buckets" }
-    ]
-  },
   {
     question: "What type of business domain does this data represent?",
     header: "Domain",
@@ -174,7 +177,7 @@ AskUserQuestion(questions=[
 ])
 ```
 
-**Note:** The tool automatically provides an "Other" option for custom input. If the user needs a domain not in the top 4 (Healthcare, Logistics, Gaming, HR, Benchmarking), they can select "Other" and type it. The 4-option limit is a tool constraint — prioritize the most common domains.
+**Note:** The tool automatically provides an "Other" option for custom input. If the user needs a domain not in the top 4 (Healthcare, Logistics, Gaming, HR, Benchmarking), they can select "Other" and type it.
 
 This answer is stored as `domain_type` and injected into every agent's reasoning as context. Domain-specific heuristics are applied:
 - E-commerce: revenue = net_paid, refunds excluded, grain = order_line_item
@@ -185,9 +188,11 @@ This answer is stored as `domain_type` and injected into every agent's reasoning
 
 Do not proceed until at least one warehouse is chosen and the domain is identified.
 
-**Step 2 — Connect (auto-reconnect → env file → manual).**
+**Step 2 — Connect (check .env first → auto-reconnect → guide if needed).**
 
 The MCP server resolves credentials in this order: **OS keychain → `~/.yorph/.env` file → environment variables → error with guidance.**
+
+**Before attempting any connection, always check if `~/.yorph/.env` exists first** by reading it. This avoids asking the user to create a file that already exists. Store which keys are present for later use.
 
 **Loop through each chosen warehouse** (if the user picked 2, connect both before profiling):
 
@@ -197,7 +202,7 @@ For each warehouse, silently attempt to connect:
 
 Then handle the result:
 - **If it succeeds** → tell the user "I found stored credentials for [warehouse] and connected automatically." Skip credential collection for that warehouse.
-- **If it fails** → before asking the user for credentials, check if `~/.yorph/.env` already exists by reading it. If it exists:
+- **If it fails** → you already know whether `~/.yorph/.env` exists (from the check above). If it exists:
     - Show the user which credential keys are already present (not the values) and which are missing for the chosen warehouse.
     - Only ask them to add the missing keys, not recreate the file.
     - Example: "I found your `.env` file with `SUPABASE_PROJECT_REF` and `SUPABASE_DB_PASSWORD`. The connection failed — you may also need `SUPABASE_ACCESS_TOKEN` for MCP support. Would you like to add it?"
@@ -212,7 +217,7 @@ Then handle the result:
       ```
     - Once they confirm the file is created, call `connect_warehouse(warehouse_type=<type>)` again.
   Credentials are saved to the OS keychain on first successful connect, so the `.env` file is only needed once.
-- **If it fails with an auth/token error** → inform the user their stored credentials may have expired. Check the `.env` file for what's present, and ask them to update only the expired/missing values.
+- **If it fails with an auth/token error** → inform the user their stored credentials may have expired. You already know which keys are in `.env` — show what's present and ask them to update only the expired/missing values.
 
 Do not proceed to profiling until **all** chosen warehouses are connected.
 

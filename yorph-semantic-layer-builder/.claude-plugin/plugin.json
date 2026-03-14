@@ -6,13 +6,14 @@
   "author": "Yorph AI",
   "server": {
     "type": "stdio",
-    "command": "python3",
-    "args": ["-m", "runtime.cli", "serve"],
+    "command": "bash",
+    "args": ["./launch.sh"],
     "cwd": ".",
     "env": {
       "PYTHONPATH": "."
     }
   },
+  "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "claude": {
     "model": "claude-opus-4-5",
