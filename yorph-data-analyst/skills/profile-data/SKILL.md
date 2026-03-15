@@ -1,6 +1,6 @@
 ---
-name: glimpse
-description: Shared skill used by both Orchestrator (during connect) and Pipeline Builder (during sample). Produces a token-efficient statistical portrait of a dataset that gives the agent everything it needs to make informed decisions about cleaning, transformation, and analysis.
+name: profile-data
+description: Produce a token-efficient statistical portrait of a dataset — schema, dtypes, null rates, distinct counts, numeric ranges, and sample values. Load this skill any time you need to understand the shape of data — during initial connection, after sampling, when the user adds new data mid-session, or whenever you need to verify what columns and values actually exist before making claims about the data. Used by both the Orchestrator and Pipeline Builder. If you're about to reference column names, data types, or value distributions, make sure you've glimpsed first.
 ---
 
 # Skill: Glimpse
@@ -171,8 +171,8 @@ Vintage Maps,1
 
 | Context | Step 1 (Peek) | Step 2 (Profile) |
 |---|---|---|
-| Orchestrator during `connect` | Yes — understand the data | Yes — full profile |
-| Pipeline Builder during `sample` | Optional — if sample differs materially from glimpse | Yes — re-profile the sample |
+| Orchestrator during `connect-data-source` | Yes — understand the data | Yes — full profile |
+| Pipeline Builder during `sample-data` | Optional — if sample differs materially from glimpse | Yes — re-profile the sample |
 | Pipeline Builder after `produce-pipeline` | No | Yes — profile transformed output for validation |
 
 ---
@@ -182,4 +182,4 @@ Vintage Maps,1
 - The peek is for the agent's understanding. It replaces exhaustive pattern-matching with LLM judgment.
 - The profile is for structured decision-making. It gives the architecture and validation skills hard numbers to work with.
 - Always output as CSV, never JSON. CSV is 2-3x more token-efficient for tabular data.
-- The glimpse output is the primary input to the architecture skill. A good glimpse = a good pipeline plan.
+- The glimpse output is the primary input to the design-transformation-architecture skill. A good glimpse = a good pipeline plan.

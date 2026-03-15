@@ -2,30 +2,30 @@
 flowchart TD
     User(["👤 User"])
 
-    ORC["Orchestrator"]
+    ORC["Orchestrator (orchestrate-data-analysis)"]
 
     PB["Pipeline Builder"]
 
     subgraph SH["Shared Skills"]
         subgraph BS["Builder Skills"]
-            Sample["smart sample"]
+            Sample["sample-data"]
             BX["build (pandas)"]
-            Validate["validate"]
-            Scale["scale"]
+            Validate["validate-transformation-output"]
+            Scale["scale-execution"]
             Translate["translate (sql)"]
         end
         subgraph GS["General Skills"]
             CN["connectors"]
-            GL["glimpse (data desc)"]
+            GL["profile-data"]
             SL["semantic layer"]
         end
         subgraph OS["Orchestrator Skills"]
-            Insights["insights"]
-            Viz["dashboard"]
+            Insights["derive-insights"]
+            Viz["build-dashboard"]
             Trust["trust-report (step summary, assumptions, observations, suggestions)"]
         end
         subgraph AS["Architect Skills"]
-            Architect["general architecture"]
+            Architect["design-transformation-architecture"]
             SJ["semantic-join"]
             CL["cleaning"]
             AT["attribution"]

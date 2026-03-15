@@ -1,6 +1,6 @@
 # Cohort Heatmap — End-to-End Reference
 
-Loaded by: `architecture/SKILL.md`, `produce-pipeline/SKILL.md`, `visualizations/SKILL.md`
+Loaded by: `design-transformation-architecture/SKILL.md`, `pipeline-builder.md` (agent), `build-dashboard/SKILL.md`
 
 Cohort analysis is one of the most insight-rich analyses for subscription, SaaS, e-commerce, and any business with repeat customers. The heatmap is the canonical view. Building it correctly requires careful handling of sparse cohorts, the triangular null region, and period definitions. This file covers everything end-to-end.
 

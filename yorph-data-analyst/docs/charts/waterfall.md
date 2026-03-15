@@ -1,6 +1,6 @@
 # Waterfall Chart — End-to-End Reference
 
-Loaded by: `architecture/SKILL.md`, `produce-pipeline/SKILL.md`, `visualizations/SKILL.md`
+Loaded by: `design-transformation-architecture/SKILL.md`, `pipeline-builder.md` (agent), `build-dashboard/SKILL.md`
 
 Waterfall charts are one of the most powerful charts for financial and attribution analysis and also one of the most technically tricky to build correctly. This file covers everything: when to use it, how to structure the pipeline data, how to compute the floating bar values, and how to render it in Chart.js.
 

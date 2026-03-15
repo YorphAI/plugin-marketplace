@@ -16,7 +16,7 @@ Decision framework for planning cleaning steps. The Orchestrator uses this to ar
 
 ## Profiling (always the first pipeline step)
 
-Plan three profiling passes. The glimpse from the `connect` skill provides the raw material:
+Plan three profiling passes. The glimpse from the `connect-data-source` skill provides the raw material:
 
 - **Structural:** field names, inferred dtypes, schema consistency, nested/semi-structured fields, row/column counts
 - **Statistical:** null rates, unique counts, numeric distributions, categorical frequencies

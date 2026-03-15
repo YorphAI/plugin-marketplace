@@ -1,6 +1,6 @@
 ---
-name: architecture
-description: Use this skill to design the transformation and analysis plan in plain English before any code is written. Triggers include: "plan the transformations", "what steps do we need", "design the pipeline", or automatically after the user approves the high-level plan from the planning skill.
+name: design-transformation-architecture
+description: Design the transformation and analysis plan in plain English before any code is written. Load this skill any time you need to plan, architect, or design data transformation steps — even if the user doesn't explicitly ask for a "plan." If you're about to decide what transformations to apply, what order to run them in, or how to structure an analysis, you need this skill. It contains domain rules, cleaning patterns, and methodology templates that prevent common mistakes. Never design transformation steps without it.
 ---
 
 # Skill: Architecture
@@ -8,7 +8,7 @@ description: Use this skill to design the transformation and analysis plan in pl
 Design the full transformation and analysis pipeline as named, ordered, plain-English steps. No code at this stage.
 
 ## Inputs required
-- Glimpse summary from the `connect` skill (schema, dtypes, statistics, row count)
+- Glimpse summary from the `connect-data-source` skill (schema, dtypes, statistics, row count)
 - User's goal in plain English
 - Domain context (inferred or asked)
 

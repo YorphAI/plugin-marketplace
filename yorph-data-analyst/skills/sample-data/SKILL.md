@@ -1,6 +1,6 @@
 ---
-name: sample
-description: Use this skill at the start of pipeline development to pull a statistically representative sample into memory. Triggered automatically by the Pipeline Builder after receiving the Orchestrator's context handoff.
+name: sample-data
+description: Pull a statistically representative sample into memory for pipeline development and testing. Load this skill at the start of every pipeline build — before writing any transformation code. The sample is what you develop and validate against before scaling to the full dataset. Contains size limits, stratified sampling strategies, and rules for handling large tables without full scans.
 ---
 
 # Skill: Sample
@@ -209,7 +209,7 @@ def stratified_sample(df, strat_cols, min_n=100, row_limit=50000):
 
 ## After sampling
 
-1. Optionally re-run the shared `glimpse` skill (`skills/glimpse/SKILL.md`) on the sample if it may differ materially from the Orchestrator's initial glimpse (e.g., stratified sampling changed distributions).
+1. Optionally re-run the shared `profile-data` skill (`skills/profile-data/SKILL.md`) on the sample if it may differ materially from the Orchestrator's initial glimpse (e.g., stratified sampling changed distributions).
 2. Record the sampling metadata to pass back in the result summary:
    - Source row count
    - Sample row count

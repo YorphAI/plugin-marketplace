@@ -1,6 +1,6 @@
 # Domain Sensitivity Rules
 
-Single source of truth for domain-specific guidance. Referenced by `architecture`, `validate`, and `insights` skills. Always loaded by the architecture skill.
+Single source of truth for domain-specific guidance. Referenced by `design-transformation-architecture`, `validate-transformation-output`, and `derive-insights` skills. Always loaded by the architecture skill.
 
 When the domain is known (inferred or user-stated), apply the relevant rules throughout the pipeline.
 

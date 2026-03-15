@@ -1,6 +1,6 @@
 ---
 name: scale-execution
-description: Use this skill to execute the validated pipeline against the full dataset. Triggered automatically after sample validation passes.
+description: Execute the validated pipeline against the full dataset. Load this skill after sample validation passes — it handles the decision between SQL translation (for database sources) and chunked pandas execution (for file sources up to 2 GB). Always re-run validation on the full-scale output before returning results.
 ---
 
 # Skill: Scale Execution

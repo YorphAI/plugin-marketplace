@@ -4,15 +4,15 @@ End-to-end data transformation and analysis pipeline for non-technical users. Tw
 
 ## Agents
 
-### `orchestrator`
+### `orchestrate-data-analysis` (orchestrator)
 The user-facing agent. Guides the user through connecting their data, designs the transformation plan in plain English, delegates technical execution to the Pipeline Builder, and delivers insights, visualizations, and a trust report.
 
-**Skills:** `connect`, `architecture`, `insights`, `visualizations`, `trust-report`
+**Skills:** `connect-data-source`, `design-transformation-architecture`, `derive-insights`, `build-dashboard`, `trust-report`
 
 ### `pipeline-builder`
 The technical agent. Receives a structured handoff from the Orchestrator and executes the full pipeline: sampling, building, validating, and scaling. Never communicates with the user directly.
 
-**Skills:** `sample`, `produce-pipeline`, `validate`, `scale-execution`
+**Skills:** `sample-data`, `validate-transformation-output`, `scale-execution`
 
 ## Flow
 
@@ -20,20 +20,20 @@ The technical agent. Receives a structured handoff from the Orchestrator and exe
 User
  │
  ▼
-Orchestrator
- ├── connect          (glimpse the data)
- ├── plan             (orient the user, lightweight sign-off)
- ├── architecture     (design steps, get approval)
+Orchestrator (orchestrate-data-analysis)
+ ├── connect-data-source   (glimpse the data)
+ ├── plan                  (orient the user, lightweight sign-off)
+ ├── design-transformation-architecture   (design steps, get approval)
  │
  ├──► Pipeline Builder
- │     ├── sample
- │     ├── produce-pipeline
- │     ├── validate
+ │     ├── sample-data
+ │     ├── produce pipeline
+ │     ├── validate-transformation-output
  │     ├── scale-execution
- │     └── validate
+ │     └── validate-transformation-output
  │◄── result summary
  │
- ├── insights
- ├── visualizations
+ ├── derive-insights
+ ├── build-dashboard
  └── trust-report
 ```

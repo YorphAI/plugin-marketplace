@@ -2,26 +2,26 @@
 flowchart TD
     User(["👤 User"])
 
-    subgraph ORC["Orchestrator"]
-        Ingest["ingest"]
-        Architect["architect"]
+    subgraph ORC["Orchestrator (orchestrate-data-analysis)"]
+        Ingest["connect-data-source"]
+        Architect["design-transformation-architecture"]
         Build["builder"]
-        Insights["insights"]
-        Viz["visualizations"]
+        Insights["derive-insights"]
+        Viz["build-dashboard"]
         Trust["trust-report (step summary, assumptions, observations, suggestions)"]
     end
 
     subgraph PB["Pipeline Builder"]
-        Sample["sample"]
+        Sample["sample-data"]
         BX["build-execute"]
-        Validate["validate"]
-        Scale["scale"]
+        Validate["validate-transformation-output"]
+        Scale["scale-execution"]
         Translate["translate"]
     end
 
     subgraph SH["Shared Skills"]
         CN["connectors"]
-        GL["glimpse (data desc)"]
+        GL["profile-data"]
         SL["semantic layer"]
         subgraph AS["Architecture Skills"]
             SJ["semantic-join"]

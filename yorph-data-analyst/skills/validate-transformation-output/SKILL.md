@@ -1,6 +1,6 @@
 ---
-name: validate
-description: Use this skill after every pipeline execution — both sample and full-scale — to rigorously check outputs before proceeding. Triggered automatically by the Pipeline Builder after produce-pipeline and again after scale-execution.
+name: validate-transformation-output
+description: Rigorously check pipeline outputs before proceeding — catches silent failures like null inflation, row count explosion, category collapse, and unreasonable numeric ranges. Load this skill after every pipeline execution, both sample and full-scale. It runs twice — once on the sample output and once on the full-scale output. Never return results to the Orchestrator without running validation first — even if every step executed without errors, the transformation logic can still be wrong.
 ---
 
 # Skill: Validate
@@ -15,7 +15,7 @@ Even if every step executes without errors, the transformation logic can still b
 
 You need three things to validate:
 
-1. **Source profile** — the glimpse output from the connect/sample step (schema, dtypes, row count, null rates, distinct counts, numeric ranges)
+1. **Source profile** — the glimpse output from the connect-data-source/sample-data step (schema, dtypes, row count, null rates, distinct counts, numeric ranges)
 2. **Step outputs** — the transformed dataframe(s) after each pipeline step, plus the execution log (row counts in/out, warnings)
 3. **Architecture plan** — the ordered steps with plain-English descriptions, so you can check each step's output against its stated intent
 

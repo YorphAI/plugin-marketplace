@@ -1,6 +1,6 @@
 ---
-name: visualizations
-description: Use this skill to produce a self-contained HTML dashboard that visualizes the insights from the pipeline output. Triggers include: "show me a chart", "build a dashboard", "visualize this", or automatically after the insights skill runs.
+name: build-dashboard
+description: Produce a self-contained HTML dashboard using Chart.js that visualizes the analysis findings. Load this skill every time insights have been produced — it is a required part of the delivery phase alongside insights and trust-report. Also load it when the user asks to "show me a chart", "build a dashboard", "visualize this", "plot this", "graph this", "chart the results", or any request for visual representation of data. Every chart should support a named finding from the insights — no chart exists without a reason.
 ---
 
 # Skill: Visualizations

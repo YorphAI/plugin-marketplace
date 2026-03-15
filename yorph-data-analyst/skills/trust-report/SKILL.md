@@ -1,6 +1,6 @@
 ---
 name: trust-report
-description: Use this skill to generate a transparent summary of assumptions, caveats, secondary observations, and a pipeline recap. Triggers include: "show me the trust report", "what assumptions did you make", "full report", "I want to share this with my team", or automatically as the final deliverable after insights and visualizations.
+description: Generate a transparency summary covering assumptions, caveats, secondary observations, and a pipeline recap. Load this skill every time you deliver analysis results — it is a required part of the delivery phase alongside insights and visualizations. Without it, the user has no way to judge the credibility of the output. Also load it when the user asks "what assumptions did you make", "show me the trust report", "full report", "I want to share this with my team", or any request for transparency about the analysis.
 ---
 
 # Skill: Trust Report

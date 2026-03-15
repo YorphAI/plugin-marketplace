@@ -1,6 +1,6 @@
 ---
-name: insights
-description: Use this skill to produce high-impact, plain-English headline findings from the Pipeline Builder's output. Triggers include: "what are the insights", "what does this tell me", "give me the highlights", or automatically after the Pipeline Builder returns a validated result.
+name: derive-insights
+description: Produce high-impact, plain-English headline findings from pipeline output. Load this skill every time the pipeline-builder returns a validated result — it is a required part of the delivery phase, not optional. Also load it when the user asks "what does this tell me", "what are the insights", "give me the highlights", "summarize the results", or any variation of "what did we find" resulting in fresh data outputs. The insights skill drives follow-up analytical queries back to the pipeline-builder to go deeper before synthesizing findings.
 ---
 
 # Skill: Insights
