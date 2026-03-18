@@ -8,13 +8,13 @@ Yorph builds AI-powered plugins for [Claude Code](https://claude.ai/code) that a
 
 | Plugin | Description |
 |---|---|
-| [yorph-semantic-layer-builder](./yorph-semantic-layer-builder) | Build production-grade semantic layers from your data warehouse using parallel AI agents |
-| [yorph-data-analyst](./yorph-data-analyst) | End-to-end data transformation and analysis pipeline for non-technical users |
-| [yorph-research-writer](./yorph-research-writer) | LaTeX research paper authoring environment with live PDF preview |
-| [yorph-cc-convo-to-demo](./yorph-cc-convo-to-demo) | Turn Claude Code conversations into embeddable HTML demo widgets |
-| [yorph-cc-convo-to-eval](./yorph-cc-convo-to-eval) | Capture conversations as regression test cases and replay them to catch regressions |
-| [yorph-eval-dueling](./yorph-eval-dueling) | Evaluate and judge skills against each other using structured rubrics |
-| [yorph-conversation-memory](./yorph-conversation-memory) | Conversation memory that survives context compaction |
+| [yorph-semantic-layer-builder](./yorph-semantic-layer-builder) | Connect to your data warehouse and any existing data dictionaries or documentation to co-author a fully-documented semantic layer — validated joins, certified metrics, business rules, and a plain-English companion doc — with the help of a 10-agent analysis DAG |
+| [yorph-data-analyst](./yorph-data-analyst) | Describe what you want to know in plain English; two agents handle the rest — one plans and communicates, one writes and runs the transformation pipeline |
+| [yorph-research-writer](./yorph-research-writer) | A full LaTeX authoring environment inside Claude Code: edit sections, compile to PDF, run a blind peer review, and explore the citation graph — in a local browser preview |
+| [yorph-cc-convo-to-demo](./yorph-cc-convo-to-demo) | Extract the best moments from a Claude Code conversation and render them as a self-contained HTML widget styled like Claude Desktop — shareable, embeddable, no dependencies |
+| [yorph-cc-convo-to-eval](./yorph-cc-convo-to-eval) | Snapshot a conversation that went well (or badly) as a replayable eval test case — so you can catch regressions automatically when you change your plugin's prompts or skills |
+| [yorph-eval-dueling](./yorph-eval-dueling) | Run two skills head-to-head on the same inputs, judge outputs against a structured rubric, and get a ranked comparison — useful for deciding whether a prompt change is actually an improvement |
+| [yorph-conversation-memory](./yorph-conversation-memory) | Persistent memory that survives context compaction — Claude remembers decisions, preferences, and context from earlier in long sessions even after the window rolls over |
 
 ---
 
