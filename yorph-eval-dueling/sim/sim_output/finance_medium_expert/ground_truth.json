@@ -1,0 +1,186 @@
+{
+  "expected_joins": [
+    {
+      "left": "journal_entries",
+      "right": "accounts",
+      "key": "account_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "journal_entries",
+      "right": "cost_centers",
+      "key": "cost_center_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "journal_entries",
+      "right": "periods",
+      "key": "period_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "journal_entries",
+      "right": "entities",
+      "key": "entity_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "ap_invoices",
+      "right": "vendors",
+      "key": "vendor_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "ap_invoices",
+      "right": "periods",
+      "key": "period_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "ar_invoices",
+      "right": "customers",
+      "key": "customer_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "ar_invoices",
+      "right": "periods",
+      "key": "period_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "budget_vs_actuals",
+      "right": "accounts",
+      "key": "account_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "budget_vs_actuals",
+      "right": "cost_centers",
+      "key": "cost_center_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    }
+  ],
+  "expected_measures": [
+    {
+      "measure_id": "consolidated_revenue",
+      "label": "Consolidated Revenue",
+      "aggregation": "SUM",
+      "source_table": "journal_entries",
+      "source_column": "amount",
+      "filters": [
+        "account_type='revenue'",
+        "entry_type!='elimination'",
+        "entry_type!='reversal'"
+      ],
+      "domain": "P&L"
+    },
+    {
+      "measure_id": "ap_outstanding",
+      "label": "AP Outstanding",
+      "aggregation": "SUM",
+      "source_table": "ap_invoices",
+      "source_column": "amount_due",
+      "filters": [
+        "status='open'"
+      ],
+      "domain": "AP"
+    },
+    {
+      "measure_id": "ar_outstanding",
+      "label": "AR Outstanding",
+      "aggregation": "SUM",
+      "source_table": "ar_invoices",
+      "source_column": "amount_due",
+      "filters": [
+        "status='open'"
+      ],
+      "domain": "AR"
+    },
+    {
+      "measure_id": "budget_variance",
+      "label": "Budget Variance $",
+      "aggregation": "SUM",
+      "source_table": "budget_vs_actuals",
+      "source_column": "variance_amount",
+      "filters": [],
+      "domain": "Budget"
+    },
+    {
+      "measure_id": "budget_variance_pct",
+      "label": "Budget Variance %",
+      "aggregation": "AVG",
+      "source_table": "budget_vs_actuals",
+      "source_column": "variance_pct",
+      "filters": [],
+      "domain": "Budget"
+    }
+  ],
+  "business_rules": [
+    "ALWAYS exclude entry_type='elimination' from consolidated P&L to avoid double-counting.",
+    "ALWAYS exclude entry_type='reversal' from period totals.",
+    "Multi-currency: use COALESCE(amount_usd, amount) to normalise all amounts to USD.",
+    "AP outstanding = sum of ap_invoices.amount_due WHERE status='open'.",
+    "AR DSO = AR outstanding / (annual revenue / 365)."
+  ],
+  "open_questions": [
+    "Which entities are in scope for consolidation?",
+    "Should budget comparisons use the original budget or the latest reforecast?",
+    "Is revenue recognised on invoice date or cash receipt date?"
+  ],
+  "grain_per_table": {
+    "entities": [
+      "entity_id"
+    ],
+    "accounts": [
+      "account_id"
+    ],
+    "cost_centers": [
+      "cost_center_id"
+    ],
+    "periods": [
+      "period_id"
+    ],
+    "journal_entries": [
+      "entry_id",
+      "line_number"
+    ],
+    "vendors": [
+      "vendor_id"
+    ],
+    "ap_invoices": [
+      "invoice_id"
+    ],
+    "customers": [
+      "customer_id"
+    ],
+    "ar_invoices": [
+      "invoice_id"
+    ],
+    "budget_vs_actuals": [
+      "account_id",
+      "cost_center_id",
+      "period_id"
+    ]
+  }
+}

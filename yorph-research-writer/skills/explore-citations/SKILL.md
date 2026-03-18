@@ -1,13 +1,17 @@
 ---
 name: explore-citations
-description: Crawl the citation graph from the paper's bibliography using OpenAlex. Follow references backward (what your sources cite) and forward (who cites your sources), filtered by topic relevance using the LLM. Useful for discovering missed related work, understanding intellectual lineage, and finding recent follow-up papers.
+description: Crawl the citation graph from the paper's bibliography using OpenAlex or Semantic Scholar. Follow references backward (what your sources cite) and forward (who cites your sources), filtered by topic relevance using the LLM. Useful for discovering missed related work, understanding intellectual lineage, and finding recent follow-up papers.
 ---
 
 # Explore Citations
 
-Crawl the citation graph starting from the paper's `.bib` file. Uses OpenAlex (free, no API key) for metadata and citation graphs. Uses the LLM (you) for relevance ranking.
+Crawl the citation graph starting from the paper's `.bib` file (or a single paper title). Uses **OpenAlex** or **Semantic Scholar** (same server, same request/response shape) for metadata and citation graphs. Uses the LLM (you) for relevance ranking.
 
-**Requires**: the research-writer server running (provides `/api/openalex/*` endpoints).
+**Requires**: the research-writer server running (provides `/api/openalex/*` and `/api/s2/*` endpoints).
+
+**Which source to use**: Start with **OpenAlex** (`/api/openalex/`). Same payloads: `resolve` and `fetch` take `titles` / `ids`; `citations` takes `ids` and `max_results`. Responses use `openalex_id` (or S2 `paperId`), `referenced_works`, `cited_by_count`, etc.
+
+**Fallback to Semantic Scholar**: If after resolving and (if applicable) fetching citations/references you get **no citations** and **no or empty `referenced_works`** for the seed paper(s)—or OpenAlex resolve/fetch/citations fails or returns empty—**retry the same flow using Semantic Scholar** (`/api/s2/resolve`, `/api/s2/fetch`, `/api/s2/citations`). Do this automatically; do not ask the user. Also prefer S2 first when the user explicitly asks for Semantic Scholar or when the paper is a very recent preprint (e.g. same year).
 
 ---
 
@@ -23,9 +27,9 @@ Do **not** blindly parse every entry in the `.bib` file. Many `.bib` files conta
 
 ---
 
-## Step 2 — Resolve titles to OpenAlex records
+## Step 2 — Resolve titles to paper records
 
-Call the server endpoint:
+**Start with OpenAlex.** Call the server:
 
 ```
 POST http://localhost:{port}/api/openalex/resolve
@@ -34,14 +38,15 @@ Content-Type: application/json
 {"titles": ["title 1", "title 2", ...]}
 ```
 
-The server searches OpenAlex for each title in parallel and returns the best match with metadata (authors, year, citation count, abstract, and `referenced_works` IDs).
+The server searches for each title and returns the best match with metadata (authors, year, citation count, abstract, and `referenced_works` IDs).
 
 After the response:
 - Count how many titles resolved successfully (`match` is not null).
 - List any unresolved titles.
-- Report: *"Resolved M/N papers. K unresolved."*
+- **If OpenAlex failed (empty reply, error) or all resolved papers have `cited_by_count` 0 and empty `referenced_works`**: retry this step with **Semantic Scholar** instead: `POST .../api/s2/resolve` with the same `titles`. Use the S2 results for all following steps (use `/api/s2/fetch` and `/api/s2/citations` in Steps 4 and 5).
+- Report: *"Resolved M/N papers. K unresolved."* (and mention if you fell back to Semantic Scholar.)
 
-Save the resolved works — you'll need their `openalex_id` and `referenced_works` for the next steps.
+Save the resolved works — you'll need their `openalex_id` (or S2 `paperId`) and `referenced_works` for the next steps.
 
 ---
 
@@ -63,13 +68,13 @@ Default: both. Default depth: 2.
 
 Collect all `referenced_works` IDs from the resolved papers in Step 2. Deduplicate them and remove any IDs that are already in the user's bibliography (already resolved).
 
-Call the server to hydrate these IDs:
+Call the server to hydrate these IDs. Use the **same source** as in Step 2 (OpenAlex or S2):
 
 ```
-POST http://localhost:{port}/api/openalex/fetch
+POST http://localhost:{port}/api/openalex/fetch   # or /api/s2/fetch if you fell back to S2
 Content-Type: application/json
 
-{"ids": ["W2123456789", "W2987654321", ...]}
+{"ids": ["paperId1", "paperId2", ...]}
 ```
 
 This returns full metadata (title, authors, year, abstract, citation count) for each referenced work.
@@ -78,15 +83,15 @@ This returns full metadata (title, authors, year, abstract, citation count) for 
 
 ## Step 5 — Fetch forward citations (depth 1)
 
-Collect the `openalex_id` short IDs from the resolved papers in Step 2. Extract just the `W...` portion (split on `/`).
+Collect the paper IDs from the resolved papers in Step 2 (`openalex_id` or S2 `paperId`; for OpenAlex strip the URL and keep the `W...` part).
 
-Call the server:
+Call the server. Use the **same source** as in Step 2 (OpenAlex or S2):
 
 ```
-POST http://localhost:{port}/api/openalex/citations
+POST http://localhost:{port}/api/openalex/citations   # or /api/s2/citations if you fell back to S2
 Content-Type: application/json
 
-{"ids": ["W2123456789", "W2987654321", ...], "max_results": 200}
+{"ids": ["paperId1", "paperId2", ...], "max_results": 200}
 ```
 
 Returns papers that cite any of the user's bibliography entries, sorted by citation count descending.

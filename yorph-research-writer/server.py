@@ -105,6 +105,17 @@ class Handler(BaseHTTPRequestHandler):
                 self._api_openalex_citations(body)
             else:
                 self.send_error(404)
+        elif self.path.startswith("/api/s2/"):
+            length = int(self.headers.get("Content-Length", 0))
+            body = json.loads(self.rfile.read(length).decode("utf-8")) if length else {}
+            if self.path == "/api/s2/resolve":
+                self._api_s2_resolve(body)
+            elif self.path == "/api/s2/fetch":
+                self._api_s2_fetch(body)
+            elif self.path == "/api/s2/citations":
+                self._api_s2_citations(body)
+            else:
+                self.send_error(404)
         else:
             self.send_error(405)
 
@@ -399,6 +410,66 @@ class Handler(BaseHTTPRequestHandler):
             "total": len(all_citations),
         })
 
+    # ── Semantic Scholar API handlers ──────────────────────────────────────
+
+    def _api_s2_resolve(self, body):
+        """Search Semantic Scholar for papers by title. Returns same shape as OpenAlex resolve."""
+        titles = body.get("titles", [])
+        if not titles:
+            self.send_json({"results": []})
+            return
+
+        with ThreadPoolExecutor(max_workers=5) as pool:
+            futures = {pool.submit(_s2_resolve_one_title, t): t for t in titles}
+            results = []
+            for f in as_completed(futures):
+                results.append(f.result())
+
+        title_order = {t: i for i, t in enumerate(titles)}
+        results.sort(key=lambda r: title_order.get(r["query_title"], 999))
+        self.send_json({"results": results})
+
+    def _api_s2_fetch(self, body):
+        """Batch-fetch Semantic Scholar papers by ID. Same shape as OpenAlex fetch."""
+        ids = body.get("ids", [])
+        if not ids:
+            self.send_json({"works": [], "total": 0})
+            return
+
+        works = []
+        for pid in ids[:100]:  # cap at 100
+            try:
+                w = _s2_get_paper(pid, fields="title,year,authors,abstract,citationCount,references")
+                if w:
+                    works.append(w)
+            except Exception:
+                pass
+
+        self.send_json({"works": works, "total": len(works)})
+
+    def _api_s2_citations(self, body):
+        """Get forward citations (papers that cite the given works). Same shape as OpenAlex citations."""
+        ids = body.get("ids", [])
+        max_results = min(body.get("max_results", 200), 500)
+        if not ids:
+            self.send_json({"citations": [], "total": 0})
+            return
+
+        all_citations = []
+        seen = set()
+        for pid in ids[:50]:
+            try:
+                for c in _s2_get_citations(pid, limit=min(100, max_results - len(all_citations))):
+                    cid = c.get("openalex_id") or c.get("paperId")
+                    if cid and cid not in seen:
+                        seen.add(cid)
+                        all_citations.append(c)
+            except Exception:
+                pass
+
+        all_citations.sort(key=lambda w: w.get("cited_by_count", 0), reverse=True)
+        self.send_json({"citations": all_citations[:max_results], "total": len(all_citations)})
+
     # ── Compile ──────────────────────────────────────────────────────────
 
     def _api_compile(self):
@@ -574,6 +645,91 @@ def _resolve_one_title(title):
         return {"query_title": title, "match": None}
     except Exception as e:
         return {"query_title": title, "match": None, "error": str(e)}
+
+
+# ── Semantic Scholar helpers ───────────────────────────────────────────────
+
+S2_BASE = "https://api.semanticscholar.org/graph/v1"
+
+
+def _s2_request(url, timeout=15):
+    """GET request to Semantic Scholar API."""
+    req = urllib.request.Request(url, headers={
+        "User-Agent": "yorph-research-writer/1.0",
+        "Accept": "application/json",
+    })
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def _s2_work_from_paper(p, ref_ids=None):
+    """Normalize S2 paper dict to same shape as OpenAlex _extract_work."""
+    authors = [a.get("name", "") for a in p.get("authors", [])[:6] if a.get("name")]
+    return {
+        "openalex_id": p.get("paperId", ""),
+        "title": p.get("title", ""),
+        "authors": authors,
+        "year": p.get("year"),
+        "cited_by_count": p.get("citationCount", 0),
+        "abstract": p.get("abstract", "") or "",
+        "referenced_works": ref_ids if ref_ids is not None else [r.get("paperId") for r in p.get("references", []) if r.get("paperId")],
+        "doi": (p.get("externalIds") or {}).get("DOI", "") or "",
+    }
+
+
+def _s2_resolve_one_title(title):
+    """Search S2 for one title, then fetch paper details for references. Same shape as OpenAlex resolve."""
+    try:
+        query = _urlparse.quote(title[:200])
+        url = f"{S2_BASE}/paper/search?query={query}&limit=1&fields=paperId,title,year,authors,abstract,citationCount"
+        data = _s2_request(url)
+        papers = data.get("data") or []
+        if not papers:
+            return {"query_title": title, "match": None}
+
+        p = papers[0]
+        pid = p.get("paperId")
+        if not pid:
+            return {"query_title": title, "match": None}
+
+        # Fetch full paper with references for backward-citation crawl
+        full = _s2_get_paper(pid, fields="title,year,authors,abstract,citationCount,references")
+        if full:
+            return {"query_title": title, "match": full}
+        return {"query_title": title, "match": _s2_work_from_paper(p)}
+    except Exception:
+        return {"query_title": title, "match": None}
+
+
+def _s2_get_paper(paper_id, fields="title,year,authors,abstract,citationCount,references"):
+    """Fetch one paper by ID (paperId or ARXIV:xxx). Returns normalized work or None."""
+    try:
+        pid = _urlparse.quote(str(paper_id))
+        url = f"{S2_BASE}/paper/{pid}?fields={fields}"
+        data = _s2_request(url)
+        ref_ids = []
+        for r in data.get("references", []):
+            rid = r.get("paperId") or (r.get("citedPaper") or {}).get("paperId")
+            if rid:
+                ref_ids.append(rid)
+        return _s2_work_from_paper(data, ref_ids=ref_ids)
+    except Exception:
+        return None
+
+
+def _s2_get_citations(paper_id, limit=100):
+    """Fetch papers that cite the given paper. Returns list of normalized works."""
+    try:
+        pid = _urlparse.quote(str(paper_id))
+        url = f"{S2_BASE}/paper/{pid}/citations?limit={limit}&fields=title,year,authors,abstract,citationCount"
+        data = _s2_request(url)
+        out = []
+        for item in (data.get("data") or []):
+            citing = item.get("citingPaper") or item
+            out.append(_s2_work_from_paper(citing))
+        return out
+    except Exception:
+        return []
 
 
 GITIGNORE = """\

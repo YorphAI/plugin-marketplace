@@ -1,0 +1,228 @@
+{
+  "expected_joins": [
+    {
+      "left": "orders",
+      "right": "customers",
+      "key": "customer_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "order_items",
+      "right": "orders",
+      "key": "order_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "order_items",
+      "right": "products",
+      "key": "product_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "returns",
+      "right": "orders",
+      "key": "order_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "order_promotions",
+      "right": "orders",
+      "key": "order_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "order_promotions",
+      "right": "promotions",
+      "key": "promo_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "inventory",
+      "right": "products",
+      "key": "product_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "inventory",
+      "right": "warehouses",
+      "key": "warehouse_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "sessions",
+      "right": "customers",
+      "key": "customer_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "page_views",
+      "right": "sessions",
+      "key": "session_id",
+      "cardinality": "many:1",
+      "is_trap": true,
+      "trap_type": "fan_out"
+    }
+  ],
+  "expected_measures": [
+    {
+      "measure_id": "gross_revenue",
+      "label": "Gross Revenue",
+      "aggregation": "SUM",
+      "source_table": "orders",
+      "source_column": "revenue",
+      "filters": [
+        "status = 'completed'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "net_revenue",
+      "label": "Net Revenue",
+      "aggregation": "SUM",
+      "source_table": "orders",
+      "source_column": "revenue",
+      "filters": [
+        "status = 'completed'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "refund_amount",
+      "label": "Refunds",
+      "aggregation": "SUM",
+      "source_table": "returns",
+      "source_column": "refund_amount",
+      "filters": [
+        "status = 'approved'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "order_count",
+      "label": "Orders Placed",
+      "aggregation": "COUNT",
+      "source_table": "orders",
+      "source_column": "order_id",
+      "filters": [
+        "status != 'N/A'"
+      ],
+      "domain": "Orders"
+    },
+    {
+      "measure_id": "return_rate",
+      "label": "Return Rate",
+      "aggregation": "RATIO",
+      "source_table": "returns",
+      "source_column": null,
+      "filters": [],
+      "domain": "Orders"
+    },
+    {
+      "measure_id": "units_sold",
+      "label": "Units Sold",
+      "aggregation": "SUM",
+      "source_table": "order_items",
+      "source_column": "quantity",
+      "filters": [],
+      "domain": "Product"
+    },
+    {
+      "measure_id": "sessions_count",
+      "label": "Sessions",
+      "aggregation": "COUNT",
+      "source_table": "sessions",
+      "source_column": "session_id",
+      "filters": [],
+      "domain": "Acquisition"
+    },
+    {
+      "measure_id": "conversion_rate",
+      "label": "Conversion Rate",
+      "aggregation": "RATIO",
+      "source_table": "sessions",
+      "source_column": null,
+      "filters": [],
+      "domain": "Acquisition"
+    },
+    {
+      "measure_id": "inventory_level",
+      "label": "Inventory on Hand",
+      "aggregation": "SUM",
+      "source_table": "inventory",
+      "source_column": "quantity_on_hand",
+      "filters": [
+        "quantity_on_hand > 0"
+      ],
+      "domain": "Inventory"
+    }
+  ],
+  "business_rules": [
+    "Net Revenue = Gross Revenue - Refunds (only include approved returns).",
+    "Conversion Rate = orders with status='completed' / total sessions.",
+    "Negative inventory values exist \u2014 always filter quantity_on_hand > 0 for reporting.",
+    "Orders with status='N/A' were never confirmed \u2014 exclude from all revenue metrics.",
+    "Page views MUST NOT be joined directly to orders \u2014 use session as the bridge."
+  ],
+  "open_questions": [
+    "Should 'pending' orders be included in order_count or only 'completed'?",
+    "Is conversion_rate sessions-to-orders or sessions-to-revenue?",
+    "How should multi-touch promo attribution work \u2014 first touch, last touch, or linear?"
+  ],
+  "grain_per_table": {
+    "orders": [
+      "order_id"
+    ],
+    "order_items": [
+      "order_id",
+      "line_item_id"
+    ],
+    "customers": [
+      "customer_id"
+    ],
+    "products": [
+      "product_id"
+    ],
+    "returns": [
+      "return_id"
+    ],
+    "promotions": [
+      "promo_id"
+    ],
+    "order_promotions": [
+      "order_id",
+      "promo_id"
+    ],
+    "inventory": [
+      "product_id",
+      "warehouse_id",
+      "snapshot_date"
+    ],
+    "warehouses": [
+      "warehouse_id"
+    ],
+    "sessions": [
+      "session_id"
+    ],
+    "page_views": [
+      "view_id"
+    ]
+  }
+}

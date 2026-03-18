@@ -2,7 +2,28 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-VENV_DIR="$SCRIPT_DIR/.venv"
+
+# FIX: Use a writable location for the venv instead of the plugin directory.
+# In Cowork (desktop app sandbox), the plugin directory is mounted via bindfs
+# with --delete-deny, which means:
+#   - [ -w dir ] returns true (create works)
+#   - but pip install fails because it can't overwrite/delete temp files
+# We test for ACTUAL full write capability by creating AND deleting a temp file.
+# If that fails, fall back to /tmp which is a normal writable filesystem.
+# (We skip ~/.yorph/ because it also uses --delete-deny in Cowork.)
+_test_writable() {
+    local dir="$1"
+    local tmp="$dir/.yorph-write-test-$$"
+    touch "$tmp" 2>/dev/null && rm "$tmp" 2>/dev/null
+}
+
+if _test_writable "$SCRIPT_DIR"; then
+    VENV_DIR="$SCRIPT_DIR/.venv"
+else
+    # Plugin dir doesn't support full read/write/delete — use /tmp or override
+    VENV_DIR="${YORPH_VENV_DIR:-/tmp/yorph-venv}"
+fi
+
 VENV_PYTHON="$VENV_DIR/bin/python3"
 STAMP_FILE="$VENV_DIR/.deps-installed"
 

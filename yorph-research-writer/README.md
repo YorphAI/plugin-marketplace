@@ -50,6 +50,28 @@ This plugin is designed to be extended. Future skills might include:
 
 After install, use `/compile`, `/navigate`, `/critique`, and the other skills from chat.
 
+## Using the skills without the full plugin (Cursor)
+
+Cursor loads skills from **project-level** or **user-level** directories ([docs](https://cursor.com/docs/skills)):
+
+- **Project-level** = the folder you have open in Cursor (the workspace root). Skills in that project's `.cursor/skills/` or `.agents/skills/` are available only when that folder is open.
+- **User-level** = `~/.cursor/skills/`. Skills there are available in every project.
+
+This repo is already set up for project-level use:
+
+- If you open the **yorph-marketplace** folder (or the **yorph-research-writer** folder) in Cursor, the research-writer skills are loaded from `.cursor/skills/` via symlinks. Use `/compile`, `/setup`, `/navigate`, `/critique`, `/edit`, and `/explore-citations` in Agent chat.
+
+To have the skills in **every** project, copy or symlink the skill folders into `~/.cursor/skills/`:
+
+```bash
+mkdir -p ~/.cursor/skills
+for s in compile critique edit explore-citations navigate setup; do
+  ln -sf /path/to/yorph-research-writer/skills/$s ~/.cursor/skills/$s
+done
+```
+
+Replace `/path/to/yorph-research-writer` with the real path. The agent infers the plugin root from the skill file location, so symlinking preserves that.
+
 ## Requirements
 
 - `pdflatex` installed and on your PATH (comes with TeX Live or MacTeX)

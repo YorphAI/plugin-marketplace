@@ -1,0 +1,6 @@
+{
+  "name": "yorph-cc-convo-to-eval",
+  "version": "0.1.0",
+  "description": "Conversation eval system for Claude Code plugins. Captures real conversations as regression test cases and replays them to catch regressions when plugin code changes.",
+  "skills": "./skills/"
+}

@@ -194,6 +194,8 @@ The MCP server resolves credentials in this order: **OS keychain → `~/.yorph/.
 
 **Before attempting any connection, always check if `~/.yorph/.env` exists first** by reading it. This avoids asking the user to create a file that already exists. Store which keys are present for later use.
 
+**Important — sandbox environments (Cowork):** The user's shell environment variables (`~/.zshrc`, `~/.bash_profile`) are NOT inherited in sandboxed sessions. If the user says "credentials are in my env", guide them to `~/.yorph/.env` instead — that's the only file the MCP server reads. Also, direct database ports (5432, 6543, 1433, 5439) may be blocked; see `skills/connect/SKILL.md` for HTTPS fallback guidance per warehouse.
+
 **Loop through each chosen warehouse** (if the user picked 2, connect both before profiling):
 
 For each warehouse, silently attempt to connect:

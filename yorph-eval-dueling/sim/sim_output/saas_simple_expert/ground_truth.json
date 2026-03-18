@@ -1,0 +1,159 @@
+{
+  "expected_joins": [
+    {
+      "left": "subscriptions",
+      "right": "accounts",
+      "key": "account_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "billing_periods",
+      "right": "subscriptions",
+      "key": "subscription_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "usage_events",
+      "right": "accounts",
+      "key": "account_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "usage_events",
+      "right": "subscriptions",
+      "key": "subscription_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    }
+  ],
+  "expected_measures": [
+    {
+      "measure_id": "mrr",
+      "label": "MRR",
+      "aggregation": "SUM",
+      "source_table": "subscriptions",
+      "source_column": "mrr_amount",
+      "filters": [
+        "status = 'active'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "arr",
+      "label": "ARR",
+      "aggregation": "SUM",
+      "source_table": "subscriptions",
+      "source_column": "arr_amount",
+      "filters": [
+        "status = 'active'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "active_accounts",
+      "label": "Active Accounts",
+      "aggregation": "COUNT_DISTINCT",
+      "source_table": "subscriptions",
+      "source_column": "account_id",
+      "filters": [
+        "status='active'"
+      ],
+      "domain": "Accounts"
+    },
+    {
+      "measure_id": "new_mrr",
+      "label": "New MRR",
+      "aggregation": "SUM",
+      "source_table": "subscriptions",
+      "source_column": "mrr_amount",
+      "filters": [
+        "type='new'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "churned_mrr",
+      "label": "Churned MRR",
+      "aggregation": "SUM",
+      "source_table": "subscriptions",
+      "source_column": "mrr_amount",
+      "filters": [
+        "status='cancelled'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "expansion_mrr",
+      "label": "Expansion MRR",
+      "aggregation": "SUM",
+      "source_table": "subscriptions",
+      "source_column": "mrr_amount",
+      "filters": [
+        "type='expansion'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "churn_rate",
+      "label": "Churn Rate",
+      "aggregation": "RATIO",
+      "source_table": "subscriptions",
+      "source_column": null,
+      "filters": [],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "avg_revenue_per_account",
+      "label": "ARPA",
+      "aggregation": "AVG",
+      "source_table": "subscriptions",
+      "source_column": "mrr_amount",
+      "filters": [
+        "status='active'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "billing_events",
+      "label": "Invoices Issued",
+      "aggregation": "COUNT",
+      "source_table": "billing_periods",
+      "source_column": "billing_id",
+      "filters": [],
+      "domain": "Billing"
+    }
+  ],
+  "business_rules": [
+    "MRR = sum of mrr_amount WHERE status = 'active'.",
+    "ARR = MRR \u00d7 12 (or use arr_amount column directly).",
+    "Churn Rate = cancelled MRR in period / starting MRR.",
+    "Expansion MRR = MRR growth from existing accounts (upgrades only).",
+    "usage_events.feature_name = 'unknown' should be excluded from feature adoption metrics."
+  ],
+  "open_questions": [
+    "Is ARR calculated as MRR \u00d7 12 or as the contract value regardless of billing frequency?",
+    "Should trials (status='trial') be counted in active_accounts?",
+    "How is contraction MRR (downgrade) different from churn?"
+  ],
+  "grain_per_table": {
+    "accounts": [
+      "account_id"
+    ],
+    "subscriptions": [
+      "subscription_id"
+    ],
+    "billing_periods": [
+      "billing_id"
+    ],
+    "usage_events": [
+      "event_id"
+    ]
+  }
+}

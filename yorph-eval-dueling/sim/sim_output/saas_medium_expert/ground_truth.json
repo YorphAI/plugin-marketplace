@@ -1,0 +1,178 @@
+{
+  "expected_joins": [
+    {
+      "left": "subscriptions",
+      "right": "accounts",
+      "key": "account_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "billing_periods",
+      "right": "subscriptions",
+      "key": "subscription_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "usage_events",
+      "right": "accounts",
+      "key": "account_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "feature_flags",
+      "right": "accounts",
+      "key": "account_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "mrr_history",
+      "right": "accounts",
+      "key": "account_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "cohorts",
+      "right": "accounts",
+      "key": "account_id",
+      "cardinality": "many:1",
+      "is_trap": true,
+      "trap_type": "fan_out"
+    },
+    {
+      "left": "support_tickets",
+      "right": "accounts",
+      "key": "account_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    }
+  ],
+  "expected_measures": [
+    {
+      "measure_id": "mrr",
+      "label": "MRR",
+      "aggregation": "SUM",
+      "source_table": "subscriptions",
+      "source_column": "mrr_amount",
+      "filters": [
+        "status='active'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "arr",
+      "label": "ARR",
+      "aggregation": "SUM",
+      "source_table": "subscriptions",
+      "source_column": "arr_amount",
+      "filters": [
+        "status='active'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "churn_rate",
+      "label": "Churn Rate",
+      "aggregation": "RATIO",
+      "source_table": "subscriptions",
+      "source_column": null,
+      "filters": [],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "ndr",
+      "label": "Net Dollar Retention",
+      "aggregation": "RATIO",
+      "source_table": "subscriptions",
+      "source_column": null,
+      "filters": [],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "feature_adoption",
+      "label": "Feature Adoption %",
+      "aggregation": "RATIO",
+      "source_table": "feature_flags",
+      "source_column": null,
+      "filters": [],
+      "domain": "Product"
+    },
+    {
+      "measure_id": "dau",
+      "label": "Daily Active Accounts",
+      "aggregation": "COUNT_DISTINCT",
+      "source_table": "usage_events",
+      "source_column": "account_id",
+      "filters": [],
+      "domain": "Engagement"
+    },
+    {
+      "measure_id": "ticket_volume",
+      "label": "Support Tickets",
+      "aggregation": "COUNT",
+      "source_table": "support_tickets",
+      "source_column": "ticket_id",
+      "filters": [],
+      "domain": "Support"
+    },
+    {
+      "measure_id": "median_ttresolve",
+      "label": "Median Time to Resolve",
+      "aggregation": "AVG",
+      "source_table": "support_tickets",
+      "source_column": null,
+      "filters": [],
+      "domain": "Support"
+    }
+  ],
+  "business_rules": [
+    "Use subscriptions.mrr_amount for live MRR snapshots; mrr_history for period-over-period trending.",
+    "Net Dollar Retention (NDR) = (starting MRR + expansion - contraction - churn) / starting MRR.",
+    "cohorts must only be joined to month-grain aggregations, not to daily usage_events.",
+    "feature_flags.enabled_at NULL means the feature was enabled at account creation."
+  ],
+  "open_questions": [
+    "Which table is the source of truth for MRR: subscriptions or mrr_history?",
+    "How should DAU be defined \u2014 accounts with at least one login, or any usage event?",
+    "Should churned accounts (with open tickets) be included in support_ticket metrics?"
+  ],
+  "grain_per_table": {
+    "accounts": [
+      "account_id"
+    ],
+    "subscriptions": [
+      "subscription_id"
+    ],
+    "billing_periods": [
+      "billing_id"
+    ],
+    "usage_events": [
+      "event_id"
+    ],
+    "feature_flags": [
+      "account_id",
+      "feature_name"
+    ],
+    "mrr_history": [
+      "account_id",
+      "snapshot_month"
+    ],
+    "cohorts": [
+      "account_id",
+      "cohort_month"
+    ],
+    "support_tickets": [
+      "ticket_id"
+    ]
+  }
+}

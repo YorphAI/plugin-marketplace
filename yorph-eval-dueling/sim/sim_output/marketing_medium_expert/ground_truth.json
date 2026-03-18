@@ -1,0 +1,131 @@
+{
+  "expected_joins": [
+    {
+      "left": "sessions",
+      "right": "campaigns",
+      "key": "campaign_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "conversions",
+      "right": "sessions",
+      "key": "session_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "touchpoints",
+      "right": "conversions",
+      "key": "conversion_id",
+      "cardinality": "many:1",
+      "is_trap": true,
+      "trap_type": "fan_out"
+    },
+    {
+      "left": "ad_spend",
+      "right": "campaigns",
+      "key": "campaign_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "campaign_budgets",
+      "right": "campaigns",
+      "key": "campaign_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    }
+  ],
+  "expected_measures": [
+    {
+      "measure_id": "total_spend",
+      "label": "Total Spend",
+      "aggregation": "SUM",
+      "source_table": "ad_spend",
+      "source_column": "spend_amount",
+      "filters": [],
+      "domain": "Paid Media"
+    },
+    {
+      "measure_id": "roas",
+      "label": "ROAS",
+      "aggregation": "RATIO",
+      "source_table": "conversions",
+      "source_column": null,
+      "filters": [],
+      "domain": "Paid Media"
+    },
+    {
+      "measure_id": "cpa",
+      "label": "CPA",
+      "aggregation": "RATIO",
+      "source_table": "ad_spend",
+      "source_column": null,
+      "filters": [],
+      "domain": "Paid Media"
+    },
+    {
+      "measure_id": "sessions",
+      "label": "Sessions",
+      "aggregation": "COUNT",
+      "source_table": "sessions",
+      "source_column": "session_id",
+      "filters": [],
+      "domain": "Acquisition"
+    },
+    {
+      "measure_id": "conversion_rate",
+      "label": "Conversion Rate",
+      "aggregation": "RATIO",
+      "source_table": "sessions",
+      "source_column": null,
+      "filters": [],
+      "domain": "Acquisition"
+    },
+    {
+      "measure_id": "budget_pacing",
+      "label": "Budget Pacing",
+      "aggregation": "RATIO",
+      "source_table": "campaign_budgets",
+      "source_column": null,
+      "filters": [],
+      "domain": "Planning"
+    }
+  ],
+  "business_rules": [
+    "NEVER join conversions \u2192 touchpoints without pre-aggregating \u2014 it fans out revenue.",
+    "Use last-touch attribution by default (touchpoints.position = 'last').",
+    "utm_medium = '(none)' should be labelled 'direct' in channel reporting.",
+    "ad_spend.spend_amount is actuals; campaign_budgets.allocated_budget is planned."
+  ],
+  "open_questions": [
+    "Which attribution model should be used: last-touch, first-touch, or linear?",
+    "How should cross-device journeys (same user, different session_id) be handled?"
+  ],
+  "grain_per_table": {
+    "campaigns": [
+      "campaign_id"
+    ],
+    "campaign_budgets": [
+      "campaign_id",
+      "budget_month"
+    ],
+    "ad_spend": [
+      "spend_id"
+    ],
+    "sessions": [
+      "session_id"
+    ],
+    "conversions": [
+      "conversion_id"
+    ],
+    "touchpoints": [
+      "touchpoint_id"
+    ]
+  }
+}

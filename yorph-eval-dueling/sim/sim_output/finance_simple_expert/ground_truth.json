@@ -1,0 +1,111 @@
+{
+  "expected_joins": [
+    {
+      "left": "journal_entries",
+      "right": "accounts",
+      "key": "account_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "journal_entries",
+      "right": "cost_centers",
+      "key": "cost_center_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "journal_entries",
+      "right": "periods",
+      "key": "period_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    }
+  ],
+  "expected_measures": [
+    {
+      "measure_id": "total_revenue",
+      "label": "Total Revenue",
+      "aggregation": "SUM",
+      "source_table": "journal_entries",
+      "source_column": "amount",
+      "filters": [
+        "account_type='revenue'",
+        "entry_type!='reversal'"
+      ],
+      "domain": "P&L"
+    },
+    {
+      "measure_id": "total_expenses",
+      "label": "Total Expenses",
+      "aggregation": "SUM",
+      "source_table": "journal_entries",
+      "source_column": "amount",
+      "filters": [
+        "account_type='expense'",
+        "entry_type!='reversal'"
+      ],
+      "domain": "P&L"
+    },
+    {
+      "measure_id": "gross_profit",
+      "label": "Gross Profit",
+      "aggregation": "SUM",
+      "source_table": "journal_entries",
+      "source_column": "amount",
+      "filters": [
+        "account_type IN ('revenue','cogs')"
+      ],
+      "domain": "P&L"
+    },
+    {
+      "measure_id": "ebitda",
+      "label": "EBITDA",
+      "aggregation": "SUM",
+      "source_table": "journal_entries",
+      "source_column": "amount",
+      "filters": [
+        "account_type IN ('revenue','expense','cogs')"
+      ],
+      "domain": "P&L"
+    },
+    {
+      "measure_id": "entry_count",
+      "label": "Journal Entry Count",
+      "aggregation": "COUNT",
+      "source_table": "journal_entries",
+      "source_column": "entry_id",
+      "filters": [],
+      "domain": "Operations"
+    }
+  ],
+  "business_rules": [
+    "In a debit-normal system, revenue is credit (negative). Negate for P&L reporting.",
+    "Reversing entries (entry_type='reversal') must be excluded from period totals.",
+    "cost_center_id NULL = balance sheet entry. Never filter on cost_center for BS accounts.",
+    "Period-end is the close date \u2014 use period.end_date for all period-over-period metrics."
+  ],
+  "open_questions": [
+    "Is this a debit-normal or credit-normal accounting system?",
+    "Should EBITDA include depreciation entries, or are they separate account types?",
+    "Are intercompany transactions present and should they be eliminated?"
+  ],
+  "grain_per_table": {
+    "accounts": [
+      "account_id"
+    ],
+    "cost_centers": [
+      "cost_center_id"
+    ],
+    "periods": [
+      "period_id"
+    ],
+    "journal_entries": [
+      "entry_id",
+      "line_number"
+    ]
+  }
+}

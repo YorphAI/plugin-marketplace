@@ -1,0 +1,103 @@
+{
+  "expected_joins": [
+    {
+      "left": "orders",
+      "right": "customers",
+      "key": "customer_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "order_items",
+      "right": "orders",
+      "key": "order_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "order_items",
+      "right": "products",
+      "key": "product_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    }
+  ],
+  "expected_measures": [
+    {
+      "measure_id": "total_revenue",
+      "label": "Total Revenue",
+      "aggregation": "SUM",
+      "source_table": "orders",
+      "source_column": "revenue",
+      "filters": [
+        "status != 'N/A'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "order_count",
+      "label": "Order Count",
+      "aggregation": "COUNT",
+      "source_table": "orders",
+      "source_column": "order_id",
+      "filters": [
+        "status != 'N/A'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "avg_order_value",
+      "label": "Avg Order Value",
+      "aggregation": "AVG",
+      "source_table": "orders",
+      "source_column": "revenue",
+      "filters": [
+        "status != 'N/A'"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "units_sold",
+      "label": "Units Sold",
+      "aggregation": "SUM",
+      "source_table": "order_items",
+      "source_column": "quantity",
+      "filters": [],
+      "domain": "Product"
+    },
+    {
+      "measure_id": "customer_count",
+      "label": "Unique Customers",
+      "aggregation": "COUNT_DISTINCT",
+      "source_table": "orders",
+      "source_column": "customer_id",
+      "filters": [],
+      "domain": "Customer"
+    }
+  ],
+  "business_rules": [
+    "Revenue is NULL for orders where status = 'N/A' \u2014 treat as cancelled/voided.",
+    "order_items.unit_price may differ from products.price (promotions applied at order time)."
+  ],
+  "open_questions": [
+    "Should orders with status='N/A' be excluded from all revenue metrics or only from recognised revenue?"
+  ],
+  "grain_per_table": {
+    "orders": [
+      "order_id"
+    ],
+    "order_items": [
+      "order_id",
+      "line_item_id"
+    ],
+    "customers": [
+      "customer_id"
+    ],
+    "products": [
+      "product_id"
+    ]
+  }
+}

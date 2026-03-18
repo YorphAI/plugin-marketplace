@@ -1,0 +1,128 @@
+{
+  "expected_joins": [
+    {
+      "left": "clicks",
+      "right": "campaigns",
+      "key": "campaign_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "conversions",
+      "right": "clicks",
+      "key": "click_id",
+      "cardinality": "1:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "ad_spend",
+      "right": "campaigns",
+      "key": "campaign_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    }
+  ],
+  "expected_measures": [
+    {
+      "measure_id": "total_spend",
+      "label": "Total Ad Spend",
+      "aggregation": "SUM",
+      "source_table": "ad_spend",
+      "source_column": "spend_amount",
+      "filters": [],
+      "domain": "Paid Media"
+    },
+    {
+      "measure_id": "total_clicks",
+      "label": "Clicks",
+      "aggregation": "COUNT",
+      "source_table": "clicks",
+      "source_column": "click_id",
+      "filters": [],
+      "domain": "Paid Media"
+    },
+    {
+      "measure_id": "conversions",
+      "label": "Conversions",
+      "aggregation": "COUNT",
+      "source_table": "conversions",
+      "source_column": "conversion_id",
+      "filters": [],
+      "domain": "Paid Media"
+    },
+    {
+      "measure_id": "revenue",
+      "label": "Attributed Revenue",
+      "aggregation": "SUM",
+      "source_table": "conversions",
+      "source_column": "revenue",
+      "filters": [
+        "revenue IS NOT NULL"
+      ],
+      "domain": "Paid Media"
+    },
+    {
+      "measure_id": "roas",
+      "label": "ROAS",
+      "aggregation": "RATIO",
+      "source_table": "conversions",
+      "source_column": null,
+      "filters": [],
+      "domain": "Paid Media"
+    },
+    {
+      "measure_id": "cpa",
+      "label": "CPA",
+      "aggregation": "RATIO",
+      "source_table": "ad_spend",
+      "source_column": null,
+      "filters": [],
+      "domain": "Paid Media"
+    },
+    {
+      "measure_id": "ctr",
+      "label": "CTR",
+      "aggregation": "RATIO",
+      "source_table": "clicks",
+      "source_column": null,
+      "filters": [],
+      "domain": "Paid Media"
+    },
+    {
+      "measure_id": "impressions",
+      "label": "Impressions",
+      "aggregation": "SUM",
+      "source_table": "ad_spend",
+      "source_column": "impressions",
+      "filters": [],
+      "domain": "Paid Media"
+    }
+  ],
+  "business_rules": [
+    "ROAS = revenue / spend. Only include conversions with non-NULL revenue.",
+    "CPA = spend / conversions. Use campaign-level grouping.",
+    "CTR = clicks / impressions.",
+    "20% of clicks have no campaign_id \u2014 these are organic. Exclude from paid metrics."
+  ],
+  "open_questions": [
+    "Should ROAS use last-click or first-click attribution?",
+    "How should lead-gen conversions (revenue=NULL) factor into CPA calculations?"
+  ],
+  "grain_per_table": {
+    "campaigns": [
+      "campaign_id"
+    ],
+    "ad_spend": [
+      "spend_id"
+    ],
+    "clicks": [
+      "click_id"
+    ],
+    "conversions": [
+      "conversion_id"
+    ]
+  }
+}

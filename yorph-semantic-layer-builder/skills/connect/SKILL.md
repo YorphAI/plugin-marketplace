@@ -182,8 +182,32 @@ Show the error clearly and suggest fixes based on the error type:
 | `IP not whitelisted` | Network policy | Check Snowflake → Admin → Network Policy |
 | `Role does not exist` | Wrong role name | Try `ACCOUNTADMIN` or `SYSADMIN` |
 | `Timeout` | VPN or firewall | Check if you need VPN to reach the warehouse |
+| `Read-only file system` | Plugin dir is not writable | Sandbox env — launch.sh should use `~/.yorph/.venv` (see launch.sh comments) |
+| `could not translate host name` / `No address associated` | DNS blocked for DB subdomain | Sandbox env — try REST API fallback (HTTPS) instead of direct Postgres |
 
 Never show raw stack traces to the user. Extract the meaningful part of the error message.
+
+---
+
+## Sandbox / Cowork environment constraints
+
+<!-- FIX: This section documents issues discovered when running in the Cowork
+     desktop app sandbox. The sandbox is a lightweight Linux VM that mounts
+     the plugin directory read-only and restricts outbound network to HTTPS
+     (port 443) only. These constraints cause two specific failure modes that
+     the plugin must handle gracefully. -->
+
+When running inside Cowork (Anthropic's desktop app sandbox), be aware of:
+
+1. **Network: only HTTPS (port 443) is reliably open.** Direct database connections on ports like 5432 (Postgres), 6543 (Supabase pooler), 5439 (Redshift), 1433 (SQL Server) may be blocked. The connector should fall back to HTTPS-based APIs when direct connections time out:
+   - Supabase → PostgREST API (`https://{ref}.supabase.co/rest/v1/`)
+   - BigQuery → already uses HTTPS (no issue)
+   - Snowflake → already uses HTTPS (no issue)
+   - Redshift, SQL Server, Postgres → no HTTPS fallback; if direct connection fails, inform the user that this warehouse requires direct network access
+
+2. **Filesystem: the plugin directory is mounted with `--delete-deny`.** It looks writable (`[ -w dir ]` returns true, `mkdir` works) but `pip install` fails because pip can't overwrite or delete temp files. The `~/.yorph/` mount has the same restriction. `launch.sh` detects this by testing create+delete on a temp file, and falls back to `/tmp/yorph-venv` for the venv.
+
+3. **Environment: user's shell env vars are NOT inherited.** The sandbox doesn't source `~/.zshrc` or `~/.bash_profile`. Credentials must come from `~/.yorph/.env` or from the OS keychain. If `connect_warehouse` fails with "no credentials found" even though the user says "they're in my env", this is why — guide them to `~/.yorph/.env` instead.
 
 ---
 

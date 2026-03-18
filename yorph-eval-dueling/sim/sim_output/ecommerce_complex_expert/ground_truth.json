@@ -1,0 +1,105 @@
+{
+  "expected_joins": [
+    {
+      "left": "f_orders",
+      "right": "d_customers",
+      "key": "f_cust_nbr",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "f_order_lines",
+      "right": "f_orders",
+      "key": "f_ord_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "f_order_lines",
+      "right": "d_products",
+      "key": "f_prod_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "f_orders",
+      "right": "d_storefronts",
+      "key": "f_storefront_id",
+      "cardinality": "many:1",
+      "is_trap": false,
+      "trap_type": null
+    },
+    {
+      "left": "customer_storefronts",
+      "right": "d_customers",
+      "key": "customer_id",
+      "cardinality": "many:many",
+      "is_trap": true,
+      "trap_type": "fan_out"
+    }
+  ],
+  "expected_measures": [
+    {
+      "measure_id": "gross_revenue",
+      "label": "Gross Revenue",
+      "aggregation": "SUM",
+      "source_table": "f_orders",
+      "source_column": "f_ord_revenue",
+      "filters": [
+        "f_ord_status_cd = 1"
+      ],
+      "domain": "Revenue"
+    },
+    {
+      "measure_id": "order_count",
+      "label": "Order Count",
+      "aggregation": "COUNT",
+      "source_table": "f_orders",
+      "source_column": "f_ord_id",
+      "filters": [
+        "f_ord_status_cd = 1",
+        "f_cust_nbr != -1"
+      ],
+      "domain": "Revenue"
+    }
+  ],
+  "business_rules": [
+    "f_ord_status_cd = 1 means 'completed'. Use this \u2014 not string labels \u2014 for revenue filters.",
+    "f_cust_nbr = -1 are guest orders \u2014 exclude from customer-segmented metrics.",
+    "analytics.daily_order_summary is pre-aggregated \u2014 never join to atomic order facts."
+  ],
+  "open_questions": [
+    "Should guest orders (f_cust_nbr = -1) be included in total order count?",
+    "Is the analytics schema pre-aggregated nightly or in real-time?",
+    "Does f_ord_revenue include or exclude taxes?"
+  ],
+  "grain_per_table": {
+    "f_orders": [
+      "f_ord_id"
+    ],
+    "f_order_lines": [
+      "f_ord_id",
+      "f_line_nbr"
+    ],
+    "d_customers": [
+      "d_cust_nbr"
+    ],
+    "d_products": [
+      "d_prod_id"
+    ],
+    "d_storefronts": [
+      "d_storefront_id"
+    ],
+    "customer_storefronts": [
+      "customer_id",
+      "storefront_id"
+    ],
+    "analytics.daily_order_summary": [
+      "report_date",
+      "category"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "yorph-cc-convo-to-demo",
+  "version": "0.1.0",
+  "description": "Extract demo-worthy conversation segments and render them as embeddable HTML widgets styled like Claude Desktop.",
+  "author": {
+    "name": "Yorph AI"
+  },
+  "skills": "./skills/"
+}
