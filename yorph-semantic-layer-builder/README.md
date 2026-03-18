@@ -8,12 +8,6 @@ Connect your warehouse, answer a few questions, and get a fully structured seman
 
 ---
 
-## What is Yorph?
-
-Yorph builds AI-powered plugins for Claude Code that automate high-effort data and analytics workflows. This plugin is one of several in the [Yorph marketplace](https://github.com/alexbraylan/yorph-marketplace).
-
----
-
 ## What this plugin does
 
 Given a connected warehouse, the plugin:
@@ -37,14 +31,7 @@ Given a connected warehouse, the plugin:
 
 ## Installation
 
-### Option A — GitHub marketplace
-
-In Claude Code: **Customize → Browse Plugins → Personal → + → Add Marketplace from GitHub** → enter this repo's URL → install available plugins.
-
-### Option B — Upload a zip
-
-1. [Download `yorph-semantic-layer-builder.zip`](https://github.com/YorphAI/plugin-marketplace/raw/main/yorph-semantic-layer-builder.zip)
-2. In Claude Code: **Customize → + next to Personal Plugins → upload zip**
+Install via the [Yorph plugin marketplace](https://github.com/YorphAI/plugin-marketplace) or [download the zip](https://github.com/YorphAI/plugin-marketplace/raw/main/yorph-semantic-layer-builder.zip) and upload it directly in Claude Code (**Customize → + next to Personal Plugins**).
 
 ---
 
