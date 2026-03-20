@@ -9,7 +9,7 @@ Yorph builds AI-powered plugins for [Claude Code](https://claude.ai/code) that a
 | Plugin | Description |
 |---|---|
 | [yorph-semantic-layer-builder](./yorph-semantic-layer-builder) | Connect to your data warehouse and any existing data dictionaries or documentation to co-author a fully-documented semantic layer — validated joins, certified metrics, business rules, and a plain-English companion doc — with the help of a 10-agent analysis DAG |
-| [yorph-data-analyst](./yorph-data-analyst) | Describe what you want to know in plain English; two agents handle the rest — one plans and communicates, one writes and runs the transformation pipeline |
+| [yorph-data-analyst](./yorph-data-analyst) | Describe what you want to know in plain English; two agents handle the rest — one plans and communicates, one writes and runs the transformation pipeline — no SQL required |
 | [yorph-research-writer](./yorph-research-writer) | A full LaTeX authoring environment inside Claude Code: edit sections, compile to PDF, run a blind peer review, and explore the citation graph — in a local browser preview |
 | [yorph-cc-convo-to-demo](./yorph-cc-convo-to-demo) | Extract the best moments from a Claude Code conversation and render them as a self-contained HTML widget styled like Claude Desktop — shareable, embeddable, no dependencies |
 | [yorph-cc-convo-to-eval](./yorph-cc-convo-to-eval) | Snapshot a conversation that went well (or badly) as a replayable eval test case — so you can catch regressions automatically when you change your plugin's prompts or skills |

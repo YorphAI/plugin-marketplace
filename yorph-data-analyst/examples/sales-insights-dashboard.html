@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Insights Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous"></script>
+    <style>
+:root {
+    --bg-primary: #f8f9fa; --bg-card: #ffffff; --bg-header: #1a1a2e;
+    --text-primary: #212529; --text-secondary: #6c757d; --text-on-dark: #ffffff;
+    --positive: #28a745; --negative: #dc3545; --neutral: #6c757d;
+    --gap: 16px; --radius: 8px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-primary); color: var(--text-primary); line-height: 1.5; }
+.dashboard-container { max-width: 1400px; margin: 0 auto; padding: var(--gap); }
+.dashboard-header { background: var(--bg-header); color: var(--text-on-dark);
+    padding: 20px 24px; border-radius: var(--radius); margin-bottom: var(--gap); }
+.dashboard-header h1 { font-size: 20px; font-weight: 600; }
+.dashboard-subtitle { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--gap); margin-bottom: var(--gap); }
+.kpi-card { background: var(--bg-card); border-radius: var(--radius);
+    padding: 20px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.kpi-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 4px; }
+.kpi-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+.kpi-change { font-size: 13px; font-weight: 500; }
+.kpi-change.positive { color: var(--positive); }
+.kpi-change.negative { color: var(--negative); }
+.chart-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: var(--gap); margin-bottom: var(--gap); }
+.chart-container { background: var(--bg-card); border-radius: var(--radius);
+    padding: 20px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); position: relative; }
+.chart-container h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.chart-subtitle { font-size: 12px; color: var(--text-secondary); margin-bottom: 16px; }
+.chart-container canvas { max-height: 320px; }
+.chart-full { grid-column: 1 / -1; }
+.insight-box { background: #fff3cd; border-left: 4px solid #ffc107; padding: 16px 20px;
+    border-radius: 0 var(--radius) var(--radius) 0; margin-bottom: var(--gap); }
+.insight-box h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.insight-box p { font-size: 13px; color: var(--text-primary); margin-bottom: 6px; }
+.table-section { background: var(--bg-card); border-radius: var(--radius);
+    padding: 20px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); overflow-x: auto; margin-bottom: var(--gap); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table thead th { text-align: left; padding: 10px 12px;
+    border-bottom: 2px solid #dee2e6; color: var(--text-secondary);
+    font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.data-table tbody td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+.data-table tbody tr:hover { background: #f8f9fa; }
+.data-table .num { text-align: right; }
+.dashboard-footer { text-align: center; font-size: 12px;
+    color: var(--text-secondary); padding: 16px 0; }
+@media (max-width: 768px) {
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .chart-row { grid-template-columns: 1fr; }
+}
+@media print {
+    body { background: white; }
+    .dashboard-container { max-width: none; }
+    .chart-container { break-inside: avoid; }
+}
+    </style>
+</head>
+<body>
+<div class="dashboard-container">
+    <header class="dashboard-header">
+        <h1>Sales Performance Dashboard</h1>
+        <p class="dashboard-subtitle">Jan 2003 &ndash; May 2005 &middot; 92 customers &middot; 307 orders &middot; 2,823 line items</p>
+    </header>
+
+    <section class="kpi-row">
+        <div class="kpi-card">
+            <div class="kpi-label">Total Revenue</div>
+            <div class="kpi-value">$10.0M</div>
+            <div class="kpi-change positive">+34.3% 2004 vs 2003</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Total Orders</div>
+            <div class="kpi-value">307</div>
+            <div class="kpi-change">Avg $32.7K per order</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Top Product Line</div>
+            <div class="kpi-value">Classic Cars</div>
+            <div class="kpi-change">37.5% of revenue</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Top Customer</div>
+            <div class="kpi-value">Euro Shopping</div>
+            <div class="kpi-change">$912K &middot; 9.1% of total</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Avg Line Value</div>
+            <div class="kpi-value">$3,554</div>
+            <div class="kpi-change">Medium deals: 56% of revenue</div>
+        </div>
+    </section>
+
+    <section class="insight-box">
+        <h3>Key Findings</h3>
+        <p><strong>1. November is your super-month.</strong> Nov 2003 ($1.03M) and Nov 2004 ($1.09M) each generated ~2x the revenue of any other month. This extreme Q4 seasonality is your most important revenue pattern.</p>
+        <p><strong>2. Classic Cars dominates at 37.5% of revenue</strong> &mdash; more than double the next line (Vintage Cars at 18.5%). Together they account for 56% of all revenue.</p>
+        <p><strong>3. EMEA is your largest region at 49.6%.</strong> North America follows at 26.8%. Asia Pacific and Japan together are under 10%.</p>
+        <p><strong>4. Heavy customer concentration.</strong> Your top 2 customers (Euro Shopping Channel + Mini Gifts) generate 15.6% of revenue. Top 20 customers = 43.4%.</p>
+        <p><strong>5. Revenue grew strongly year-over-year.</strong> 2003: $3.5M &rarr; 2004: $4.7M (+34%). 2005 was on pace for ~$4.3M annualized through May.</p>
+    </section>
+
+    <section class="chart-row">
+        <div class="chart-container chart-full">
+            <h3>November spikes drive extreme Q4 seasonality</h3>
+            <p class="chart-subtitle">Monthly revenue Jan 2003 &ndash; May 2005</p>
+            <canvas id="monthlyChart"></canvas>
+        </div>
+    </section>
+
+    <section class="chart-row">
+        <div class="chart-container">
+            <h3>Classic Cars generates 37.5% of all revenue</h3>
+            <p class="chart-subtitle">Revenue by product line</p>
+            <canvas id="productChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>EMEA accounts for half of total revenue</h3>
+            <p class="chart-subtitle">Revenue by region</p>
+            <canvas id="regionChart"></canvas>
+        </div>
+    </section>
+
+    <section class="chart-row">
+        <div class="chart-container">
+            <h3>Medium deals drive 56% of revenue</h3>
+            <p class="chart-subtitle">Revenue by deal size</p>
+            <canvas id="dealsizeChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Top 2 customers account for 15.6% of revenue</h3>
+            <p class="chart-subtitle">Top 10 customers by revenue</p>
+            <canvas id="customerChart"></canvas>
+        </div>
+    </section>
+
+    <section class="table-section">
+        <h3 style="font-size:14px;font-weight:600;margin-bottom:12px;">Top 15 Customers</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th class="num">Revenue</th>
+                    <th class="num">Orders</th>
+                    <th class="num">Avg Line Value</th>
+                    <th class="num">% of Total</th>
+                    <th class="num">Cumulative %</th>
+                </tr>
+            </thead>
+            <tbody id="customerTable"></tbody>
+        </table>
+    </section>
+
+    <section class="insight-box" style="background:#e8f4f8;border-left-color:#17a2b8;margin-top:var(--gap);">
+        <h3>Trust Notes</h3>
+        <p><strong>Data cleaning applied:</strong> Status labels were standardized from 22 variants to 7 categories (e.g., "Shipped"/"shipped"/"SHIPPED" &rarr; "Shipped"). Deal sizes were standardized from 13 variants to 3 (Small, Medium, Large). Territory was standardized from 12 variants to 4 regions. Country names were standardized from 44 variants to ~25 (e.g., "US"/"USA"/"United States" &rarr; "United States").</p>
+        <p><strong>Missing data:</strong> ~7.2% of deal sizes and ~3.7% of product lines were blank and labeled "Unknown." ~5% of quarter IDs were missing and were derived from order dates.</p>
+        <p><strong>Assumptions:</strong> All order statuses (including Disputed, On Hold, Cancelled) are included in revenue totals. If you want to exclude non-fulfilled orders, the numbers would shift &mdash; cancelled/hold/disputed/in-process orders account for ~6% of total revenue.</p>
+        <p><strong>Region gaps:</strong> ~14% of revenue ($1.4M) comes from customers with no territory assigned in the source data, shown as "Unknown" in the region breakdown.</p>
+    </section>
+
+    <footer class="dashboard-footer">
+        Source: customer_details.csv + sales_records.csv &middot; Generated March 2026
+    </footer>
+</div>
+
+<script>
+const COLORS = ['#4C72B0','#DD8452','#55A868','#C44E52','#8172B3','#937860','#DA8BC3','#8C8C8C'];
+
+const monthlyData = [
+    {label:'2003-01',rev:129753.60},{label:'2003-02',rev:140836.19},{label:'2003-03',rev:174504.90},
+    {label:'2003-04',rev:201609.55},{label:'2003-05',rev:192673.11},{label:'2003-06',rev:168082.56},
+    {label:'2003-07',rev:187731.88},{label:'2003-08',rev:197809.30},{label:'2003-09',rev:263973.36},
+    {label:'2003-10',rev:568290.97},{label:'2003-11',rev:1029837.66},{label:'2003-12',rev:261876.46},
+    {label:'2004-01',rev:316577.42},{label:'2004-02',rev:311419.53},{label:'2004-03',rev:205733.73},
+    {label:'2004-04',rev:206148.12},{label:'2004-05',rev:273438.39},{label:'2004-06',rev:286674.22},
+    {label:'2004-07',rev:327144.09},{label:'2004-08',rev:461501.27},{label:'2004-09',rev:320750.91},
+    {label:'2004-10',rev:552924.25},{label:'2004-11',rev:1089048.01},{label:'2004-12',rev:372802.66},
+    {label:'2005-01',rev:339543.42},{label:'2005-02',rev:358186.18},{label:'2005-03',rev:374262.76},
+    {label:'2005-04',rev:261633.29},{label:'2005-05',rev:457861.06}
+];
+
+const productData = [
+    {name:'Classic Cars',rev:3759084.19},{name:'Vintage Cars',rev:1851333.30},
+    {name:'Motorcycles',rev:1133535.47},{name:'Trucks & Buses',rev:1093729.36},
+    {name:'Planes',rev:919223.07},{name:'Ships',rev:684194.99},
+    {name:'Trains',rev:215449.44},{name:'Unknown',rev:376079.03}
+];
+
+const regionData = [
+    {name:'EMEA',rev:4979272.41},{name:'North America',rev:2684590.54},
+    {name:'Unknown',rev:1386058.44},{name:'Asia Pacific',rev:527534.24},
+    {name:'Japan',rev:455173.22}
+];
+
+const dealsizeData = [
+    {name:'Medium',rev:5647362.22},{name:'Small',rev:2457006.21},
+    {name:'Large',rev:1201905.64},{name:'Unknown',rev:726354.78}
+];
+
+const topCustomers = [
+    {name:'Euro Shopping Channel',rev:912294.11,orders:26,avg:3522.37,pct:9.1,cum:9.1},
+    {name:'Mini Gifts Distributors',rev:654858.06,orders:17,avg:3638.10,pct:6.5,cum:15.6},
+    {name:'Australian Collectors',rev:200995.41,orders:5,avg:3654.46,pct:2.0,cum:17.6},
+    {name:'Muscle Machine Inc',rev:197736.94,orders:4,avg:4119.52,pct:2.0,cum:19.6},
+    {name:'La Rochelle Gifts',rev:180124.90,orders:4,avg:3398.58,pct:1.8,cum:21.4},
+    {name:'Dragon Souveniers',rev:172989.68,orders:5,avg:4023.02,pct:1.7,cum:23.1},
+    {name:'Land of Toys Inc.',rev:164069.44,orders:4,avg:3348.36,pct:1.6,cum:24.7},
+    {name:'Sharp Gifts Warehouse',rev:160010.27,orders:4,avg:4000.26,pct:1.6,cum:26.3},
+    {name:'AV Stores, Co.',rev:157807.81,orders:3,avg:3094.27,pct:1.6,cum:27.9},
+    {name:"Anna's Decorations",rev:153996.13,orders:4,avg:3347.74,pct:1.5,cum:29.4},
+    {name:'Souveniers And Things',rev:151570.98,orders:4,avg:3295.02,pct:1.5,cum:30.9},
+    {name:'Corporate Gift Ideas',rev:149882.50,orders:4,avg:3655.67,pct:1.5,cum:32.4},
+    {name:'Salzburg Collectables',rev:149798.63,orders:4,avg:3744.97,pct:1.5,cum:33.9},
+    {name:'Danish Wholesale',rev:145041.60,orders:5,avg:4028.93,pct:1.4,cum:35.3},
+    {name:'Saveley & Henriot',rev:142874.25,orders:3,avg:3484.74,pct:1.4,cum:36.7}
+];
+
+function fmt(v) {
+    if (v >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M';
+    if (v >= 1e3) return '$' + (v/1e3).toFixed(0) + 'K';
+    return '$' + v.toFixed(0);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Monthly revenue chart
+    const novIndices = [10, 22]; // Nov 2003 and Nov 2004
+    const barColors = monthlyData.map((d, i) => novIndices.includes(i) ? '#C44E52' : '#4C72B0CC');
+    new Chart(document.getElementById('monthlyChart'), {
+        type: 'bar',
+        data: {
+            labels: monthlyData.map(d => d.label),
+            datasets: [{
+                data: monthlyData.map(d => d.rev),
+                backgroundColor: barColors,
+                borderRadius: 3
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: ctx => fmt(ctx.raw) } }
+            },
+            scales: {
+                x: { grid: { display: false }, ticks: { maxRotation: 45, font: { size: 10 } } },
+                y: { beginAtZero: true, ticks: { callback: v => fmt(v) } }
+            }
+        }
+    });
+
+    // Product line chart (horizontal bar)
+    const pSorted = productData.filter(d => d.name !== 'Unknown').sort((a,b) => a.rev - b.rev);
+    new Chart(document.getElementById('productChart'), {
+        type: 'bar',
+        data: {
+            labels: pSorted.map(d => d.name),
+            datasets: [{
+                data: pSorted.map(d => d.rev),
+                backgroundColor: COLORS.slice(0, pSorted.length).map(c => c + 'CC'),
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: ctx => fmt(ctx.raw) } }
+            },
+            scales: {
+                x: { beginAtZero: true, ticks: { callback: v => fmt(v) } },
+                y: { grid: { display: false } }
+            }
+        }
+    });
+
+    // Region chart (horizontal bar)
+    const rSorted = regionData.filter(d => d.name !== 'Unknown').sort((a,b) => a.rev - b.rev);
+    new Chart(document.getElementById('regionChart'), {
+        type: 'bar',
+        data: {
+            labels: rSorted.map(d => d.name),
+            datasets: [{
+                data: rSorted.map(d => d.rev),
+                backgroundColor: ['#937860CC','#8172B3CC','#55A868CC','#4C72B0CC'],
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: ctx => fmt(ctx.raw) } }
+            },
+            scales: {
+                x: { beginAtZero: true, ticks: { callback: v => fmt(v) } },
+                y: { grid: { display: false } }
+            }
+        }
+    });
+
+    // Deal size chart
+    const dSorted = dealsizeData.filter(d => d.name !== 'Unknown').sort((a,b) => b.rev - a.rev);
+    new Chart(document.getElementById('dealsizeChart'), {
+        type: 'bar',
+        data: {
+            labels: dSorted.map(d => d.name),
+            datasets: [{
+                data: dSorted.map(d => d.rev),
+                backgroundColor: ['#4C72B0CC','#DD8452CC','#55A868CC'],
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: ctx => fmt(ctx.raw) } }
+            },
+            scales: {
+                x: { grid: { display: false } },
+                y: { beginAtZero: true, ticks: { callback: v => fmt(v) } }
+            }
+        }
+    });
+
+    // Top customers chart (horizontal bar)
+    const top10 = topCustomers.slice(0, 10).reverse();
+    new Chart(document.getElementById('customerChart'), {
+        type: 'bar',
+        data: {
+            labels: top10.map(d => d.name),
+            datasets: [{
+                data: top10.map(d => d.rev),
+                backgroundColor: top10.map((d, i) => i >= 8 ? '#C44E52CC' : '#4C72B0CC'),
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: ctx => fmt(ctx.raw) } }
+            },
+            scales: {
+                x: { beginAtZero: true, ticks: { callback: v => fmt(v) } },
+                y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+            }
+        }
+    });
+
+    // Customer table
+    const tbody = document.getElementById('customerTable');
+    topCustomers.forEach(c => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${c.name}</td><td class="num">${fmt(c.rev)}</td><td class="num">${c.orders}</td><td class="num">${fmt(c.avg)}</td><td class="num">${c.pct}%</td><td class="num">${c.cum}%</td>`;
+        tbody.appendChild(tr);
+    });
+});
+</script>
+</body>
+</html>
