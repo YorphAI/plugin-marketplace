@@ -1,7 +1,6 @@
 {
   "name": "yorph-data-analyst",
-  "display_name": "Yorph Data Analyst",
   "version": "0.1.0",
   "description": "End-to-end data transformation and analysis pipeline for non-technical users. Two-agent architecture: an Orchestrator that handles all user communication, planning, and delivery; and a Pipeline Builder that handles technical data work in the background.",
-  "author": "Yorph AI"
+  "author": { "name": "Yorph AI" }
 }

@@ -30,6 +30,10 @@ build/
 
 # OS
 .DS_Store
+**/.DS_Store
+__MACOSX/
+**/__MACOSX/
+._*
 Thumbs.db
 
 # Editor
