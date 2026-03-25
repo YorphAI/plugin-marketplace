@@ -1,0 +1,25 @@
+customer_id,churn_week,churn_date,reason,product,channel,seats_at_churn,final_weekly_revenue
+CUST-0107,1,2024-07-01,built in-house,Product 8,Partner,93,1073.86
+CUST-0334,4,2024-07-22,competitive loss,Product 2,Self-Serve,1,19.63
+CUST-0211,5,2024-07-29,built in-house,Product 4,Inside Sales,15,145.2
+CUST-0391,5,2024-07-29,product fit,Product 1,Self-Serve,1,27.71
+CUST-0171,7,2024-08-12,budget cuts,Product 1,Partner,15,342.96
+CUST-0438,7,2024-08-12,competitive loss,Product 6,Self-Serve,2,43.88
+CUST-0292,8,2024-08-19,built in-house,Product 2,Inside Sales,2,37.38
+CUST-0468,8,2024-08-19,product fit,Product 1,Self-Serve,1,27.71
+CUST-0571,11,2024-09-09,budget cuts,Product 1,Inside Sales,2,52.13
+CUST-0385,12,2024-09-16,competitive loss,Product 4,Self-Serve,1,10.39
+CUST-0558,12,2024-09-16,acquired/shut down,Product 6,Partner,19,352.41
+CUST-0022,13,2024-09-23,product fit,Product 3,Direct Sales,30,1188.78
+CUST-0245,14,2024-09-30,product fit,Product 6,Inside Sales,20,417.65
+CUST-0376,14,2024-09-30,competitive loss,Product 4,Self-Serve,1,10.39
+CUST-0202,15,2024-10-07,budget cuts,Product 1,Inside Sales,5,126.01
+CUST-0186,16,2024-10-14,product fit,Product 3,Inside Sales,4,170.12
+CUST-0105,17,2024-10-21,budget cuts,Product 3,Partner,4,156.66
+CUST-0219,20,2024-11-11,budget cuts,Product 4,Inside Sales,17,164.31
+CUST-0515,21,2024-11-18,competitive loss,Product 4,Self-Serve,2,20.79
+CUST-0153,22,2024-11-25,acquired/shut down,Product 8,Partner,99,1214.2
+CUST-0283,22,2024-11-25,budget cuts,Product 2,Inside Sales,3,52.31
+CUST-0514,22,2024-11-25,budget cuts,Product 1,Self-Serve,2,55.43
+CUST-0491,23,2024-12-02,acquired/shut down,Product 8,Strategic,561,5635.13
+CUST-0008,24,2024-12-09,product fit,Product 7,Direct Sales,21,774.59

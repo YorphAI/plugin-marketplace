@@ -1,0 +1,25 @@
+rep_id,rep_name,channel,hire_date,annual_quota,tenure
+REP-001,Rep 1,Direct Sales,pre-period,800000,tenured
+REP-002,Rep 2,Direct Sales,2024-09-30,800000,new
+REP-003,Rep 3,Direct Sales,pre-period,800000,tenured
+REP-004,Rep 4,Direct Sales,pre-period,800000,tenured
+REP-005,Rep 5,Direct Sales,pre-period,800000,tenured
+REP-006,Rep 6,Direct Sales,pre-period,800000,tenured
+REP-007,Rep 7,Partner,2024-08-12,600000,new
+REP-008,Rep 8,Partner,pre-period,600000,tenured
+REP-009,Rep 9,Partner,pre-period,600000,tenured
+REP-010,Rep 10,Partner,pre-period,600000,tenured
+REP-011,Rep 11,Inside Sales,pre-period,500000,tenured
+REP-012,Rep 12,Inside Sales,pre-period,500000,tenured
+REP-013,Rep 13,Inside Sales,pre-period,500000,tenured
+REP-014,Rep 14,Inside Sales,pre-period,500000,tenured
+REP-015,Rep 15,Inside Sales,pre-period,500000,tenured
+REP-016,Rep 16,Inside Sales,2024-08-19,500000,new
+REP-017,Rep 17,Inside Sales,pre-period,500000,tenured
+REP-018,Rep 18,Self-Serve,pre-period,400000,tenured
+REP-019,Rep 19,Self-Serve,pre-period,400000,tenured
+REP-020,Rep 20,Self-Serve,pre-period,400000,tenured
+REP-021,Rep 21,Strategic,2024-10-07,1500000,new
+REP-022,Rep 22,Strategic,2024-10-14,1500000,new
+REP-023,Rep 23,Strategic,pre-period,1500000,tenured
+REP-024,Rep 24,Strategic,pre-period,1500000,tenured

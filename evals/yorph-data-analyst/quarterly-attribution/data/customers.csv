@@ -1,0 +1,703 @@
+customer_id,product,channel,segment,seats_initial,renewal_month,discount_pct,acquisition_week,acquisition_date,rep_id,status
+CUST-0001,Product 6,Direct Sales,Mid-Market,47,3,0.14,-37,pre-period,REP-001,active
+CUST-0002,Product 8,Direct Sales,Enterprise,88,4,0.1433,-130,pre-period,REP-003,active
+CUST-0003,Product 5,Direct Sales,Enterprise,165,11,0.1698,-89,pre-period,REP-001,active
+CUST-0004,Product 5,Direct Sales,Enterprise,72,4,0.1653,-143,pre-period,REP-003,active
+CUST-0005,Product 8,Direct Sales,Enterprise,150,1,0.0888,-108,pre-period,REP-006,active
+CUST-0006,Product 5,Direct Sales,Enterprise,66,3,0.1313,-34,pre-period,REP-006,active
+CUST-0007,Product 8,Direct Sales,Enterprise,118,12,0.1565,-38,pre-period,REP-006,active
+CUST-0008,Product 7,Direct Sales,Mid-Market,21,2,0.1127,-12,pre-period,REP-004,churned
+CUST-0009,Product 1,Direct Sales,Enterprise,67,11,0.178,-65,pre-period,REP-003,active
+CUST-0010,Product 4,Direct Sales,Enterprise,114,8,0.1237,-114,pre-period,REP-003,active
+CUST-0011,Product 5,Direct Sales,Enterprise,110,12,0.1637,-113,pre-period,REP-004,active
+CUST-0012,Product 4,Direct Sales,Enterprise,100,1,0.1678,-21,pre-period,REP-005,active
+CUST-0013,Product 2,Direct Sales,Enterprise,119,1,0.146,-77,pre-period,REP-004,active
+CUST-0014,Product 5,Direct Sales,Enterprise,155,7,0.1348,-18,pre-period,REP-003,active
+CUST-0015,Product 8,Direct Sales,Enterprise,169,8,0.18,-137,pre-period,REP-005,active
+CUST-0016,Product 6,Direct Sales,Enterprise,111,3,0.1384,-18,pre-period,REP-005,active
+CUST-0017,Product 7,Direct Sales,Mid-Market,30,2,0.1251,-66,pre-period,REP-003,active
+CUST-0018,Product 1,Direct Sales,Enterprise,143,7,0.1439,-143,pre-period,REP-001,active
+CUST-0019,Product 1,Direct Sales,Enterprise,128,8,0.1334,-86,pre-period,REP-003,active
+CUST-0020,Product 3,Direct Sales,Mid-Market,36,5,0.1357,-103,pre-period,REP-003,active
+CUST-0021,Product 2,Direct Sales,Mid-Market,42,5,0.1942,-131,pre-period,REP-003,active
+CUST-0022,Product 3,Direct Sales,Mid-Market,30,9,0.1421,-46,pre-period,REP-006,churned
+CUST-0023,Product 6,Direct Sales,Enterprise,115,5,0.1375,-84,pre-period,REP-005,active
+CUST-0024,Product 8,Direct Sales,Enterprise,103,1,0.1281,-46,pre-period,REP-001,active
+CUST-0025,Product 1,Direct Sales,Mid-Market,27,2,0.1512,-145,pre-period,REP-004,active
+CUST-0026,Product 4,Direct Sales,Enterprise,116,5,0.2046,-80,pre-period,REP-006,active
+CUST-0027,Product 1,Direct Sales,Enterprise,177,11,0.1911,-54,pre-period,REP-003,active
+CUST-0028,Product 7,Direct Sales,Mid-Market,35,2,0.2114,-97,pre-period,REP-004,active
+CUST-0029,Product 4,Direct Sales,Mid-Market,20,5,0.1213,-141,pre-period,REP-003,active
+CUST-0030,Product 8,Direct Sales,Enterprise,144,12,0.1279,-71,pre-period,REP-003,active
+CUST-0031,Product 2,Direct Sales,Mid-Market,47,7,0.1423,-82,pre-period,REP-003,active
+CUST-0032,Product 2,Direct Sales,Mid-Market,43,9,0.1176,-59,pre-period,REP-004,active
+CUST-0033,Product 3,Direct Sales,Mid-Market,45,9,0.0792,-141,pre-period,REP-001,active
+CUST-0034,Product 2,Direct Sales,Enterprise,115,10,0.0684,-24,pre-period,REP-005,active
+CUST-0035,Product 2,Direct Sales,Mid-Market,23,2,0.1341,-146,pre-period,REP-003,active
+CUST-0036,Product 2,Direct Sales,Mid-Market,32,9,0.1493,-26,pre-period,REP-006,active
+CUST-0037,Product 5,Direct Sales,Mid-Market,41,12,0.1511,-76,pre-period,REP-004,active
+CUST-0038,Product 4,Direct Sales,Enterprise,101,3,0.1645,-92,pre-period,REP-004,active
+CUST-0039,Product 2,Direct Sales,Mid-Market,52,9,0.1668,-79,pre-period,REP-005,active
+CUST-0040,Product 5,Direct Sales,Enterprise,61,6,0.1692,-99,pre-period,REP-001,active
+CUST-0041,Product 8,Direct Sales,Enterprise,60,11,0.1051,-125,pre-period,REP-005,active
+CUST-0042,Product 4,Direct Sales,Mid-Market,58,8,0.2045,-23,pre-period,REP-003,active
+CUST-0043,Product 7,Direct Sales,SMB,16,11,0.1382,-41,pre-period,REP-004,active
+CUST-0044,Product 7,Direct Sales,Enterprise,166,8,0.1939,-116,pre-period,REP-004,active
+CUST-0045,Product 6,Direct Sales,Enterprise,136,2,0.209,-53,pre-period,REP-005,active
+CUST-0046,Product 7,Direct Sales,Enterprise,72,3,0.1306,-82,pre-period,REP-006,active
+CUST-0047,Product 6,Direct Sales,Enterprise,159,1,0.1499,-33,pre-period,REP-004,active
+CUST-0048,Product 1,Direct Sales,Enterprise,61,10,0.1444,-74,pre-period,REP-005,active
+CUST-0049,Product 6,Direct Sales,Mid-Market,25,6,0.1498,-105,pre-period,REP-003,active
+CUST-0050,Product 3,Direct Sales,Enterprise,74,2,0.1563,-32,pre-period,REP-001,active
+CUST-0051,Product 8,Direct Sales,Enterprise,116,12,0.1609,-32,pre-period,REP-005,active
+CUST-0052,Product 4,Direct Sales,Enterprise,91,11,0.1191,-62,pre-period,REP-004,active
+CUST-0053,Product 1,Direct Sales,Enterprise,175,12,0.1714,-123,pre-period,REP-003,active
+CUST-0054,Product 4,Direct Sales,Enterprise,128,2,0.1769,-49,pre-period,REP-006,active
+CUST-0055,Product 3,Direct Sales,Mid-Market,34,6,0.1105,-145,pre-period,REP-003,active
+CUST-0056,Product 5,Direct Sales,Enterprise,146,10,0.1757,-94,pre-period,REP-005,active
+CUST-0057,Product 8,Direct Sales,Enterprise,133,4,0.1941,-117,pre-period,REP-006,active
+CUST-0058,Product 4,Direct Sales,Enterprise,149,3,0.1557,-71,pre-period,REP-004,active
+CUST-0059,Product 2,Direct Sales,Mid-Market,43,11,0.2002,-144,pre-period,REP-004,active
+CUST-0060,Product 5,Direct Sales,Mid-Market,33,1,0.143,-64,pre-period,REP-005,active
+CUST-0061,Product 5,Direct Sales,Enterprise,121,2,0.1765,-88,pre-period,REP-005,active
+CUST-0062,Product 6,Direct Sales,Enterprise,69,11,0.1975,-67,pre-period,REP-005,active
+CUST-0063,Product 8,Direct Sales,Mid-Market,26,2,0.1492,-94,pre-period,REP-006,active
+CUST-0064,Product 3,Direct Sales,Mid-Market,39,3,0.205,-32,pre-period,REP-005,active
+CUST-0065,Product 4,Direct Sales,Mid-Market,21,5,0.16,-39,pre-period,REP-001,active
+CUST-0066,Product 8,Direct Sales,Mid-Market,27,2,0.1266,-71,pre-period,REP-001,active
+CUST-0067,Product 8,Direct Sales,Mid-Market,44,8,0.1571,-102,pre-period,REP-004,active
+CUST-0068,Product 1,Direct Sales,Mid-Market,49,12,0.2172,-63,pre-period,REP-005,active
+CUST-0069,Product 8,Direct Sales,Enterprise,94,11,0.1627,-105,pre-period,REP-003,active
+CUST-0070,Product 2,Direct Sales,Enterprise,102,4,0.134,-59,pre-period,REP-001,active
+CUST-0071,Product 2,Direct Sales,Mid-Market,31,2,0.1352,-139,pre-period,REP-003,active
+CUST-0072,Product 8,Direct Sales,Enterprise,137,5,0.1878,-67,pre-period,REP-006,active
+CUST-0073,Product 5,Direct Sales,Enterprise,87,9,0.1513,-144,pre-period,REP-005,active
+CUST-0074,Product 4,Direct Sales,Enterprise,155,8,0.1362,-28,pre-period,REP-005,active
+CUST-0075,Product 1,Direct Sales,Enterprise,158,12,0.1029,-37,pre-period,REP-003,active
+CUST-0076,Product 8,Direct Sales,Enterprise,87,7,0.1265,-47,pre-period,REP-004,active
+CUST-0077,Product 1,Direct Sales,Mid-Market,55,12,0.1829,-69,pre-period,REP-001,active
+CUST-0078,Product 6,Direct Sales,Enterprise,146,8,0.2227,-25,pre-period,REP-006,active
+CUST-0079,Product 1,Direct Sales,Enterprise,168,1,0.1753,-73,pre-period,REP-006,active
+CUST-0080,Product 8,Direct Sales,Mid-Market,49,2,0.1494,-91,pre-period,REP-001,active
+CUST-0081,Product 6,Partner,SMB,8,1,0.1523,-149,pre-period,REP-008,active
+CUST-0082,Product 8,Partner,Enterprise,42,2,0.1676,-32,pre-period,REP-010,active
+CUST-0083,Product 5,Partner,SMB,8,11,0.118,-23,pre-period,REP-010,active
+CUST-0084,Product 4,Partner,Mid-Market,25,4,0.1357,-50,pre-period,REP-010,active
+CUST-0085,Product 2,Partner,Mid-Market,19,5,0.1467,-104,pre-period,REP-009,active
+CUST-0086,Product 5,Partner,SMB,4,1,0.1074,-45,pre-period,REP-009,active
+CUST-0087,Product 3,Partner,Mid-Market,15,12,0.1997,-113,pre-period,REP-010,active
+CUST-0088,Product 4,Partner,SMB,5,12,0.1958,-38,pre-period,REP-008,active
+CUST-0089,Product 4,Partner,SMB,8,7,0.1508,-136,pre-period,REP-010,active
+CUST-0090,Product 7,Partner,Mid-Market,36,10,0.1351,-39,pre-period,REP-009,active
+CUST-0091,Product 4,Partner,Mid-Market,31,1,0.1813,-93,pre-period,REP-009,active
+CUST-0092,Product 4,Partner,SMB,10,5,0.1743,-39,pre-period,REP-010,active
+CUST-0093,Product 8,Partner,Mid-Market,24,6,0.1486,-130,pre-period,REP-009,active
+CUST-0094,Product 1,Partner,Mid-Market,27,8,0.1556,-35,pre-period,REP-008,active
+CUST-0095,Product 1,Partner,SMB,8,6,0.1207,-38,pre-period,REP-008,active
+CUST-0096,Product 1,Partner,Enterprise,95,1,0.1503,-82,pre-period,REP-009,active
+CUST-0097,Product 1,Partner,Mid-Market,34,2,0.1364,-93,pre-period,REP-009,active
+CUST-0098,Product 4,Partner,Mid-Market,36,8,0.1313,-40,pre-period,REP-009,active
+CUST-0099,Product 4,Partner,Enterprise,88,3,0.1593,-103,pre-period,REP-008,active
+CUST-0100,Product 8,Partner,Mid-Market,33,2,0.161,-101,pre-period,REP-008,active
+CUST-0101,Product 3,Partner,Mid-Market,30,8,0.1322,-15,pre-period,REP-008,active
+CUST-0102,Product 1,Partner,SMB,11,9,0.1219,-144,pre-period,REP-010,active
+CUST-0103,Product 8,Partner,Mid-Market,29,12,0.1497,-147,pre-period,REP-008,active
+CUST-0104,Product 8,Partner,Mid-Market,14,5,0.1799,-109,pre-period,REP-009,active
+CUST-0105,Product 3,Partner,SMB,4,2,0.1521,-98,pre-period,REP-009,churned
+CUST-0106,Product 7,Partner,SMB,7,10,0.1321,-102,pre-period,REP-010,active
+CUST-0107,Product 8,Partner,Enterprise,93,4,0.1667,-60,pre-period,REP-009,churned
+CUST-0108,Product 3,Partner,Mid-Market,31,3,0.1168,-103,pre-period,REP-008,active
+CUST-0109,Product 8,Partner,Enterprise,93,1,0.0885,-62,pre-period,REP-009,active
+CUST-0110,Product 1,Partner,Mid-Market,36,8,0.1673,-14,pre-period,REP-008,active
+CUST-0111,Product 4,Partner,Mid-Market,20,10,0.1327,-55,pre-period,REP-009,active
+CUST-0112,Product 2,Partner,SMB,10,8,0.1672,-38,pre-period,REP-008,active
+CUST-0113,Product 1,Partner,Mid-Market,20,12,0.1112,-50,pre-period,REP-009,active
+CUST-0114,Product 8,Partner,Enterprise,83,10,0.1584,-93,pre-period,REP-009,active
+CUST-0115,Product 5,Partner,Mid-Market,29,2,0.1676,-119,pre-period,REP-010,active
+CUST-0116,Product 6,Partner,Enterprise,58,2,0.1152,-98,pre-period,REP-010,active
+CUST-0117,Product 6,Partner,SMB,8,11,0.1758,-23,pre-period,REP-010,active
+CUST-0118,Product 1,Partner,Mid-Market,24,9,0.1584,-73,pre-period,REP-008,active
+CUST-0119,Product 8,Partner,Mid-Market,15,5,0.1351,-76,pre-period,REP-009,active
+CUST-0120,Product 8,Partner,Mid-Market,14,5,0.1519,-141,pre-period,REP-008,active
+CUST-0121,Product 4,Partner,SMB,5,3,0.1464,-22,pre-period,REP-009,active
+CUST-0122,Product 4,Partner,Enterprise,109,7,0.1532,-59,pre-period,REP-010,active
+CUST-0123,Product 3,Partner,Mid-Market,34,11,0.16,-44,pre-period,REP-010,active
+CUST-0124,Product 4,Partner,Mid-Market,32,9,0.1421,-64,pre-period,REP-008,active
+CUST-0125,Product 4,Partner,Enterprise,92,11,0.1361,-15,pre-period,REP-008,active
+CUST-0126,Product 7,Partner,Mid-Market,35,3,0.1135,-61,pre-period,REP-009,active
+CUST-0127,Product 5,Partner,Mid-Market,13,11,0.1545,-70,pre-period,REP-008,active
+CUST-0128,Product 7,Partner,Mid-Market,16,11,0.1469,-82,pre-period,REP-009,active
+CUST-0129,Product 1,Partner,Mid-Market,34,8,0.176,-143,pre-period,REP-008,active
+CUST-0130,Product 7,Partner,Mid-Market,26,1,0.1144,-130,pre-period,REP-010,active
+CUST-0131,Product 1,Partner,Mid-Market,27,5,0.1499,-114,pre-period,REP-008,active
+CUST-0132,Product 1,Partner,Enterprise,68,5,0.1168,-60,pre-period,REP-009,active
+CUST-0133,Product 3,Partner,Mid-Market,15,11,0.179,-71,pre-period,REP-009,active
+CUST-0134,Product 8,Partner,Mid-Market,18,1,0.1551,-23,pre-period,REP-008,active
+CUST-0135,Product 1,Partner,SMB,3,12,0.1705,-56,pre-period,REP-008,active
+CUST-0136,Product 1,Partner,SMB,10,5,0.1234,-31,pre-period,REP-010,active
+CUST-0137,Product 4,Partner,Mid-Market,36,11,0.1697,-40,pre-period,REP-009,active
+CUST-0138,Product 8,Partner,SMB,7,2,0.1645,-134,pre-period,REP-010,active
+CUST-0139,Product 8,Partner,SMB,7,12,0.1767,-48,pre-period,REP-008,active
+CUST-0140,Product 1,Partner,Enterprise,46,3,0.1844,-107,pre-period,REP-008,active
+CUST-0141,Product 3,Partner,Enterprise,83,8,0.1606,-43,pre-period,REP-010,active
+CUST-0142,Product 6,Partner,Enterprise,106,8,0.1865,-32,pre-period,REP-009,active
+CUST-0143,Product 8,Partner,SMB,7,9,0.1096,-36,pre-period,REP-009,active
+CUST-0144,Product 6,Partner,Mid-Market,15,5,0.1895,-65,pre-period,REP-010,active
+CUST-0145,Product 4,Partner,SMB,10,2,0.1911,-36,pre-period,REP-010,active
+CUST-0146,Product 4,Partner,Enterprise,57,7,0.1402,-14,pre-period,REP-008,active
+CUST-0147,Product 6,Partner,SMB,4,7,0.16,-113,pre-period,REP-010,active
+CUST-0148,Product 2,Partner,SMB,6,11,0.1292,-88,pre-period,REP-009,active
+CUST-0149,Product 8,Partner,SMB,5,12,0.1432,-26,pre-period,REP-010,active
+CUST-0150,Product 8,Partner,Mid-Market,24,2,0.1319,-41,pre-period,REP-009,active
+CUST-0151,Product 6,Partner,Mid-Market,30,8,0.1378,-78,pre-period,REP-010,active
+CUST-0152,Product 5,Partner,SMB,8,11,0.148,-119,pre-period,REP-010,active
+CUST-0153,Product 8,Partner,Enterprise,96,3,0.1149,-66,pre-period,REP-009,churned
+CUST-0154,Product 5,Partner,Mid-Market,14,8,0.1619,-116,pre-period,REP-009,active
+CUST-0155,Product 6,Partner,Mid-Market,32,2,0.1388,-140,pre-period,REP-008,active
+CUST-0156,Product 1,Partner,Mid-Market,24,11,0.1351,-13,pre-period,REP-008,active
+CUST-0157,Product 6,Partner,Mid-Market,14,7,0.1191,-144,pre-period,REP-008,active
+CUST-0158,Product 4,Partner,Mid-Market,33,7,0.1748,-134,pre-period,REP-008,active
+CUST-0159,Product 8,Partner,Mid-Market,25,4,0.1471,-44,pre-period,REP-008,active
+CUST-0160,Product 5,Partner,Enterprise,98,9,0.1349,-58,pre-period,REP-010,active
+CUST-0161,Product 6,Partner,SMB,7,3,0.1078,-43,pre-period,REP-008,active
+CUST-0162,Product 4,Partner,Mid-Market,31,11,0.1578,-66,pre-period,REP-008,active
+CUST-0163,Product 4,Partner,Mid-Market,22,3,0.166,-90,pre-period,REP-008,active
+CUST-0164,Product 5,Partner,Mid-Market,17,11,0.1481,-110,pre-period,REP-008,active
+CUST-0165,Product 1,Partner,Mid-Market,25,10,0.1715,-111,pre-period,REP-008,active
+CUST-0166,Product 4,Partner,Enterprise,40,12,0.1502,-94,pre-period,REP-010,active
+CUST-0167,Product 3,Partner,SMB,6,12,0.1541,-114,pre-period,REP-009,active
+CUST-0168,Product 4,Partner,Enterprise,87,9,0.1474,-82,pre-period,REP-010,active
+CUST-0169,Product 4,Partner,Mid-Market,25,7,0.1644,-148,pre-period,REP-010,active
+CUST-0170,Product 4,Partner,Enterprise,89,8,0.1084,-102,pre-period,REP-010,active
+CUST-0171,Product 1,Partner,Mid-Market,15,10,0.175,-73,pre-period,REP-009,churned
+CUST-0172,Product 1,Partner,Mid-Market,22,11,0.1656,-74,pre-period,REP-010,active
+CUST-0173,Product 1,Partner,Mid-Market,28,9,0.1688,-108,pre-period,REP-010,active
+CUST-0174,Product 2,Partner,SMB,10,8,0.142,-113,pre-period,REP-009,active
+CUST-0175,Product 5,Partner,SMB,9,12,0.1485,-112,pre-period,REP-008,active
+CUST-0176,Product 5,Partner,SMB,7,9,0.1796,-79,pre-period,REP-010,active
+CUST-0177,Product 8,Partner,Mid-Market,19,4,0.17,-109,pre-period,REP-008,active
+CUST-0178,Product 7,Partner,SMB,11,6,0.1746,-14,pre-period,REP-009,active
+CUST-0179,Product 8,Partner,Enterprise,67,10,0.118,-138,pre-period,REP-010,active
+CUST-0180,Product 6,Partner,Enterprise,92,12,0.1641,-122,pre-period,REP-010,active
+CUST-0181,Product 4,Inside Sales,SMB,5,4,0.1007,-148,pre-period,REP-015,active
+CUST-0182,Product 3,Inside Sales,SMB,6,9,0.0576,-73,pre-period,REP-014,active
+CUST-0183,Product 3,Inside Sales,Mid-Market,14,2,0.0785,-108,pre-period,REP-014,active
+CUST-0184,Product 1,Inside Sales,SMB,4,8,0.0783,-109,pre-period,REP-012,active
+CUST-0185,Product 4,Inside Sales,Mid-Market,9,1,0.0917,-49,pre-period,REP-014,active
+CUST-0186,Product 3,Inside Sales,SMB,4,1,0.0792,-25,pre-period,REP-013,churned
+CUST-0187,Product 6,Inside Sales,SMB,4,10,0.1193,-71,pre-period,REP-015,active
+CUST-0188,Product 2,Inside Sales,SMB,4,11,0.0923,-71,pre-period,REP-011,active
+CUST-0189,Product 2,Inside Sales,SMB,5,11,0.0861,-48,pre-period,REP-011,active
+CUST-0190,Product 4,Inside Sales,SMB,6,6,0.0902,-54,pre-period,REP-017,active
+CUST-0191,Product 2,Inside Sales,Mid-Market,19,11,0.0535,-37,pre-period,REP-015,active
+CUST-0192,Product 2,Inside Sales,Enterprise,46,8,0.0868,-131,pre-period,REP-017,active
+CUST-0193,Product 5,Inside Sales,SMB,4,6,0.1172,-68,pre-period,REP-012,active
+CUST-0194,Product 6,Inside Sales,Mid-Market,21,12,0.09,-87,pre-period,REP-013,active
+CUST-0195,Product 8,Inside Sales,SMB,6,10,0.0317,-129,pre-period,REP-015,active
+CUST-0196,Product 5,Inside Sales,Mid-Market,13,9,0.0662,-19,pre-period,REP-013,active
+CUST-0197,Product 2,Inside Sales,Mid-Market,21,11,0.09,-48,pre-period,REP-012,active
+CUST-0198,Product 2,Inside Sales,SMB,4,7,0.0984,-21,pre-period,REP-013,active
+CUST-0199,Product 8,Inside Sales,SMB,3,8,0.0489,-127,pre-period,REP-012,active
+CUST-0200,Product 8,Inside Sales,SMB,3,8,0.0746,-64,pre-period,REP-012,active
+CUST-0201,Product 4,Inside Sales,SMB,3,2,0.0917,-63,pre-period,REP-017,active
+CUST-0202,Product 1,Inside Sales,SMB,5,11,0.0906,-112,pre-period,REP-014,churned
+CUST-0203,Product 8,Inside Sales,Mid-Market,20,6,0.0634,-59,pre-period,REP-014,active
+CUST-0204,Product 6,Inside Sales,Mid-Market,17,9,0.0609,-20,pre-period,REP-012,active
+CUST-0205,Product 1,Inside Sales,SMB,2,6,0.0989,-78,pre-period,REP-015,active
+CUST-0206,Product 1,Inside Sales,SMB,5,2,0.0505,-118,pre-period,REP-012,active
+CUST-0207,Product 1,Inside Sales,SMB,2,10,0.0694,-58,pre-period,REP-015,active
+CUST-0208,Product 8,Inside Sales,SMB,3,11,0.1267,-39,pre-period,REP-013,active
+CUST-0209,Product 2,Inside Sales,SMB,5,4,0.0849,-65,pre-period,REP-012,active
+CUST-0210,Product 2,Inside Sales,Enterprise,65,1,0.0771,-63,pre-period,REP-013,active
+CUST-0211,Product 4,Inside Sales,Mid-Market,15,5,0.0686,-121,pre-period,REP-013,churned
+CUST-0212,Product 4,Inside Sales,Mid-Market,8,11,0.0671,-141,pre-period,REP-013,active
+CUST-0213,Product 8,Inside Sales,Mid-Market,17,8,0.1037,-25,pre-period,REP-012,active
+CUST-0214,Product 8,Inside Sales,SMB,2,6,0.0782,-130,pre-period,REP-011,active
+CUST-0215,Product 6,Inside Sales,SMB,5,10,0.0425,-24,pre-period,REP-013,active
+CUST-0216,Product 2,Inside Sales,SMB,6,1,0.0797,-17,pre-period,REP-017,active
+CUST-0217,Product 4,Inside Sales,Mid-Market,13,5,0.0858,-42,pre-period,REP-017,active
+CUST-0218,Product 3,Inside Sales,SMB,2,3,0.0396,-123,pre-period,REP-017,active
+CUST-0219,Product 4,Inside Sales,Mid-Market,17,3,0.07,-89,pre-period,REP-012,churned
+CUST-0220,Product 6,Inside Sales,SMB,5,1,0.0775,-35,pre-period,REP-014,active
+CUST-0221,Product 1,Inside Sales,SMB,5,1,0.0791,-101,pre-period,REP-012,active
+CUST-0222,Product 4,Inside Sales,Mid-Market,11,2,0.0748,-73,pre-period,REP-014,active
+CUST-0223,Product 6,Inside Sales,SMB,5,11,0.0944,-21,pre-period,REP-012,active
+CUST-0224,Product 4,Inside Sales,SMB,4,1,0.0948,-38,pre-period,REP-011,active
+CUST-0225,Product 8,Inside Sales,Mid-Market,19,7,0.1149,-146,pre-period,REP-014,active
+CUST-0226,Product 1,Inside Sales,Mid-Market,17,9,0.071,-47,pre-period,REP-013,active
+CUST-0227,Product 5,Inside Sales,SMB,4,5,0.0787,-41,pre-period,REP-015,active
+CUST-0228,Product 8,Inside Sales,SMB,4,6,0.068,-140,pre-period,REP-015,active
+CUST-0229,Product 2,Inside Sales,SMB,6,4,0.0953,-47,pre-period,REP-012,active
+CUST-0230,Product 5,Inside Sales,Mid-Market,21,3,0.1119,-49,pre-period,REP-011,active
+CUST-0231,Product 8,Inside Sales,SMB,3,5,0.1027,-116,pre-period,REP-014,active
+CUST-0232,Product 1,Inside Sales,Mid-Market,12,7,0.0816,-25,pre-period,REP-014,active
+CUST-0233,Product 6,Inside Sales,SMB,5,9,0.0693,-144,pre-period,REP-011,active
+CUST-0234,Product 3,Inside Sales,SMB,4,12,0.0784,-52,pre-period,REP-014,active
+CUST-0235,Product 8,Inside Sales,SMB,2,9,0.0912,-91,pre-period,REP-013,active
+CUST-0236,Product 1,Inside Sales,SMB,4,8,0.0856,-103,pre-period,REP-012,active
+CUST-0237,Product 3,Inside Sales,SMB,3,4,0.0898,-136,pre-period,REP-014,active
+CUST-0238,Product 5,Inside Sales,SMB,4,4,0.0826,-29,pre-period,REP-012,active
+CUST-0239,Product 5,Inside Sales,SMB,3,3,0.0692,-31,pre-period,REP-013,active
+CUST-0240,Product 8,Inside Sales,SMB,4,11,0.0758,-18,pre-period,REP-011,active
+CUST-0241,Product 1,Inside Sales,SMB,6,5,0.0782,-42,pre-period,REP-015,active
+CUST-0242,Product 4,Inside Sales,SMB,4,1,0.1143,-26,pre-period,REP-015,active
+CUST-0243,Product 8,Inside Sales,SMB,5,2,0.0729,-28,pre-period,REP-015,active
+CUST-0244,Product 8,Inside Sales,SMB,5,1,0.0656,-102,pre-period,REP-011,active
+CUST-0245,Product 6,Inside Sales,Mid-Market,20,3,0.0482,-12,pre-period,REP-011,churned
+CUST-0246,Product 4,Inside Sales,Mid-Market,12,6,0.1072,-74,pre-period,REP-017,active
+CUST-0247,Product 1,Inside Sales,SMB,3,5,0.0783,-46,pre-period,REP-012,active
+CUST-0248,Product 8,Inside Sales,Enterprise,47,8,0.1041,-87,pre-period,REP-014,active
+CUST-0249,Product 1,Inside Sales,Mid-Market,20,9,0.0855,-42,pre-period,REP-013,active
+CUST-0250,Product 1,Inside Sales,SMB,2,12,0.0707,-32,pre-period,REP-014,active
+CUST-0251,Product 1,Inside Sales,SMB,5,11,0.0794,-25,pre-period,REP-012,active
+CUST-0252,Product 8,Inside Sales,SMB,5,7,0.0924,-92,pre-period,REP-015,active
+CUST-0253,Product 5,Inside Sales,SMB,2,2,0.071,-142,pre-period,REP-012,active
+CUST-0254,Product 1,Inside Sales,SMB,3,6,0.0732,-101,pre-period,REP-012,active
+CUST-0255,Product 8,Inside Sales,Mid-Market,20,3,0.0625,-72,pre-period,REP-015,active
+CUST-0256,Product 4,Inside Sales,SMB,2,6,0.0819,-44,pre-period,REP-013,active
+CUST-0257,Product 8,Inside Sales,SMB,5,6,0.1141,-121,pre-period,REP-011,active
+CUST-0258,Product 8,Inside Sales,Mid-Market,20,8,0.0638,-77,pre-period,REP-014,active
+CUST-0259,Product 6,Inside Sales,Enterprise,50,3,0.1071,-111,pre-period,REP-015,active
+CUST-0260,Product 2,Inside Sales,SMB,3,8,0.074,-62,pre-period,REP-012,active
+CUST-0261,Product 7,Inside Sales,SMB,6,7,0.0699,-31,pre-period,REP-013,active
+CUST-0262,Product 5,Inside Sales,Enterprise,40,2,0.0671,-38,pre-period,REP-014,active
+CUST-0263,Product 2,Inside Sales,Mid-Market,20,7,0.1288,-51,pre-period,REP-014,active
+CUST-0264,Product 7,Inside Sales,SMB,5,4,0.0462,-112,pre-period,REP-013,active
+CUST-0265,Product 8,Inside Sales,Mid-Market,12,12,0.0436,-94,pre-period,REP-012,active
+CUST-0266,Product 5,Inside Sales,SMB,3,1,0.0811,-32,pre-period,REP-012,active
+CUST-0267,Product 1,Inside Sales,Mid-Market,7,11,0.0642,-124,pre-period,REP-017,active
+CUST-0268,Product 5,Inside Sales,Mid-Market,12,10,0.0523,-122,pre-period,REP-015,active
+CUST-0269,Product 5,Inside Sales,SMB,2,9,0.0888,-125,pre-period,REP-014,active
+CUST-0270,Product 4,Inside Sales,SMB,4,9,0.1032,-118,pre-period,REP-011,active
+CUST-0271,Product 4,Inside Sales,SMB,5,12,0.0815,-65,pre-period,REP-013,active
+CUST-0272,Product 2,Inside Sales,Enterprise,58,7,0.0903,-137,pre-period,REP-015,active
+CUST-0273,Product 1,Inside Sales,Mid-Market,17,9,0.0706,-28,pre-period,REP-013,active
+CUST-0274,Product 1,Inside Sales,Mid-Market,17,4,0.1107,-111,pre-period,REP-011,active
+CUST-0275,Product 1,Inside Sales,Mid-Market,11,11,0.0757,-54,pre-period,REP-015,active
+CUST-0276,Product 8,Inside Sales,SMB,4,1,0.0562,-115,pre-period,REP-011,active
+CUST-0277,Product 2,Inside Sales,Enterprise,56,5,0.0972,-132,pre-period,REP-017,active
+CUST-0278,Product 3,Inside Sales,Mid-Market,19,1,0.068,-69,pre-period,REP-012,active
+CUST-0279,Product 1,Inside Sales,SMB,2,9,0.0553,-37,pre-period,REP-014,active
+CUST-0280,Product 2,Inside Sales,Mid-Market,22,8,0.1027,-54,pre-period,REP-014,active
+CUST-0281,Product 8,Inside Sales,SMB,4,10,0.0914,-149,pre-period,REP-011,active
+CUST-0282,Product 4,Inside Sales,Mid-Market,12,6,0.0611,-41,pre-period,REP-012,active
+CUST-0283,Product 2,Inside Sales,SMB,3,1,0.1117,-86,pre-period,REP-013,churned
+CUST-0284,Product 8,Inside Sales,Enterprise,50,4,0.0694,-108,pre-period,REP-012,active
+CUST-0285,Product 6,Inside Sales,SMB,2,12,0.0674,-124,pre-period,REP-012,active
+CUST-0286,Product 5,Inside Sales,Enterprise,63,4,0.0925,-123,pre-period,REP-011,active
+CUST-0287,Product 8,Inside Sales,Mid-Market,17,6,0.071,-108,pre-period,REP-014,active
+CUST-0288,Product 2,Inside Sales,SMB,4,11,0.1163,-143,pre-period,REP-012,active
+CUST-0289,Product 8,Inside Sales,SMB,5,12,0.0762,-30,pre-period,REP-015,active
+CUST-0290,Product 8,Inside Sales,SMB,3,8,0.0645,-97,pre-period,REP-012,active
+CUST-0291,Product 1,Inside Sales,Mid-Market,17,1,0.1046,-117,pre-period,REP-011,active
+CUST-0292,Product 2,Inside Sales,SMB,2,5,0.0479,-64,pre-period,REP-017,churned
+CUST-0293,Product 2,Inside Sales,SMB,2,8,0.0722,-59,pre-period,REP-011,active
+CUST-0294,Product 6,Inside Sales,SMB,5,8,0.1035,-127,pre-period,REP-012,active
+CUST-0295,Product 5,Inside Sales,SMB,2,1,0.1027,-95,pre-period,REP-014,active
+CUST-0296,Product 1,Inside Sales,Mid-Market,22,12,0.0794,-47,pre-period,REP-011,active
+CUST-0297,Product 6,Inside Sales,SMB,3,7,0.0548,-147,pre-period,REP-015,active
+CUST-0298,Product 4,Inside Sales,Mid-Market,13,8,0.0931,-143,pre-period,REP-017,active
+CUST-0299,Product 8,Inside Sales,Mid-Market,11,3,0.0992,-126,pre-period,REP-011,active
+CUST-0300,Product 2,Inside Sales,SMB,6,12,0.0669,-138,pre-period,REP-013,active
+CUST-0301,Product 2,Self-Serve,SMB,2,3,0,-94,pre-period,REP-018,active
+CUST-0302,Product 1,Self-Serve,SMB,1,5,0,-75,pre-period,REP-019,active
+CUST-0303,Product 5,Self-Serve,SMB,1,12,0,-105,pre-period,REP-020,active
+CUST-0304,Product 5,Self-Serve,SMB,1,1,0,-115,pre-period,REP-018,active
+CUST-0305,Product 5,Self-Serve,SMB,1,8,0,-35,pre-period,REP-018,active
+CUST-0306,Product 2,Self-Serve,SMB,1,5,0,-124,pre-period,REP-020,active
+CUST-0307,Product 4,Self-Serve,SMB,1,8,0,-118,pre-period,REP-020,active
+CUST-0308,Product 2,Self-Serve,SMB,1,5,0,-46,pre-period,REP-019,active
+CUST-0309,Product 7,Self-Serve,SMB,1,8,0,-102,pre-period,REP-020,active
+CUST-0310,Product 4,Self-Serve,SMB,1,5,0,-119,pre-period,REP-019,active
+CUST-0311,Product 1,Self-Serve,Mid-Market,5,1,0,-77,pre-period,REP-018,active
+CUST-0312,Product 4,Self-Serve,SMB,2,3,0,-13,pre-period,REP-018,active
+CUST-0313,Product 2,Self-Serve,SMB,1,7,0,-28,pre-period,REP-018,active
+CUST-0314,Product 4,Self-Serve,SMB,1,12,0,-128,pre-period,REP-020,active
+CUST-0315,Product 6,Self-Serve,SMB,1,9,0,-21,pre-period,REP-019,active
+CUST-0316,Product 8,Self-Serve,SMB,1,10,0,-125,pre-period,REP-019,active
+CUST-0317,Product 5,Self-Serve,Mid-Market,4,6,0,-102,pre-period,REP-018,active
+CUST-0318,Product 1,Self-Serve,SMB,1,2,0,-116,pre-period,REP-018,active
+CUST-0319,Product 8,Self-Serve,Mid-Market,4,1,0,-69,pre-period,REP-019,active
+CUST-0320,Product 4,Self-Serve,SMB,1,12,0,-140,pre-period,REP-020,active
+CUST-0321,Product 4,Self-Serve,SMB,1,6,0,-49,pre-period,REP-020,active
+CUST-0322,Product 3,Self-Serve,SMB,1,11,0,-87,pre-period,REP-019,active
+CUST-0323,Product 2,Self-Serve,SMB,1,8,0,-72,pre-period,REP-018,active
+CUST-0324,Product 2,Self-Serve,SMB,1,10,0,-31,pre-period,REP-018,active
+CUST-0325,Product 4,Self-Serve,SMB,1,11,0,-113,pre-period,REP-020,active
+CUST-0326,Product 3,Self-Serve,SMB,1,6,0,-121,pre-period,REP-018,active
+CUST-0327,Product 4,Self-Serve,SMB,1,10,0,-42,pre-period,REP-018,active
+CUST-0328,Product 3,Self-Serve,SMB,1,1,0,-75,pre-period,REP-020,active
+CUST-0329,Product 8,Self-Serve,SMB,1,9,0,-146,pre-period,REP-019,active
+CUST-0330,Product 2,Self-Serve,SMB,1,11,0,-41,pre-period,REP-018,active
+CUST-0331,Product 2,Self-Serve,Mid-Market,7,7,0,-89,pre-period,REP-020,active
+CUST-0332,Product 3,Self-Serve,SMB,1,5,0,-124,pre-period,REP-018,active
+CUST-0333,Product 4,Self-Serve,Mid-Market,3,11,0,-46,pre-period,REP-019,active
+CUST-0334,Product 2,Self-Serve,SMB,1,12,0,-36,pre-period,REP-018,churned
+CUST-0335,Product 5,Self-Serve,Mid-Market,7,12,0,-139,pre-period,REP-020,active
+CUST-0336,Product 4,Self-Serve,SMB,1,7,0,-122,pre-period,REP-020,active
+CUST-0337,Product 1,Self-Serve,SMB,1,6,0,-68,pre-period,REP-020,active
+CUST-0338,Product 4,Self-Serve,SMB,1,3,0,-22,pre-period,REP-018,active
+CUST-0339,Product 1,Self-Serve,SMB,1,2,0,-39,pre-period,REP-019,active
+CUST-0340,Product 1,Self-Serve,SMB,1,6,0,-31,pre-period,REP-019,active
+CUST-0341,Product 3,Self-Serve,SMB,1,2,0,-85,pre-period,REP-019,active
+CUST-0342,Product 5,Self-Serve,SMB,1,2,0,-70,pre-period,REP-020,active
+CUST-0343,Product 5,Self-Serve,SMB,1,3,0,-105,pre-period,REP-019,active
+CUST-0344,Product 4,Self-Serve,SMB,1,11,0,-110,pre-period,REP-018,active
+CUST-0345,Product 6,Self-Serve,SMB,1,7,0,-33,pre-period,REP-018,active
+CUST-0346,Product 2,Self-Serve,SMB,2,11,0,-65,pre-period,REP-020,active
+CUST-0347,Product 1,Self-Serve,SMB,1,2,0,-37,pre-period,REP-020,active
+CUST-0348,Product 1,Self-Serve,SMB,1,10,0,-141,pre-period,REP-020,active
+CUST-0349,Product 6,Self-Serve,SMB,1,8,0,-44,pre-period,REP-019,active
+CUST-0350,Product 5,Self-Serve,SMB,2,12,0,-42,pre-period,REP-018,active
+CUST-0351,Product 4,Self-Serve,SMB,1,9,0,-71,pre-period,REP-020,active
+CUST-0352,Product 2,Self-Serve,SMB,2,7,0,-50,pre-period,REP-019,active
+CUST-0353,Product 8,Self-Serve,Mid-Market,5,12,0,-13,pre-period,REP-018,active
+CUST-0354,Product 2,Self-Serve,SMB,1,9,0,-144,pre-period,REP-018,active
+CUST-0355,Product 1,Self-Serve,SMB,1,5,0,-80,pre-period,REP-019,active
+CUST-0356,Product 6,Self-Serve,SMB,2,7,0,-48,pre-period,REP-018,active
+CUST-0357,Product 7,Self-Serve,SMB,1,5,0,-109,pre-period,REP-018,active
+CUST-0358,Product 4,Self-Serve,SMB,1,11,0,-129,pre-period,REP-018,active
+CUST-0359,Product 6,Self-Serve,SMB,1,3,0,-107,pre-period,REP-019,active
+CUST-0360,Product 2,Self-Serve,SMB,1,1,0,-47,pre-period,REP-020,active
+CUST-0361,Product 5,Self-Serve,Mid-Market,2,6,0,-134,pre-period,REP-020,active
+CUST-0362,Product 5,Self-Serve,SMB,1,2,0,-121,pre-period,REP-020,active
+CUST-0363,Product 6,Self-Serve,SMB,1,12,0,-130,pre-period,REP-018,active
+CUST-0364,Product 6,Self-Serve,SMB,1,3,0,-36,pre-period,REP-018,active
+CUST-0365,Product 8,Self-Serve,Mid-Market,6,5,0,-127,pre-period,REP-020,active
+CUST-0366,Product 2,Self-Serve,SMB,1,3,0,-91,pre-period,REP-019,active
+CUST-0367,Product 4,Self-Serve,SMB,2,3,0,-53,pre-period,REP-018,active
+CUST-0368,Product 8,Self-Serve,SMB,1,11,0,-12,pre-period,REP-018,active
+CUST-0369,Product 2,Self-Serve,Mid-Market,2,1,0,-104,pre-period,REP-018,active
+CUST-0370,Product 1,Self-Serve,SMB,1,4,0,-117,pre-period,REP-020,active
+CUST-0371,Product 5,Self-Serve,SMB,1,1,0,-116,pre-period,REP-018,active
+CUST-0372,Product 1,Self-Serve,SMB,1,3,0,-46,pre-period,REP-020,active
+CUST-0373,Product 4,Self-Serve,SMB,1,4,0,-124,pre-period,REP-019,active
+CUST-0374,Product 6,Self-Serve,SMB,1,12,0,-51,pre-period,REP-019,active
+CUST-0375,Product 3,Self-Serve,SMB,1,11,0,-56,pre-period,REP-020,active
+CUST-0376,Product 4,Self-Serve,SMB,1,12,0,-145,pre-period,REP-019,churned
+CUST-0377,Product 5,Self-Serve,SMB,1,9,0,-145,pre-period,REP-019,active
+CUST-0378,Product 4,Self-Serve,SMB,1,8,0,-99,pre-period,REP-019,active
+CUST-0379,Product 8,Self-Serve,SMB,1,5,0,-36,pre-period,REP-019,active
+CUST-0380,Product 8,Self-Serve,SMB,1,7,0,-23,pre-period,REP-019,active
+CUST-0381,Product 3,Self-Serve,Mid-Market,5,7,0,-131,pre-period,REP-020,active
+CUST-0382,Product 4,Self-Serve,SMB,2,10,0,-97,pre-period,REP-018,active
+CUST-0383,Product 8,Self-Serve,SMB,1,6,0,-33,pre-period,REP-018,active
+CUST-0384,Product 2,Self-Serve,SMB,1,8,0,-38,pre-period,REP-020,active
+CUST-0385,Product 4,Self-Serve,SMB,1,2,0,-146,pre-period,REP-020,churned
+CUST-0386,Product 2,Self-Serve,SMB,1,1,0,-86,pre-period,REP-019,active
+CUST-0387,Product 8,Self-Serve,SMB,1,9,0,-17,pre-period,REP-019,active
+CUST-0388,Product 4,Self-Serve,SMB,2,12,0,-30,pre-period,REP-020,active
+CUST-0389,Product 7,Self-Serve,Mid-Market,5,1,0,-115,pre-period,REP-020,active
+CUST-0390,Product 8,Self-Serve,SMB,1,12,0,-15,pre-period,REP-018,active
+CUST-0391,Product 1,Self-Serve,SMB,1,10,0,-96,pre-period,REP-020,churned
+CUST-0392,Product 6,Self-Serve,SMB,1,2,0,-117,pre-period,REP-019,active
+CUST-0393,Product 8,Self-Serve,Mid-Market,7,5,0,-55,pre-period,REP-018,active
+CUST-0394,Product 8,Self-Serve,SMB,1,8,0,-26,pre-period,REP-020,active
+CUST-0395,Product 4,Self-Serve,SMB,1,2,0,-16,pre-period,REP-018,active
+CUST-0396,Product 6,Self-Serve,SMB,1,6,0,-124,pre-period,REP-020,active
+CUST-0397,Product 8,Self-Serve,SMB,2,12,0,-47,pre-period,REP-019,active
+CUST-0398,Product 6,Self-Serve,SMB,1,4,0,-19,pre-period,REP-018,active
+CUST-0399,Product 4,Self-Serve,SMB,2,2,0,-41,pre-period,REP-020,active
+CUST-0400,Product 5,Self-Serve,SMB,2,4,0,-78,pre-period,REP-018,active
+CUST-0401,Product 4,Self-Serve,SMB,2,3,0,-80,pre-period,REP-020,active
+CUST-0402,Product 8,Self-Serve,SMB,1,2,0,-80,pre-period,REP-019,active
+CUST-0403,Product 7,Self-Serve,SMB,1,12,0,-106,pre-period,REP-019,active
+CUST-0404,Product 5,Self-Serve,SMB,1,9,0,-112,pre-period,REP-020,active
+CUST-0405,Product 1,Self-Serve,SMB,2,7,0,-76,pre-period,REP-019,active
+CUST-0406,Product 4,Self-Serve,SMB,1,1,0,-104,pre-period,REP-019,active
+CUST-0407,Product 8,Self-Serve,Mid-Market,7,2,0,-110,pre-period,REP-020,active
+CUST-0408,Product 4,Self-Serve,SMB,1,9,0,-86,pre-period,REP-020,active
+CUST-0409,Product 1,Self-Serve,Mid-Market,2,1,0,-104,pre-period,REP-020,active
+CUST-0410,Product 2,Self-Serve,Mid-Market,7,12,0,-60,pre-period,REP-018,active
+CUST-0411,Product 3,Self-Serve,SMB,1,10,0,-15,pre-period,REP-020,active
+CUST-0412,Product 1,Self-Serve,SMB,1,10,0,-145,pre-period,REP-018,active
+CUST-0413,Product 7,Self-Serve,SMB,1,12,0,-126,pre-period,REP-020,active
+CUST-0414,Product 8,Self-Serve,SMB,1,2,0,-40,pre-period,REP-020,active
+CUST-0415,Product 4,Self-Serve,SMB,1,6,0,-103,pre-period,REP-020,active
+CUST-0416,Product 1,Self-Serve,SMB,1,7,0,-135,pre-period,REP-019,active
+CUST-0417,Product 1,Self-Serve,SMB,1,5,0,-106,pre-period,REP-019,active
+CUST-0418,Product 4,Self-Serve,SMB,1,3,0,-148,pre-period,REP-020,active
+CUST-0419,Product 6,Self-Serve,SMB,1,4,0,-50,pre-period,REP-018,active
+CUST-0420,Product 3,Self-Serve,SMB,1,8,0,-110,pre-period,REP-020,active
+CUST-0421,Product 2,Self-Serve,SMB,1,11,0,-27,pre-period,REP-020,active
+CUST-0422,Product 2,Self-Serve,SMB,1,6,0,-128,pre-period,REP-020,active
+CUST-0423,Product 5,Self-Serve,SMB,1,5,0,-42,pre-period,REP-018,active
+CUST-0424,Product 8,Self-Serve,SMB,1,1,0,-100,pre-period,REP-019,active
+CUST-0425,Product 5,Self-Serve,SMB,1,10,0,-97,pre-period,REP-020,active
+CUST-0426,Product 4,Self-Serve,SMB,1,3,0,-40,pre-period,REP-018,active
+CUST-0427,Product 6,Self-Serve,SMB,2,10,0,-121,pre-period,REP-019,active
+CUST-0428,Product 8,Self-Serve,SMB,1,12,0,-140,pre-period,REP-019,active
+CUST-0429,Product 2,Self-Serve,SMB,2,4,0,-70,pre-period,REP-018,active
+CUST-0430,Product 5,Self-Serve,SMB,1,5,0,-30,pre-period,REP-019,active
+CUST-0431,Product 4,Self-Serve,SMB,1,5,0,-16,pre-period,REP-020,active
+CUST-0432,Product 5,Self-Serve,SMB,1,1,0,-36,pre-period,REP-020,active
+CUST-0433,Product 6,Self-Serve,SMB,1,7,0,-50,pre-period,REP-020,active
+CUST-0434,Product 3,Self-Serve,SMB,1,12,0,-45,pre-period,REP-020,active
+CUST-0435,Product 8,Self-Serve,SMB,1,9,0,-77,pre-period,REP-018,active
+CUST-0436,Product 8,Self-Serve,SMB,1,11,0,-74,pre-period,REP-018,active
+CUST-0437,Product 3,Self-Serve,SMB,2,12,0,-68,pre-period,REP-018,active
+CUST-0438,Product 6,Self-Serve,SMB,2,4,0,-135,pre-period,REP-019,churned
+CUST-0439,Product 8,Self-Serve,SMB,1,11,0,-80,pre-period,REP-018,active
+CUST-0440,Product 2,Self-Serve,SMB,1,2,0,-93,pre-period,REP-020,active
+CUST-0441,Product 3,Self-Serve,SMB,1,4,0,-29,pre-period,REP-019,active
+CUST-0442,Product 8,Self-Serve,SMB,1,4,0,-107,pre-period,REP-019,active
+CUST-0443,Product 2,Self-Serve,Mid-Market,6,6,0,-21,pre-period,REP-019,active
+CUST-0444,Product 1,Self-Serve,SMB,1,3,0,-133,pre-period,REP-019,active
+CUST-0445,Product 5,Self-Serve,SMB,1,11,0,-53,pre-period,REP-019,active
+CUST-0446,Product 5,Self-Serve,Mid-Market,5,6,0,-139,pre-period,REP-019,active
+CUST-0447,Product 5,Self-Serve,SMB,1,12,0,-88,pre-period,REP-019,active
+CUST-0448,Product 7,Self-Serve,SMB,1,9,0,-44,pre-period,REP-020,active
+CUST-0449,Product 6,Self-Serve,SMB,1,2,0,-27,pre-period,REP-018,active
+CUST-0450,Product 7,Self-Serve,SMB,2,7,0,-110,pre-period,REP-019,active
+CUST-0451,Product 5,Self-Serve,SMB,2,11,0,-147,pre-period,REP-019,active
+CUST-0452,Product 5,Self-Serve,SMB,1,8,0,-103,pre-period,REP-019,active
+CUST-0453,Product 4,Self-Serve,SMB,1,10,0,-85,pre-period,REP-020,active
+CUST-0454,Product 8,Self-Serve,SMB,1,9,0,-96,pre-period,REP-020,active
+CUST-0455,Product 8,Self-Serve,SMB,1,10,0,-118,pre-period,REP-020,active
+CUST-0456,Product 7,Self-Serve,SMB,1,2,0,-60,pre-period,REP-019,active
+CUST-0457,Product 2,Self-Serve,SMB,1,2,0,-126,pre-period,REP-019,active
+CUST-0458,Product 6,Self-Serve,SMB,2,6,0,-52,pre-period,REP-020,active
+CUST-0459,Product 1,Self-Serve,SMB,2,3,0,-58,pre-period,REP-018,active
+CUST-0460,Product 8,Self-Serve,SMB,1,7,0,-89,pre-period,REP-018,active
+CUST-0461,Product 4,Self-Serve,SMB,1,6,0,-95,pre-period,REP-019,active
+CUST-0462,Product 8,Self-Serve,SMB,1,8,0,-26,pre-period,REP-018,active
+CUST-0463,Product 7,Self-Serve,SMB,1,4,0,-37,pre-period,REP-019,active
+CUST-0464,Product 5,Self-Serve,SMB,2,4,0,-66,pre-period,REP-019,active
+CUST-0465,Product 5,Self-Serve,SMB,2,7,0,-132,pre-period,REP-020,active
+CUST-0466,Product 3,Self-Serve,SMB,1,9,0,-112,pre-period,REP-019,active
+CUST-0467,Product 5,Self-Serve,Mid-Market,3,4,0,-69,pre-period,REP-018,active
+CUST-0468,Product 1,Self-Serve,SMB,1,1,0,-12,pre-period,REP-018,churned
+CUST-0469,Product 5,Self-Serve,SMB,1,3,0,-65,pre-period,REP-018,active
+CUST-0470,Product 4,Self-Serve,SMB,1,9,0,-94,pre-period,REP-020,active
+CUST-0471,Product 1,Self-Serve,SMB,1,10,0,-18,pre-period,REP-018,active
+CUST-0472,Product 3,Self-Serve,SMB,1,11,0,-37,pre-period,REP-018,active
+CUST-0473,Product 2,Self-Serve,SMB,2,5,0,-26,pre-period,REP-020,active
+CUST-0474,Product 4,Self-Serve,SMB,1,1,0,-70,pre-period,REP-018,active
+CUST-0475,Product 5,Self-Serve,Mid-Market,2,9,0,-50,pre-period,REP-020,active
+CUST-0476,Product 6,Self-Serve,Mid-Market,6,9,0,-105,pre-period,REP-018,active
+CUST-0477,Product 2,Self-Serve,SMB,1,12,0,-41,pre-period,REP-018,active
+CUST-0478,Product 3,Self-Serve,SMB,1,3,0,-100,pre-period,REP-019,active
+CUST-0479,Product 6,Self-Serve,SMB,1,11,0,-106,pre-period,REP-020,active
+CUST-0480,Product 8,Self-Serve,SMB,2,6,0,-107,pre-period,REP-019,active
+CUST-0481,Product 1,Strategic,Enterprise,595,11,0.2104,-68,pre-period,REP-023,active
+CUST-0482,Product 2,Strategic,Enterprise,601,2,0.2011,-98,pre-period,REP-024,active
+CUST-0483,Product 2,Strategic,Enterprise,229,11,0.1626,-134,pre-period,REP-023,active
+CUST-0484,Product 8,Strategic,Enterprise,387,11,0.2079,-121,pre-period,REP-024,active
+CUST-0485,Product 4,Strategic,Enterprise,594,2,0.1779,-128,pre-period,REP-024,active
+CUST-0486,Product 8,Strategic,Enterprise,319,5,0.1677,-142,pre-period,REP-023,active
+CUST-0487,Product 6,Strategic,Enterprise,236,1,0.1794,-66,pre-period,REP-023,active
+CUST-0488,Product 1,Strategic,Enterprise,544,10,0.1933,-38,pre-period,REP-024,active
+CUST-0489,Product 4,Strategic,Enterprise,607,7,0.1553,-54,pre-period,REP-024,active
+CUST-0490,Product 8,Strategic,Enterprise,279,4,0.2573,-39,pre-period,REP-024,active
+CUST-0491,Product 8,Strategic,Enterprise,551,6,0.2751,-103,pre-period,REP-024,churned
+CUST-0492,Product 2,Strategic,Enterprise,442,3,0.1693,-122,pre-period,REP-023,active
+CUST-0493,Product 4,Strategic,Enterprise,541,6,0.1846,-81,pre-period,REP-024,active
+CUST-0494,Product 8,Strategic,Enterprise,237,3,0.2199,-105,pre-period,REP-023,active
+CUST-0495,Product 2,Strategic,Enterprise,285,3,0.1292,-86,pre-period,REP-024,active
+CUST-0496,Product 4,Strategic,Enterprise,432,12,0.2344,-16,pre-period,REP-024,active
+CUST-0497,Product 8,Strategic,Enterprise,348,2,0.2634,-30,pre-period,REP-023,active
+CUST-0498,Product 6,Strategic,Enterprise,529,8,0.2247,-64,pre-period,REP-024,active
+CUST-0499,Product 8,Strategic,Enterprise,289,4,0.2188,-82,pre-period,REP-024,active
+CUST-0500,Product 1,Strategic,Enterprise,282,9,0.192,-77,pre-period,REP-023,active
+CUST-0501,Product 8,Direct Sales,Enterprise,144,7,0.1076,1,2024-07-01,REP-003,active
+CUST-0502,Product 3,Direct Sales,Mid-Market,16,7,0.1795,1,2024-07-01,REP-006,active
+CUST-0503,Product 2,Direct Sales,Enterprise,56,7,0.1566,1,2024-07-01,REP-001,active
+CUST-0504,Product 1,Direct Sales,Mid-Market,36,7,0.1857,1,2024-07-01,REP-001,active
+CUST-0505,Product 1,Inside Sales,SMB,4,7,0.0367,1,2024-07-01,REP-012,active
+CUST-0506,Product 4,Inside Sales,Mid-Market,20,7,0.0603,1,2024-07-01,REP-011,active
+CUST-0507,Product 8,Inside Sales,SMB,4,7,0.0754,1,2024-07-01,REP-012,active
+CUST-0508,Product 5,Self-Serve,SMB,1,7,0,1,2024-07-01,REP-018,active
+CUST-0509,Product 1,Self-Serve,SMB,1,7,0,1,2024-07-01,REP-019,active
+CUST-0510,Product 6,Self-Serve,SMB,1,7,0,1,2024-07-01,REP-018,active
+CUST-0511,Product 5,Self-Serve,SMB,1,7,0,1,2024-07-01,REP-018,active
+CUST-0512,Product 1,Self-Serve,SMB,2,7,0,1,2024-07-01,REP-020,active
+CUST-0513,Product 6,Inside Sales,Mid-Market,14,7,0.0981,2,2024-07-08,REP-015,active
+CUST-0514,Product 1,Self-Serve,SMB,2,7,0,2,2024-07-08,REP-020,churned
+CUST-0515,Product 4,Self-Serve,Mid-Market,2,7,0,2,2024-07-08,REP-018,churned
+CUST-0516,Product 8,Self-Serve,SMB,1,7,0,2,2024-07-08,REP-018,active
+CUST-0517,Product 7,Self-Serve,SMB,1,7,0,2,2024-07-08,REP-020,active
+CUST-0518,Product 5,Partner,Mid-Market,16,7,0.1781,3,2024-07-15,REP-010,active
+CUST-0519,Product 5,Partner,Mid-Market,38,7,0.1554,3,2024-07-15,REP-008,active
+CUST-0520,Product 8,Partner,Mid-Market,24,7,0.1355,3,2024-07-15,REP-008,active
+CUST-0521,Product 6,Partner,Mid-Market,17,7,0.1777,3,2024-07-15,REP-010,active
+CUST-0522,Product 8,Partner,Mid-Market,16,7,0.1556,3,2024-07-15,REP-009,active
+CUST-0523,Product 2,Inside Sales,SMB,4,7,0.0482,3,2024-07-15,REP-013,active
+CUST-0524,Product 5,Inside Sales,Mid-Market,17,7,0.0799,3,2024-07-15,REP-014,active
+CUST-0525,Product 4,Self-Serve,Mid-Market,4,7,0,3,2024-07-15,REP-018,active
+CUST-0526,Product 8,Self-Serve,SMB,2,7,0,3,2024-07-15,REP-019,active
+CUST-0527,Product 6,Self-Serve,SMB,1,7,0,3,2024-07-15,REP-019,active
+CUST-0528,Product 1,Self-Serve,SMB,1,7,0,3,2024-07-15,REP-019,active
+CUST-0529,Product 4,Self-Serve,SMB,1,7,0,3,2024-07-15,REP-019,active
+CUST-0530,Product 1,Self-Serve,SMB,1,7,0,3,2024-07-15,REP-019,active
+CUST-0531,Product 5,Self-Serve,SMB,1,7,0,3,2024-07-15,REP-018,active
+CUST-0532,Product 8,Self-Serve,Mid-Market,7,7,0,3,2024-07-15,REP-019,active
+CUST-0533,Product 1,Self-Serve,SMB,1,7,0,3,2024-07-15,REP-019,active
+CUST-0534,Product 1,Self-Serve,SMB,1,7,0,3,2024-07-15,REP-018,active
+CUST-0535,Product 5,Self-Serve,SMB,1,7,0,3,2024-07-15,REP-020,active
+CUST-0536,Product 4,Self-Serve,SMB,1,7,0,3,2024-07-15,REP-018,active
+CUST-0537,Product 4,Self-Serve,SMB,1,7,0,3,2024-07-15,REP-019,active
+CUST-0538,Product 4,Self-Serve,SMB,1,7,0,3,2024-07-15,REP-020,active
+CUST-0539,Product 3,Partner,Enterprise,83,7,0.1415,4,2024-07-22,REP-008,active
+CUST-0540,Product 1,Partner,Mid-Market,13,7,0.1611,4,2024-07-22,REP-009,active
+CUST-0541,Product 1,Partner,Mid-Market,38,7,0.1356,4,2024-07-22,REP-008,active
+CUST-0542,Product 8,Inside Sales,Enterprise,61,7,0.0721,4,2024-07-22,REP-017,active
+CUST-0543,Product 2,Inside Sales,SMB,4,7,0.0469,4,2024-07-22,REP-011,active
+CUST-0544,Product 1,Inside Sales,SMB,2,7,0.1015,4,2024-07-22,REP-012,active
+CUST-0545,Product 4,Self-Serve,SMB,1,7,0,4,2024-07-22,REP-018,active
+CUST-0546,Product 6,Self-Serve,SMB,2,7,0,4,2024-07-22,REP-020,active
+CUST-0547,Product 8,Direct Sales,Enterprise,187,7,0.143,5,2024-07-29,REP-003,active
+CUST-0548,Product 4,Direct Sales,Enterprise,147,7,0.1337,5,2024-07-29,REP-005,active
+CUST-0549,Product 5,Direct Sales,SMB,8,7,0.1092,5,2024-07-29,REP-006,active
+CUST-0550,Product 8,Direct Sales,Enterprise,125,7,0.1686,5,2024-07-29,REP-003,active
+CUST-0551,Product 7,Inside Sales,SMB,5,7,0.078,5,2024-07-29,REP-017,active
+CUST-0552,Product 1,Self-Serve,SMB,2,7,0,5,2024-07-29,REP-019,active
+CUST-0553,Product 8,Strategic,Enterprise,600,7,0.2679,5,2024-07-29,REP-024,active
+CUST-0554,Product 4,Strategic,Enterprise,288,7,0.2299,5,2024-07-29,REP-024,active
+CUST-0555,Product 8,Partner,SMB,3,8,0.1683,6,2024-08-05,REP-009,active
+CUST-0556,Product 5,Partner,Mid-Market,39,8,0.1412,6,2024-08-05,REP-010,active
+CUST-0557,Product 5,Partner,Mid-Market,15,8,0.1819,6,2024-08-05,REP-009,active
+CUST-0558,Product 6,Partner,Mid-Market,19,8,0.1546,6,2024-08-05,REP-010,churned
+CUST-0559,Product 5,Partner,Enterprise,70,8,0.1655,6,2024-08-05,REP-009,active
+CUST-0560,Product 5,Inside Sales,Mid-Market,8,8,0.0688,6,2024-08-05,REP-017,active
+CUST-0561,Product 4,Self-Serve,SMB,1,8,0,6,2024-08-05,REP-020,active
+CUST-0562,Product 8,Direct Sales,Mid-Market,42,8,0.1706,7,2024-08-12,REP-003,active
+CUST-0563,Product 2,Partner,Mid-Market,12,8,0.1573,7,2024-08-12,REP-010,active
+CUST-0564,Product 2,Partner,SMB,10,8,0.1475,7,2024-08-12,REP-008,active
+CUST-0565,Product 6,Partner,Mid-Market,24,8,0.1725,7,2024-08-12,REP-010,active
+CUST-0566,Product 6,Partner,Enterprise,88,8,0.1346,7,2024-08-12,REP-009,active
+CUST-0567,Product 1,Partner,Enterprise,116,8,0.1436,7,2024-08-12,REP-008,active
+CUST-0568,Product 8,Inside Sales,Mid-Market,23,8,0.0615,7,2024-08-12,REP-011,active
+CUST-0569,Product 7,Inside Sales,SMB,6,8,0.0808,7,2024-08-12,REP-017,active
+CUST-0570,Product 6,Inside Sales,Enterprise,46,8,0.0834,7,2024-08-12,REP-014,active
+CUST-0571,Product 1,Inside Sales,SMB,2,8,0.0595,7,2024-08-12,REP-017,churned
+CUST-0572,Product 1,Strategic,Enterprise,257,8,0.2092,7,2024-08-12,REP-024,active
+CUST-0573,Product 4,Inside Sales,SMB,6,8,0.0759,8,2024-08-19,REP-013,active
+CUST-0574,Product 6,Inside Sales,Mid-Market,18,8,0.0913,8,2024-08-19,REP-011,active
+CUST-0575,Product 8,Inside Sales,Enterprise,29,8,0.0839,8,2024-08-19,REP-015,active
+CUST-0576,Product 2,Inside Sales,SMB,4,8,0.099,8,2024-08-19,REP-012,active
+CUST-0577,Product 1,Self-Serve,SMB,1,8,0,8,2024-08-19,REP-020,active
+CUST-0578,Product 1,Self-Serve,SMB,1,8,0,8,2024-08-19,REP-019,active
+CUST-0579,Product 1,Self-Serve,SMB,1,8,0,8,2024-08-19,REP-018,active
+CUST-0580,Product 3,Self-Serve,SMB,1,8,0,8,2024-08-19,REP-019,active
+CUST-0581,Product 2,Self-Serve,SMB,1,8,0,8,2024-08-19,REP-018,active
+CUST-0582,Product 4,Self-Serve,SMB,2,8,0,8,2024-08-19,REP-018,active
+CUST-0583,Product 5,Self-Serve,SMB,1,8,0,8,2024-08-19,REP-019,active
+CUST-0584,Product 6,Self-Serve,SMB,1,8,0,8,2024-08-19,REP-018,active
+CUST-0585,Product 4,Self-Serve,SMB,1,8,0,8,2024-08-19,REP-020,active
+CUST-0586,Product 1,Partner,Mid-Market,31,8,0.1773,9,2024-08-26,REP-008,active
+CUST-0587,Product 8,Partner,Mid-Market,29,8,0.1351,9,2024-08-26,REP-009,active
+CUST-0588,Product 2,Inside Sales,SMB,3,8,0.0785,9,2024-08-26,REP-012,active
+CUST-0589,Product 8,Partner,SMB,5,9,0.1309,11,2024-09-09,REP-008,active
+CUST-0590,Product 6,Partner,Enterprise,40,9,0.1406,11,2024-09-09,REP-007,active
+CUST-0591,Product 5,Partner,Enterprise,63,9,0.1675,11,2024-09-09,REP-008,active
+CUST-0592,Product 5,Self-Serve,SMB,1,9,0,11,2024-09-09,REP-018,active
+CUST-0593,Product 4,Self-Serve,Mid-Market,7,9,0,11,2024-09-09,REP-019,active
+CUST-0594,Product 1,Self-Serve,SMB,1,9,0,11,2024-09-09,REP-018,active
+CUST-0595,Product 1,Self-Serve,SMB,2,9,0,11,2024-09-09,REP-018,active
+CUST-0596,Product 8,Self-Serve,SMB,1,9,0,11,2024-09-09,REP-018,active
+CUST-0597,Product 8,Self-Serve,SMB,2,9,0,11,2024-09-09,REP-019,active
+CUST-0598,Product 8,Strategic,Enterprise,267,9,0.1705,11,2024-09-09,REP-024,active
+CUST-0599,Product 6,Direct Sales,Mid-Market,48,9,0.1989,12,2024-09-16,REP-001,active
+CUST-0600,Product 6,Direct Sales,Enterprise,118,9,0.1651,12,2024-09-16,REP-005,active
+CUST-0601,Product 2,Partner,Mid-Market,32,9,0.1384,12,2024-09-16,REP-010,active
+CUST-0602,Product 1,Inside Sales,SMB,5,9,0.0991,12,2024-09-16,REP-017,active
+CUST-0603,Product 8,Self-Serve,SMB,1,9,0,12,2024-09-16,REP-019,active
+CUST-0604,Product 3,Self-Serve,SMB,1,9,0,12,2024-09-16,REP-019,active
+CUST-0605,Product 1,Self-Serve,SMB,1,9,0,12,2024-09-16,REP-018,active
+CUST-0606,Product 2,Self-Serve,SMB,1,9,0,12,2024-09-16,REP-019,active
+CUST-0607,Product 5,Self-Serve,SMB,1,9,0,12,2024-09-16,REP-018,active
+CUST-0608,Product 5,Self-Serve,SMB,1,9,0,12,2024-09-16,REP-020,active
+CUST-0609,Product 7,Partner,SMB,5,9,0.1273,13,2024-09-23,REP-009,active
+CUST-0610,Product 5,Inside Sales,SMB,4,9,0.0515,13,2024-09-23,REP-012,active
+CUST-0611,Product 6,Self-Serve,SMB,1,9,0,14,2024-09-30,REP-020,active
+CUST-0612,Product 5,Strategic,Enterprise,385,9,0.1685,14,2024-09-30,REP-024,active
+CUST-0613,Product 6,Strategic,Enterprise,421,9,0.1825,14,2024-09-30,REP-023,active
+CUST-0614,Product 6,Direct Sales,Mid-Market,48,10,0.1042,15,2024-10-07,REP-006,active
+CUST-0615,Product 6,Direct Sales,Mid-Market,51,10,0.1669,15,2024-10-07,REP-005,active
+CUST-0616,Product 6,Direct Sales,Enterprise,86,10,0.1225,15,2024-10-07,REP-002,active
+CUST-0617,Product 2,Direct Sales,Mid-Market,29,10,0.0844,15,2024-10-07,REP-001,active
+CUST-0618,Product 6,Partner,Mid-Market,12,10,0.1623,15,2024-10-07,REP-008,active
+CUST-0619,Product 6,Partner,Mid-Market,35,10,0.1756,15,2024-10-07,REP-008,active
+CUST-0620,Product 1,Partner,Enterprise,48,10,0.1607,15,2024-10-07,REP-010,active
+CUST-0621,Product 6,Self-Serve,SMB,2,10,0,15,2024-10-07,REP-018,active
+CUST-0622,Product 1,Direct Sales,Enterprise,154,10,0.1923,16,2024-10-14,REP-001,active
+CUST-0623,Product 6,Direct Sales,Mid-Market,46,10,0.1932,16,2024-10-14,REP-002,active
+CUST-0624,Product 2,Direct Sales,Enterprise,183,10,0.1168,16,2024-10-14,REP-002,active
+CUST-0625,Product 6,Direct Sales,Enterprise,75,10,0.1743,16,2024-10-14,REP-001,active
+CUST-0626,Product 1,Inside Sales,Enterprise,22,10,0.0845,16,2024-10-14,REP-014,active
+CUST-0627,Product 6,Inside Sales,Enterprise,27,10,0.0681,16,2024-10-14,REP-013,active
+CUST-0628,Product 2,Inside Sales,SMB,6,10,0.1008,16,2024-10-14,REP-012,active
+CUST-0629,Product 6,Inside Sales,Enterprise,27,10,0.0854,16,2024-10-14,REP-017,active
+CUST-0630,Product 4,Inside Sales,SMB,5,10,0.0957,16,2024-10-14,REP-012,active
+CUST-0631,Product 6,Inside Sales,SMB,6,10,0.07,16,2024-10-14,REP-011,active
+CUST-0632,Product 1,Inside Sales,SMB,6,10,0.0833,16,2024-10-14,REP-012,active
+CUST-0633,Product 7,Inside Sales,SMB,6,10,0.073,16,2024-10-14,REP-011,active
+CUST-0634,Product 4,Self-Serve,SMB,1,10,0,16,2024-10-14,REP-018,active
+CUST-0635,Product 6,Self-Serve,SMB,1,10,0,16,2024-10-14,REP-020,active
+CUST-0636,Product 2,Self-Serve,SMB,1,10,0,16,2024-10-14,REP-020,active
+CUST-0637,Product 5,Self-Serve,Mid-Market,4,10,0,16,2024-10-14,REP-020,active
+CUST-0638,Product 1,Self-Serve,SMB,1,10,0,16,2024-10-14,REP-018,active
+CUST-0639,Product 6,Self-Serve,SMB,1,10,0,16,2024-10-14,REP-019,active
+CUST-0640,Product 2,Self-Serve,Mid-Market,7,10,0,17,2024-10-21,REP-018,active
+CUST-0641,Product 6,Strategic,Enterprise,359,10,0.1784,17,2024-10-21,REP-022,active
+CUST-0642,Product 6,Direct Sales,Mid-Market,44,10,0.145,18,2024-10-28,REP-004,active
+CUST-0643,Product 1,Direct Sales,Enterprise,160,10,0.1731,18,2024-10-28,REP-006,active
+CUST-0644,Product 6,Direct Sales,Mid-Market,19,10,0.1334,18,2024-10-28,REP-004,active
+CUST-0645,Product 4,Partner,Enterprise,59,10,0.1829,18,2024-10-28,REP-010,active
+CUST-0646,Product 6,Partner,SMB,8,10,0.1769,18,2024-10-28,REP-008,active
+CUST-0647,Product 4,Partner,Mid-Market,10,10,0.1699,18,2024-10-28,REP-010,active
+CUST-0648,Product 2,Self-Serve,Mid-Market,3,10,0,18,2024-10-28,REP-020,active
+CUST-0649,Product 5,Self-Serve,SMB,2,10,0,18,2024-10-28,REP-019,active
+CUST-0650,Product 6,Self-Serve,SMB,2,10,0,18,2024-10-28,REP-018,active
+CUST-0651,Product 7,Self-Serve,SMB,1,10,0,18,2024-10-28,REP-018,active
+CUST-0652,Product 6,Self-Serve,SMB,1,10,0,18,2024-10-28,REP-019,active
+CUST-0653,Product 1,Self-Serve,SMB,1,10,0,18,2024-10-28,REP-019,active
+CUST-0654,Product 3,Self-Serve,Mid-Market,6,10,0,18,2024-10-28,REP-020,active
+CUST-0655,Product 2,Self-Serve,SMB,1,10,0,18,2024-10-28,REP-020,active
+CUST-0656,Product 6,Self-Serve,SMB,1,10,0,18,2024-10-28,REP-020,active
+CUST-0657,Product 7,Self-Serve,SMB,1,10,0,18,2024-10-28,REP-020,active
+CUST-0658,Product 8,Strategic,Enterprise,570,10,0.1557,18,2024-10-28,REP-024,active
+CUST-0659,Product 6,Inside Sales,Mid-Market,22,11,0.0693,19,2024-11-04,REP-011,active
+CUST-0660,Product 2,Inside Sales,SMB,2,11,0.077,19,2024-11-04,REP-016,active
+CUST-0661,Product 2,Inside Sales,Mid-Market,10,11,0.093,19,2024-11-04,REP-014,active
+CUST-0662,Product 8,Inside Sales,SMB,4,11,0.1051,19,2024-11-04,REP-014,active
+CUST-0663,Product 6,Inside Sales,SMB,5,11,0.0756,19,2024-11-04,REP-016,active
+CUST-0664,Product 4,Self-Serve,SMB,1,11,0,19,2024-11-04,REP-020,active
+CUST-0665,Product 4,Self-Serve,Mid-Market,5,11,0,19,2024-11-04,REP-020,active
+CUST-0666,Product 1,Self-Serve,SMB,2,11,0,19,2024-11-04,REP-019,active
+CUST-0667,Product 8,Strategic,Enterprise,573,11,0.2024,19,2024-11-04,REP-024,active
+CUST-0668,Product 8,Direct Sales,Mid-Market,24,11,0.1551,20,2024-11-11,REP-001,active
+CUST-0669,Product 8,Partner,Mid-Market,13,11,0.1746,20,2024-11-11,REP-010,active
+CUST-0670,Product 1,Strategic,Enterprise,355,11,0.2023,20,2024-11-11,REP-024,active
+CUST-0671,Product 8,Partner,SMB,7,11,0.1399,21,2024-11-18,REP-007,active
+CUST-0672,Product 3,Partner,Mid-Market,18,11,0.1539,21,2024-11-18,REP-007,active
+CUST-0673,Product 6,Self-Serve,Mid-Market,2,11,0,21,2024-11-18,REP-020,active
+CUST-0674,Product 2,Self-Serve,SMB,1,11,0,21,2024-11-18,REP-019,active
+CUST-0675,Product 5,Self-Serve,SMB,1,11,0,21,2024-11-18,REP-020,active
+CUST-0676,Product 2,Strategic,Enterprise,595,11,0.1564,21,2024-11-18,REP-023,active
+CUST-0677,Product 6,Partner,Mid-Market,12,11,0.1858,22,2024-11-25,REP-009,active
+CUST-0678,Product 6,Inside Sales,SMB,5,11,0.1029,22,2024-11-25,REP-017,active
+CUST-0679,Product 1,Self-Serve,SMB,1,11,0,22,2024-11-25,REP-020,active
+CUST-0680,Product 1,Strategic,Enterprise,293,11,0.1166,22,2024-11-25,REP-022,active
+CUST-0681,Product 4,Direct Sales,Enterprise,51,12,0.158,23,2024-12-02,REP-004,active
+CUST-0682,Product 4,Direct Sales,Enterprise,87,12,0.114,23,2024-12-02,REP-003,active
+CUST-0683,Product 2,Self-Serve,SMB,1,12,0,23,2024-12-02,REP-019,active
+CUST-0684,Product 4,Strategic,Enterprise,684,12,0.1524,23,2024-12-02,REP-022,active
+CUST-0685,Product 4,Self-Serve,SMB,1,12,0,24,2024-12-09,REP-018,active
+CUST-0686,Product 7,Self-Serve,Mid-Market,4,12,0,24,2024-12-09,REP-019,active
+CUST-0687,Product 6,Self-Serve,Mid-Market,2,12,0,24,2024-12-09,REP-019,active
+CUST-0688,Product 4,Self-Serve,SMB,1,12,0,24,2024-12-09,REP-018,active
+CUST-0689,Product 2,Self-Serve,SMB,1,12,0,24,2024-12-09,REP-018,active
+CUST-0690,Product 3,Self-Serve,SMB,2,12,0,24,2024-12-09,REP-018,active
+CUST-0691,Product 6,Self-Serve,SMB,1,12,0,24,2024-12-09,REP-018,active
+CUST-0692,Product 6,Partner,SMB,10,12,0.1444,25,2024-12-16,REP-009,active
+CUST-0693,Product 8,Partner,Mid-Market,39,12,0.1581,25,2024-12-16,REP-010,active
+CUST-0694,Product 6,Inside Sales,SMB,6,12,0.0619,25,2024-12-16,REP-012,active
+CUST-0695,Product 2,Inside Sales,SMB,5,12,0.0565,25,2024-12-16,REP-012,active
+CUST-0696,Product 3,Inside Sales,Mid-Market,7,12,0.0795,25,2024-12-16,REP-012,active
+CUST-0697,Product 6,Inside Sales,SMB,6,12,0.1042,25,2024-12-16,REP-016,active
+CUST-0698,Product 6,Inside Sales,Mid-Market,8,12,0.0688,25,2024-12-16,REP-013,active
+CUST-0699,Product 6,Inside Sales,Mid-Market,11,12,0.0645,25,2024-12-16,REP-015,active
+CUST-0700,Product 2,Partner,SMB,7,12,0.1424,26,2024-12-23,REP-009,active
+CUST-0701,Product 8,Inside Sales,SMB,2,12,0.1163,26,2024-12-23,REP-012,active
+CUST-0702,Product 2,Self-Serve,SMB,1,12,0,26,2024-12-23,REP-018,active

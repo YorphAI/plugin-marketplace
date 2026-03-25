@@ -1,0 +1,391 @@
+week,week_date,channel,cost_category,amount
+1,2024-07-01,Direct Sales,hosting,7662.62
+1,2024-07-01,Direct Sales,tooling,12052.03
+1,2024-07-01,Direct Sales,support_platform,5129.95
+1,2024-07-01,Partner,hosting,5941.02
+1,2024-07-01,Partner,tooling,8077.3
+1,2024-07-01,Partner,partner_portal,9766.71
+1,2024-07-01,Inside Sales,hosting,15043.31
+1,2024-07-01,Inside Sales,tooling,18014.38
+1,2024-07-01,Inside Sales,support_platform,8400.19
+1,2024-07-01,Self-Serve,hosting,35311.61
+1,2024-07-01,Self-Serve,tooling,10115.96
+1,2024-07-01,Self-Serve,support_platform,2886.16
+1,2024-07-01,Strategic,hosting,4939.1
+1,2024-07-01,Strategic,tooling,6102.8
+1,2024-07-01,Strategic,dedicated_infra,19282.44
+2,2024-07-08,Direct Sales,hosting,7892.5
+2,2024-07-08,Direct Sales,tooling,11692.73
+2,2024-07-08,Direct Sales,support_platform,4835.29
+2,2024-07-08,Partner,hosting,5841.43
+2,2024-07-08,Partner,tooling,7720.76
+2,2024-07-08,Partner,partner_portal,10194.35
+2,2024-07-08,Inside Sales,hosting,14706.24
+2,2024-07-08,Inside Sales,tooling,17961.7
+2,2024-07-08,Inside Sales,support_platform,7902.76
+2,2024-07-08,Self-Serve,hosting,34251.61
+2,2024-07-08,Self-Serve,tooling,9617.25
+2,2024-07-08,Self-Serve,support_platform,3012.47
+2,2024-07-08,Strategic,hosting,5208.19
+2,2024-07-08,Strategic,tooling,5828.0
+2,2024-07-08,Strategic,dedicated_infra,19319.12
+3,2024-07-15,Direct Sales,hosting,8147.56
+3,2024-07-15,Direct Sales,tooling,12278.41
+3,2024-07-15,Direct Sales,support_platform,4908.96
+3,2024-07-15,Partner,hosting,5783.85
+3,2024-07-15,Partner,tooling,7917.64
+3,2024-07-15,Partner,partner_portal,10349.28
+3,2024-07-15,Inside Sales,hosting,14419.88
+3,2024-07-15,Inside Sales,tooling,17283.58
+3,2024-07-15,Inside Sales,support_platform,8375.18
+3,2024-07-15,Self-Serve,hosting,36153.65
+3,2024-07-15,Self-Serve,tooling,9935.29
+3,2024-07-15,Self-Serve,support_platform,3072.02
+3,2024-07-15,Strategic,hosting,4971.53
+3,2024-07-15,Strategic,tooling,6163.79
+3,2024-07-15,Strategic,dedicated_infra,19309.94
+4,2024-07-22,Direct Sales,hosting,7713.33
+4,2024-07-22,Direct Sales,tooling,11786.68
+4,2024-07-22,Direct Sales,support_platform,5072.77
+4,2024-07-22,Partner,hosting,6100.13
+4,2024-07-22,Partner,tooling,7735.65
+4,2024-07-22,Partner,partner_portal,10287.4
+4,2024-07-22,Inside Sales,hosting,14961.76
+4,2024-07-22,Inside Sales,tooling,17777.81
+4,2024-07-22,Inside Sales,support_platform,8341.62
+4,2024-07-22,Self-Serve,hosting,35157.53
+4,2024-07-22,Self-Serve,tooling,9970.82
+4,2024-07-22,Self-Serve,support_platform,2977.63
+4,2024-07-22,Strategic,hosting,5059.96
+4,2024-07-22,Strategic,tooling,6270.93
+4,2024-07-22,Strategic,dedicated_infra,20106.31
+5,2024-07-29,Direct Sales,hosting,8281.99
+5,2024-07-29,Direct Sales,tooling,11629.42
+5,2024-07-29,Direct Sales,support_platform,5213.77
+5,2024-07-29,Partner,hosting,6262.61
+5,2024-07-29,Partner,tooling,7999.26
+5,2024-07-29,Partner,partner_portal,10138.9
+5,2024-07-29,Inside Sales,hosting,15512.71
+5,2024-07-29,Inside Sales,tooling,17672.63
+5,2024-07-29,Inside Sales,support_platform,7774.87
+5,2024-07-29,Self-Serve,hosting,36367.33
+5,2024-07-29,Self-Serve,tooling,9683.2
+5,2024-07-29,Self-Serve,support_platform,3097.31
+5,2024-07-29,Strategic,hosting,5165.04
+5,2024-07-29,Strategic,tooling,6299.3
+5,2024-07-29,Strategic,dedicated_infra,20918.68
+6,2024-08-05,Direct Sales,hosting,8296.62
+6,2024-08-05,Direct Sales,tooling,12776.83
+6,2024-08-05,Direct Sales,support_platform,4939.85
+6,2024-08-05,Partner,hosting,6339.47
+6,2024-08-05,Partner,tooling,8485.76
+6,2024-08-05,Partner,partner_portal,10382.01
+6,2024-08-05,Inside Sales,hosting,15645.07
+6,2024-08-05,Inside Sales,tooling,17930.21
+6,2024-08-05,Inside Sales,support_platform,8518.32
+6,2024-08-05,Self-Serve,hosting,36620.3
+6,2024-08-05,Self-Serve,tooling,9783.87
+6,2024-08-05,Self-Serve,support_platform,3040.92
+6,2024-08-05,Strategic,hosting,5310.64
+6,2024-08-05,Strategic,tooling,6133.16
+6,2024-08-05,Strategic,dedicated_infra,19667.21
+7,2024-08-12,Direct Sales,hosting,7803.22
+7,2024-08-12,Direct Sales,tooling,12293.44
+7,2024-08-12,Direct Sales,support_platform,4957.21
+7,2024-08-12,Partner,hosting,5891.33
+7,2024-08-12,Partner,tooling,8572.93
+7,2024-08-12,Partner,partner_portal,10004.07
+7,2024-08-12,Inside Sales,hosting,14553.11
+7,2024-08-12,Inside Sales,tooling,18453.7
+7,2024-08-12,Inside Sales,support_platform,7864.66
+7,2024-08-12,Self-Serve,hosting,35481.31
+7,2024-08-12,Self-Serve,tooling,10713.2
+7,2024-08-12,Self-Serve,support_platform,3124.26
+7,2024-08-12,Strategic,hosting,4856.98
+7,2024-08-12,Strategic,tooling,6035.04
+7,2024-08-12,Strategic,dedicated_infra,20226.91
+8,2024-08-19,Direct Sales,hosting,8329.73
+8,2024-08-19,Direct Sales,tooling,12225.15
+8,2024-08-19,Direct Sales,support_platform,4867.03
+8,2024-08-19,Partner,hosting,6259.15
+8,2024-08-19,Partner,tooling,7888.54
+8,2024-08-19,Partner,partner_portal,9937.41
+8,2024-08-19,Inside Sales,hosting,14926.16
+8,2024-08-19,Inside Sales,tooling,19164.32
+8,2024-08-19,Inside Sales,support_platform,8580.67
+8,2024-08-19,Self-Serve,hosting,36569.36
+8,2024-08-19,Self-Serve,tooling,10090.86
+8,2024-08-19,Self-Serve,support_platform,3218.57
+8,2024-08-19,Strategic,hosting,5212.73
+8,2024-08-19,Strategic,tooling,6391.55
+8,2024-08-19,Strategic,dedicated_infra,19874.63
+9,2024-08-26,Direct Sales,hosting,7927.6
+9,2024-08-26,Direct Sales,tooling,12679.17
+9,2024-08-26,Direct Sales,support_platform,4935.23
+9,2024-08-26,Partner,hosting,6030.96
+9,2024-08-26,Partner,tooling,7884.86
+9,2024-08-26,Partner,partner_portal,10299.69
+9,2024-08-26,Inside Sales,hosting,16028.34
+9,2024-08-26,Inside Sales,tooling,18967.41
+9,2024-08-26,Inside Sales,support_platform,8005.25
+9,2024-08-26,Self-Serve,hosting,34380.39
+9,2024-08-26,Self-Serve,tooling,10047.78
+9,2024-08-26,Self-Serve,support_platform,3166.49
+9,2024-08-26,Strategic,hosting,5024.84
+9,2024-08-26,Strategic,tooling,5897.23
+9,2024-08-26,Strategic,dedicated_infra,19605.59
+10,2024-09-02,Direct Sales,hosting,8120.2
+10,2024-09-02,Direct Sales,tooling,12583.33
+10,2024-09-02,Direct Sales,support_platform,5103.07
+10,2024-09-02,Partner,hosting,6459.64
+10,2024-09-02,Partner,tooling,7839.38
+10,2024-09-02,Partner,partner_portal,10620.57
+10,2024-09-02,Inside Sales,hosting,14886.78
+10,2024-09-02,Inside Sales,tooling,18304.34
+10,2024-09-02,Inside Sales,support_platform,8246.48
+10,2024-09-02,Self-Serve,hosting,36193.44
+10,2024-09-02,Self-Serve,tooling,10637.38
+10,2024-09-02,Self-Serve,support_platform,3006.7
+10,2024-09-02,Strategic,hosting,5196.66
+10,2024-09-02,Strategic,tooling,6302.53
+10,2024-09-02,Strategic,dedicated_infra,20952.11
+11,2024-09-09,Direct Sales,hosting,8419.5
+11,2024-09-09,Direct Sales,tooling,12539.89
+11,2024-09-09,Direct Sales,support_platform,5032.03
+11,2024-09-09,Partner,hosting,6381.83
+11,2024-09-09,Partner,tooling,8202.14
+11,2024-09-09,Partner,partner_portal,10320.16
+11,2024-09-09,Inside Sales,hosting,16193.68
+11,2024-09-09,Inside Sales,tooling,18484.97
+11,2024-09-09,Inside Sales,support_platform,8514.11
+11,2024-09-09,Self-Serve,hosting,34635.87
+11,2024-09-09,Self-Serve,tooling,10037.84
+11,2024-09-09,Self-Serve,support_platform,3194.5
+11,2024-09-09,Strategic,hosting,5375.39
+11,2024-09-09,Strategic,tooling,6498.15
+11,2024-09-09,Strategic,dedicated_infra,19788.48
+12,2024-09-16,Direct Sales,hosting,8686.65
+12,2024-09-16,Direct Sales,tooling,12548.48
+12,2024-09-16,Direct Sales,support_platform,5043.98
+12,2024-09-16,Partner,hosting,6486.22
+12,2024-09-16,Partner,tooling,8073.59
+12,2024-09-16,Partner,partner_portal,10837.53
+12,2024-09-16,Inside Sales,hosting,16072.44
+12,2024-09-16,Inside Sales,tooling,18050.18
+12,2024-09-16,Inside Sales,support_platform,7993.16
+12,2024-09-16,Self-Serve,hosting,36013.47
+12,2024-09-16,Self-Serve,tooling,10373.12
+12,2024-09-16,Self-Serve,support_platform,3171.47
+12,2024-09-16,Strategic,hosting,5393.71
+12,2024-09-16,Strategic,tooling,6423.37
+12,2024-09-16,Strategic,dedicated_infra,20112.7
+13,2024-09-23,Direct Sales,hosting,8649.6
+13,2024-09-23,Direct Sales,tooling,12932.01
+13,2024-09-23,Direct Sales,support_platform,4993.9
+13,2024-09-23,Partner,hosting,6127.88
+13,2024-09-23,Partner,tooling,8007.32
+13,2024-09-23,Partner,partner_portal,9976.58
+13,2024-09-23,Inside Sales,hosting,15759.97
+13,2024-09-23,Inside Sales,tooling,18026.57
+13,2024-09-23,Inside Sales,support_platform,8601.14
+13,2024-09-23,Self-Serve,hosting,36029.19
+13,2024-09-23,Self-Serve,tooling,10787.14
+13,2024-09-23,Self-Serve,support_platform,2970.13
+13,2024-09-23,Strategic,hosting,5026.2
+13,2024-09-23,Strategic,tooling,6307.29
+13,2024-09-23,Strategic,dedicated_infra,21433.14
+14,2024-09-30,Direct Sales,hosting,8539.29
+14,2024-09-30,Direct Sales,tooling,13022.79
+14,2024-09-30,Direct Sales,support_platform,5273.31
+14,2024-09-30,Partner,hosting,6285.77
+14,2024-09-30,Partner,tooling,8735.07
+14,2024-09-30,Partner,partner_portal,10793.44
+14,2024-09-30,Inside Sales,hosting,16245.35
+14,2024-09-30,Inside Sales,tooling,19053.69
+14,2024-09-30,Inside Sales,support_platform,8679.14
+14,2024-09-30,Self-Serve,hosting,37786.14
+14,2024-09-30,Self-Serve,tooling,10554.71
+14,2024-09-30,Self-Serve,support_platform,3187.89
+14,2024-09-30,Strategic,hosting,5433.48
+14,2024-09-30,Strategic,tooling,6333.56
+14,2024-09-30,Strategic,dedicated_infra,21353.97
+15,2024-10-07,Direct Sales,hosting,8199.93
+15,2024-10-07,Direct Sales,tooling,12762.22
+15,2024-10-07,Direct Sales,support_platform,4996.74
+15,2024-10-07,Partner,hosting,6380.58
+15,2024-10-07,Partner,tooling,8774.76
+15,2024-10-07,Partner,partner_portal,10167.22
+15,2024-10-07,Inside Sales,hosting,15073.34
+15,2024-10-07,Inside Sales,tooling,18219.93
+15,2024-10-07,Inside Sales,support_platform,8660.77
+15,2024-10-07,Self-Serve,hosting,35912.67
+15,2024-10-07,Self-Serve,tooling,10066.73
+15,2024-10-07,Self-Serve,support_platform,3262.87
+15,2024-10-07,Strategic,hosting,5417.53
+15,2024-10-07,Strategic,tooling,6064.1
+15,2024-10-07,Strategic,dedicated_infra,21107.78
+16,2024-10-14,Direct Sales,hosting,8789.01
+16,2024-10-14,Direct Sales,tooling,12199.15
+16,2024-10-14,Direct Sales,support_platform,5006.35
+16,2024-10-14,Partner,hosting,6022.88
+16,2024-10-14,Partner,tooling,8221.25
+16,2024-10-14,Partner,partner_portal,10508.42
+16,2024-10-14,Inside Sales,hosting,15756.91
+16,2024-10-14,Inside Sales,tooling,18535.35
+16,2024-10-14,Inside Sales,support_platform,8344.05
+16,2024-10-14,Self-Serve,hosting,37757.58
+16,2024-10-14,Self-Serve,tooling,10883.79
+16,2024-10-14,Self-Serve,support_platform,3072.76
+16,2024-10-14,Strategic,hosting,5231.08
+16,2024-10-14,Strategic,tooling,6380.19
+16,2024-10-14,Strategic,dedicated_infra,20314.36
+17,2024-10-21,Direct Sales,hosting,8659.64
+17,2024-10-21,Direct Sales,tooling,11994.54
+17,2024-10-21,Direct Sales,support_platform,5193.36
+17,2024-10-21,Partner,hosting,6399.66
+17,2024-10-21,Partner,tooling,8602.23
+17,2024-10-21,Partner,partner_portal,10751.59
+17,2024-10-21,Inside Sales,hosting,15459.24
+17,2024-10-21,Inside Sales,tooling,19331.91
+17,2024-10-21,Inside Sales,support_platform,8451.18
+17,2024-10-21,Self-Serve,hosting,37194.21
+17,2024-10-21,Self-Serve,tooling,10982.22
+17,2024-10-21,Self-Serve,support_platform,3050.8
+17,2024-10-21,Strategic,hosting,5276.68
+17,2024-10-21,Strategic,tooling,6472.01
+17,2024-10-21,Strategic,dedicated_infra,20743.35
+18,2024-10-28,Direct Sales,hosting,8615.59
+18,2024-10-28,Direct Sales,tooling,12282.54
+18,2024-10-28,Direct Sales,support_platform,5114.61
+18,2024-10-28,Partner,hosting,6633.07
+18,2024-10-28,Partner,tooling,8416.58
+18,2024-10-28,Partner,partner_portal,10576.82
+18,2024-10-28,Inside Sales,hosting,16599.95
+18,2024-10-28,Inside Sales,tooling,19876.1
+18,2024-10-28,Inside Sales,support_platform,8834.29
+18,2024-10-28,Self-Serve,hosting,37476.97
+18,2024-10-28,Self-Serve,tooling,10683.65
+18,2024-10-28,Self-Serve,support_platform,3284.13
+18,2024-10-28,Strategic,hosting,5415.3
+18,2024-10-28,Strategic,tooling,6298.5
+18,2024-10-28,Strategic,dedicated_infra,21771.24
+19,2024-11-04,Direct Sales,hosting,8449.71
+19,2024-11-04,Direct Sales,tooling,13303.36
+19,2024-11-04,Direct Sales,support_platform,5225.74
+19,2024-11-04,Partner,hosting,6503.11
+19,2024-11-04,Partner,tooling,8567.38
+19,2024-11-04,Partner,partner_portal,10675.88
+19,2024-11-04,Inside Sales,hosting,16626.38
+19,2024-11-04,Inside Sales,tooling,19049.78
+19,2024-11-04,Inside Sales,support_platform,8530.28
+19,2024-11-04,Self-Serve,hosting,36192.66
+19,2024-11-04,Self-Serve,tooling,10715.46
+19,2024-11-04,Self-Serve,support_platform,3116.25
+19,2024-11-04,Strategic,hosting,5025.19
+19,2024-11-04,Strategic,tooling,6315.72
+19,2024-11-04,Strategic,dedicated_infra,20808.59
+20,2024-11-11,Direct Sales,hosting,9180.29
+20,2024-11-11,Direct Sales,tooling,12811.0
+20,2024-11-11,Direct Sales,support_platform,5198.19
+20,2024-11-11,Partner,hosting,6443.93
+20,2024-11-11,Partner,tooling,8722.22
+20,2024-11-11,Partner,partner_portal,10180.3
+20,2024-11-11,Inside Sales,hosting,19294.73
+20,2024-11-11,Inside Sales,tooling,19557.8
+20,2024-11-11,Inside Sales,support_platform,8509.01
+20,2024-11-11,Self-Serve,hosting,43337.92
+20,2024-11-11,Self-Serve,tooling,10245.11
+20,2024-11-11,Self-Serve,support_platform,3209.99
+20,2024-11-11,Strategic,hosting,6006.46
+20,2024-11-11,Strategic,tooling,6298.48
+20,2024-11-11,Strategic,dedicated_infra,22190.41
+21,2024-11-18,Direct Sales,hosting,8902.74
+21,2024-11-18,Direct Sales,tooling,12213.22
+21,2024-11-18,Direct Sales,support_platform,5449.76
+21,2024-11-18,Partner,hosting,6924.72
+21,2024-11-18,Partner,tooling,8704.55
+21,2024-11-18,Partner,partner_portal,10529.43
+21,2024-11-18,Inside Sales,hosting,18543.38
+21,2024-11-18,Inside Sales,tooling,18905.01
+21,2024-11-18,Inside Sales,support_platform,8129.53
+21,2024-11-18,Self-Serve,hosting,46985.5
+21,2024-11-18,Self-Serve,tooling,10204.89
+21,2024-11-18,Self-Serve,support_platform,3315.35
+21,2024-11-18,Strategic,hosting,5865.73
+21,2024-11-18,Strategic,tooling,6194.39
+21,2024-11-18,Strategic,dedicated_infra,21201.03
+22,2024-11-25,Direct Sales,hosting,9169.8
+22,2024-11-25,Direct Sales,tooling,13234.09
+22,2024-11-25,Direct Sales,support_platform,5458.2
+22,2024-11-25,Partner,hosting,7088.52
+22,2024-11-25,Partner,tooling,8620.77
+22,2024-11-25,Partner,partner_portal,10244.46
+22,2024-11-25,Inside Sales,hosting,18193.71
+22,2024-11-25,Inside Sales,tooling,18863.32
+22,2024-11-25,Inside Sales,support_platform,8158.43
+22,2024-11-25,Self-Serve,hosting,45491.49
+22,2024-11-25,Self-Serve,tooling,10516.35
+22,2024-11-25,Self-Serve,support_platform,3123.03
+22,2024-11-25,Strategic,hosting,5584.56
+22,2024-11-25,Strategic,tooling,6410.44
+22,2024-11-25,Strategic,dedicated_infra,20323.95
+23,2024-12-02,Direct Sales,hosting,9440.75
+23,2024-12-02,Direct Sales,tooling,13122.88
+23,2024-12-02,Direct Sales,support_platform,5237.83
+23,2024-12-02,Partner,hosting,6578.72
+23,2024-12-02,Partner,tooling,8383.59
+23,2024-12-02,Partner,partner_portal,10856.91
+23,2024-12-02,Inside Sales,hosting,18227.62
+23,2024-12-02,Inside Sales,tooling,18376.84
+23,2024-12-02,Inside Sales,support_platform,8810.69
+23,2024-12-02,Self-Serve,hosting,44926.77
+23,2024-12-02,Self-Serve,tooling,10350.31
+23,2024-12-02,Self-Serve,support_platform,3196.07
+23,2024-12-02,Strategic,hosting,5592.56
+23,2024-12-02,Strategic,tooling,6316.71
+23,2024-12-02,Strategic,dedicated_infra,22219.42
+24,2024-12-09,Direct Sales,hosting,9172.57
+24,2024-12-09,Direct Sales,tooling,13282.8
+24,2024-12-09,Direct Sales,support_platform,5605.93
+24,2024-12-09,Partner,hosting,6483.67
+24,2024-12-09,Partner,tooling,8174.26
+24,2024-12-09,Partner,partner_portal,10872.45
+24,2024-12-09,Inside Sales,hosting,19376.94
+24,2024-12-09,Inside Sales,tooling,19047.2
+24,2024-12-09,Inside Sales,support_platform,8944.43
+24,2024-12-09,Self-Serve,hosting,44176.31
+24,2024-12-09,Self-Serve,tooling,11147.9
+24,2024-12-09,Self-Serve,support_platform,3131.39
+24,2024-12-09,Strategic,hosting,5823.45
+24,2024-12-09,Strategic,tooling,6334.56
+24,2024-12-09,Strategic,dedicated_infra,21698.29
+25,2024-12-16,Direct Sales,hosting,8827.24
+25,2024-12-16,Direct Sales,tooling,12472.07
+25,2024-12-16,Direct Sales,support_platform,5231.69
+25,2024-12-16,Partner,hosting,6935.6
+25,2024-12-16,Partner,tooling,9016.49
+25,2024-12-16,Partner,partner_portal,10504.1
+25,2024-12-16,Inside Sales,hosting,19195.7
+25,2024-12-16,Inside Sales,tooling,18776.1
+25,2024-12-16,Inside Sales,support_platform,8775.22
+25,2024-12-16,Self-Serve,hosting,45102.7
+25,2024-12-16,Self-Serve,tooling,10379.7
+25,2024-12-16,Self-Serve,support_platform,3380.87
+25,2024-12-16,Strategic,hosting,5675.03
+25,2024-12-16,Strategic,tooling,6302.78
+25,2024-12-16,Strategic,dedicated_infra,22187.24
+26,2024-12-23,Direct Sales,hosting,9152.26
+26,2024-12-23,Direct Sales,tooling,12647.36
+26,2024-12-23,Direct Sales,support_platform,5361.53
+26,2024-12-23,Partner,hosting,7155.17
+26,2024-12-23,Partner,tooling,8210.29
+26,2024-12-23,Partner,partner_portal,10379.7
+26,2024-12-23,Inside Sales,hosting,19503.0
+26,2024-12-23,Inside Sales,tooling,20109.89
+26,2024-12-23,Inside Sales,support_platform,8443.32
+26,2024-12-23,Self-Serve,hosting,45789.57
+26,2024-12-23,Self-Serve,tooling,11007.64
+26,2024-12-23,Self-Serve,support_platform,3120.41
+26,2024-12-23,Strategic,hosting,5879.18
+26,2024-12-23,Strategic,tooling,6305.45
+26,2024-12-23,Strategic,dedicated_infra,20563.09

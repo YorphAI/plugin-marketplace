@@ -1,0 +1,4 @@
+product,effective_week,effective_date,old_list_price,new_list_price,change_pct,reason
+Product 1,14,2024-09-30,120,128,6.7,cost pass-through
+Product 3,16,2024-10-14,200,210,5.0,value capture
+Product 6,15,2024-10-07,95,85,-10.5,competitive response
