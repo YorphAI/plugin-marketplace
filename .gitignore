@@ -46,3 +46,6 @@ Thumbs.db
 
 # Claude Code local config (machine-specific, not for repo)
 .claude/
+
+# Internal/private files (not for public repo)
+extra/

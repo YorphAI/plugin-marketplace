@@ -1,0 +1,29 @@
+{
+  "name": "yorph-plugins",
+  "owner": {
+    "name": "Yorph AI"
+  },
+  "metadata": {
+    "description": "Yorph AI plugins for research, data analysis, and evals."
+  },
+  "plugins": [
+    {
+      "name": "yorph-research-writer",
+      "source": "yorph-research-writer",
+      "description": "LaTeX research paper authoring. Create, edit, compile, and critique academic papers with a live browser-based PDF viewer.",
+      "author": { "name": "Yorph AI" }
+    },
+    {
+      "name": "data-analysis",
+      "source": "yorph-data-agent",
+      "description": "Data engineering and data analysis specialization skills.",
+      "author": { "name": "Yorph AI" }
+    },
+    {
+      "name": "evals",
+      "source": "yorph-evals",
+      "description": "Evaluate skills and plugins against each other.",
+      "author": { "name": "Yorph AI" }
+    }
+  ]
+}

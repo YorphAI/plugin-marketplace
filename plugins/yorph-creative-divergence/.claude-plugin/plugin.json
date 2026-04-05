@@ -1,0 +1,8 @@
+{
+  "name": "yorph-creative-divergence",
+  "version": "1.0.0",
+  "description": "Generate maximally creative ideas on any topic by running three independent agents with different cognitive lenses, then surfacing only the ideas that appear in exactly one list — the ones that escaped the model's creative gravity.",
+  "author": {
+    "name": "Yorph AI"
+  }
+}

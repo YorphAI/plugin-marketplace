@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "yorph-semantic-layer-builder",
-      "source": "./yorph-semantic-layer-builder",
+      "source": "./plugins/yorph-semantic-layer-builder",
       "description": "A guided, AI-powered semantic layer builder that connects to your data warehouse and generates optimized semantic layer definitions using parallel Claude agents.",
       "author": {
         "name": "Yorph AI"
@@ -14,7 +14,7 @@
     },
     {
       "name": "yorph-data-analyst",
-      "source": "./yorph-data-analyst",
+      "source": "./plugins/yorph-data-analyst",
       "description": "End-to-end data transformation and analysis pipeline for non-technical users. Two-agent architecture: an Orchestrator that handles all user communication, planning, and delivery; and a Pipeline Builder that handles technical data work in the background.",
       "author": {
         "name": "Yorph AI"
@@ -22,7 +22,7 @@
     },
     {
       "name": "yorph-research-writer",
-      "source": "./yorph-research-writer",
+      "source": "./plugins/yorph-research-writer",
       "description": "A LaTeX research paper authoring environment. Create, edit, compile, and critique academic papers directly through Claude — with a live browser-based PDF viewer that auto-refreshes on recompile.",
       "author": {
         "name": "Yorph AI"
@@ -30,7 +30,7 @@
     },
     {
       "name": "yorph-cc-convo-to-demo",
-      "source": "./yorph-cc-convo-to-demo",
+      "source": "./plugins/yorph-cc-convo-to-demo",
       "description": "Extract demo-worthy conversation segments and render them as embeddable HTML widgets styled like Claude Desktop.",
       "author": {
         "name": "Yorph AI"
@@ -38,7 +38,7 @@
     },
     {
       "name": "yorph-cc-convo-to-eval",
-      "source": "./yorph-cc-convo-to-eval",
+      "source": "./plugins/yorph-cc-convo-to-eval",
       "description": "Conversation eval system for Claude Code plugins. Captures real conversations as regression test cases and replays them to catch regressions when plugin code changes.",
       "author": {
         "name": "Yorph AI"
@@ -46,7 +46,7 @@
     },
     {
       "name": "yorph-eval-dueling",
-      "source": "./yorph-eval-dueling",
+      "source": "./plugins/yorph-eval-dueling",
       "description": "Evaluate and judge analyst skills against each other using structured rubrics and an interactive eval harness.",
       "author": {
         "name": "Yorph AI"
@@ -54,11 +54,19 @@
     },
     {
       "name": "yorph-conversation-memory",
-      "source": "./yorph-conversation-memory",
+      "source": "./plugins/yorph-conversation-memory",
       "description": "Conversation memory that survives context compaction.",
       "author": {
         "name": "Yorph AI"
       }
     },
+    {
+      "name": "yorph-creative-divergence",
+      "source": "./plugins/yorph-creative-divergence",
+      "description": "Creative divergence plugin for generating and exploring alternative approaches.",
+      "author": {
+        "name": "Yorph AI"
+      }
+    }
   ]
 }

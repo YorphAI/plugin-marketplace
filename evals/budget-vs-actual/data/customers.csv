@@ -1,0 +1,39 @@
+customer_id,customer_name,segment,products,in_budget,in_actuals,budget_gap_type,notes
+C-001,Customer 1,Mid-Market,SKU-C,True,True,none,budgeted and active
+C-002,Customer 2,Enterprise,SKU-F,True,True,dropped_mid_year,dropped from budget after month 7
+C-003,Customer 3,Enterprise,"SKU-A, SKU-F",True,True,none,budgeted and active
+C-004,Customer 4,Enterprise,SKU-F,True,True,none,budgeted and active
+C-005,Customer 5,Mid-Market,"SKU-A, SKU-C",True,True,none,budgeted and active
+C-006,Customer 6,Mid-Market,"SKU-B, SKU-C",True,True,none,budgeted and active
+C-007,Customer 7,Mid-Market,"SKU-A, SKU-C",True,True,none,budgeted and active
+C-008,Customer 8,SMB,"SKU-C, SKU-E",True,True,none,budgeted and active
+C-009,Customer 9,SMB,"SKU-A, SKU-E, SKU-F",True,True,none,budgeted and active
+C-010,Customer 10,SMB,"SKU-C, SKU-D, SKU-E, SKU-F",True,True,none,budgeted and active
+C-011,Customer 11,SMB,"SKU-A, SKU-B, SKU-E",True,True,added_mid_year,added to budget starting month 4
+C-012,Customer 12,Mid-Market,"SKU-B, SKU-C, SKU-E, SKU-F",True,True,none,budgeted and active
+C-013,Customer 13,SMB,"SKU-A, SKU-B",True,True,none,budgeted and active
+C-014,Customer 14,SMB,"SKU-D, SKU-F",True,True,none,budgeted and active
+C-015,Customer 15,Enterprise,SKU-F,True,True,none,budgeted and active
+C-016,Customer 16,Mid-Market,"SKU-C, SKU-D, SKU-E",True,True,none,budgeted and active
+C-017,Customer 17,Enterprise,SKU-A,True,True,none,budgeted and active
+C-018,Customer 18,Enterprise,"SKU-A, SKU-D, SKU-E",True,True,none,budgeted and active
+C-019,Customer 19,SMB,"SKU-A, SKU-C, SKU-D, SKU-F",True,True,sporadic_gaps,"budget missing for months [4, 7, 11]"
+C-020,Customer 20,SMB,"SKU-A, SKU-B, SKU-E",True,True,none,budgeted and active
+C-021,Customer 21,Mid-Market,SKU-B,True,True,none,budgeted and active
+C-022,Customer 22,SMB,"SKU-A, SKU-E",True,True,none,budgeted and active
+C-023,Customer 23,SMB,"SKU-A, SKU-B, SKU-C, SKU-D",True,True,none,budgeted and active
+C-024,Customer 24,Enterprise,"SKU-B, SKU-D, SKU-F",True,True,added_mid_year,added to budget starting month 4
+C-025,Customer 25,Mid-Market,"SKU-B, SKU-C, SKU-E, SKU-F",True,True,none,budgeted and active
+C-026,Customer 26,Enterprise,"SKU-A, SKU-C",True,True,none,budgeted and active
+C-027,Customer 27,Enterprise,SKU-F,True,True,none,budgeted and active
+C-028,Customer 28,Enterprise,SKU-C,True,True,none,budgeted and active
+C-029,Customer 29,Enterprise,"SKU-B, SKU-E, SKU-F",True,True,none,budgeted and active
+C-030,Customer 30,Enterprise,"SKU-B, SKU-D",True,True,none,budgeted and active
+C-031,Customer 31,Mid-Market,"SKU-D, SKU-F",True,False,budgeted_no_actuals,deal fell through — budgeted revenue never materialized
+C-032,Customer 32,Enterprise,SKU-D,True,False,budgeted_no_actuals,deal fell through — budgeted revenue never materialized
+C-033,Customer 33,Enterprise,SKU-B,True,False,budgeted_no_actuals,deal fell through — budgeted revenue never materialized
+C-034,Customer 34,Mid-Market,"SKU-B, SKU-C",False,True,unbudgeted_new_win,new win starting month 3 — no budget exists
+C-035,Customer 35,Mid-Market,"SKU-A, SKU-E, SKU-F",False,True,unbudgeted_new_win,new win starting month 4 — no budget exists
+C-036,Customer 36,Mid-Market,"SKU-B, SKU-D",False,True,unbudgeted_new_win,new win starting month 3 — no budget exists
+C-037,Customer 37,SMB,"SKU-C, SKU-D",False,True,unbudgeted_new_win,new win starting month 9 — no budget exists
+C-038,Customer 38,SMB,"SKU-B, SKU-D, SKU-E",False,True,unbudgeted_new_win,new win starting month 7 — no budget exists
