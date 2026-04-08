@@ -18,6 +18,32 @@ Built for business users who need more than surface-level analysis: root cause, 
 
 ---
 
+## Example use cases
+
+**Revenue anomaly you can't explain** — Sales numbers came in wrong for the quarter. You have exports from three systems with overlapping records, inconsistent category names, and missing values. Drop them in and get a root cause breakdown you can present to the CFO.
+
+**Quarterly financial attribution** — You need to explain what drove the change in a key metric — revenue, margin, or cost — from one quarter to the next. Get a waterfall chart breaking down the contribution of each factor (price, volume, mix, FX, one-offs) with the analysis behind it.
+
+**A dataset your team has been avoiding** — Eighteen months of operational data across multiple files, messy joins, unclear definitions. The analysis everyone keeps deprioritizing because it's too complex to set up manually. Just ask for insights.
+
+**Results that need to hold up to scrutiny** — You're going into a board meeting or regulatory review. You need to know not just what the data says but what assumptions were made, what was imputed, and what the caveats are before anyone asks.
+
+**A one-off analysis that keeps getting handed around** — The business user pulls a warehouse export, passes it to an analyst, who reruns it manually every month. Let the pipeline be built once, documented, and handed off cleanly.
+
+<a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/YorphAI/plugin-marketplace/main/showcase/yorph-data-analyst/examples/sales-insights-dashboard.html">
+  <img src="../../showcase/yorph-data-analyst/examples/budget_vs_actuals_dashboard.png" alt="Example output: Budget vs Actuals Dashboard" width="100%">
+</a>
+
+---
+
+## What you get
+
+- Cleaned, transformed data ready for downstream use
+- Charts and a summary dashboard
+- A **trust report** — what the pipeline did, what it assumed, and where to double-check
+
+---
+
 ## How it works
 
 Two agents share a library of skills. The Orchestrator is the only one you talk to — it plans, gets your sign-off, delegates execution to the Pipeline Builder, and delivers results. The Pipeline Builder runs invisibly: it builds, validates, and scales the transformation, then hands results back.
@@ -76,32 +102,6 @@ flowchart TD
     ORC -. loads .- SH
     PB -. loads .- SH
 ```
-
----
-
-## Example use cases
-
-**Revenue anomaly you can't explain** — Sales numbers came in wrong for the quarter. You have exports from three systems with overlapping records, inconsistent category names, and missing values. Drop them in and get a root cause breakdown you can present to the CFO.
-
-**Quarterly financial attribution** — You need to explain what drove the change in a key metric — revenue, margin, or cost — from one quarter to the next. Get a waterfall chart breaking down the contribution of each factor (price, volume, mix, FX, one-offs) with the analysis behind it.
-
-**A dataset your team has been avoiding** — Eighteen months of operational data across multiple files, messy joins, unclear definitions. The analysis everyone keeps deprioritizing because it's too complex to set up manually. Just ask for insights.
-
-**Results that need to hold up to scrutiny** — You're going into a board meeting or regulatory review. You need to know not just what the data says but what assumptions were made, what was imputed, and what the caveats are before anyone asks.
-
-**A one-off analysis that keeps getting handed around** — The business user pulls a warehouse export, passes it to an analyst, who reruns it manually every month. Let the pipeline be built once, documented, and handed off cleanly.
-
-<a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/YorphAI/plugin-marketplace/main/showcase/yorph-data-analyst/examples/sales-insights-dashboard.html">
-  <img src="../../showcase/yorph-data-analyst/examples/dashboard-preview.png" alt="Example output: Sales Performance Dashboard" width="100%">
-</a>
-
----
-
-## What you get
-
-- Cleaned, transformed data ready for downstream use
-- Charts and a summary dashboard
-- A **trust report** — what the pipeline did, what it assumed, and where to double-check
 
 ---
 
