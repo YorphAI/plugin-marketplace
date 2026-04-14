@@ -52,49 +52,42 @@ Two agents share a library of skills. The Orchestrator is the only one you talk 
 
 | Group | Skills |
 |---|---|
-| **Orchestrator** | `derive-insights`, `build-dashboard`, `trust-report` |
-| **Architect** | `design-transformation-architecture`, `semantic-join`, `cleaning`, `attribution` |
-| **Builder** | `sample-data`, `build (pandas)`, `validate-transformation-output`, `scale-execution`, `translate (sql)` |
-| **General** | `connectors`, `profile-data`, `semantic layer` |
-| **Viz** | `viz best practices`, `waterfall`, `tornado`, `cohort-heatmap` |
+| **Orchestrator** | `yorph-derive-insights`, `yorph-build-dashboard`, `yorph-trust-report` |
+| **Architect** | `yorph-design-transformation-architecture`, `yorph-semantic-join` |
+| **Builder** | `yorph-sample-data`, `yorph-validate-transformation-output`, `yorph-scale-execution` |
+| **General** | `yorph-connect-data-source`, `yorph-profile-data` |
+| **Viz** | `yorph-waterfall-chart`, `yorph-cohort-heatmap-chart` |
 
 ```mermaid
 flowchart TD
     User(["👤 User"])
 
-    ORC["Orchestrator (orchestrate-data-analysis)"]
+    ORC["Orchestrator (yorph-orchestrate-data-analysis)"]
 
     PB["Pipeline Builder"]
 
     subgraph SH["Shared Skills"]
         subgraph BS["Builder Skills"]
-            Sample["sample-data"]
-            BX["build (pandas)"]
-            Validate["validate-transformation-output"]
-            Scale["scale-execution"]
-            Translate["translate (sql)"]
+            Sample["yorph-sample-data"]
+            Validate["yorph-validate-transformation-output"]
+            Scale["yorph-scale-execution"]
         end
         subgraph GS["General Skills"]
-            CN["connectors"]
-            GL["profile-data"]
-            SL["semantic layer"]
+            CN["yorph-connect-data-source"]
+            GL["yorph-profile-data"]
         end
         subgraph OS["Orchestrator Skills"]
-            Insights["derive-insights"]
-            Viz["build-dashboard"]
-            Trust["trust-report (step summary, assumptions, observations, suggestions)"]
+            Insights["yorph-derive-insights"]
+            Viz["yorph-build-dashboard"]
+            Trust["yorph-trust-report"]
         end
         subgraph AS["Architect Skills"]
-            Architect["design-transformation-architecture"]
-            SJ["semantic-join"]
-            CL["cleaning"]
-            AT["attribution"]
+            Architect["yorph-design-transformation-architecture"]
+            SJ["yorph-semantic-join"]
         end
         subgraph VS["Viz Skills"]
-            VGP["viz best practices"]
-            WF["waterfall"]
-            TR["tornado"]
-            CH["cohort-heatmap"]
+            WF["yorph-waterfall-chart"]
+            CH["yorph-cohort-heatmap-chart"]
         end
     end
 
