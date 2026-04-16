@@ -101,7 +101,7 @@
   }
   .hero-stats {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1px;
     background: var(--border);
     border: 1px solid var(--border);
@@ -109,7 +109,7 @@
     overflow: hidden;
     margin-top: 24px;
   }
-  @media (max-width: 700px) { .hero-stats { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) { .hero-stats { grid-template-columns: 1fr; } }
   .hero-stat {
     background: var(--bg-page);
     padding: 16px 20px;
@@ -465,28 +465,24 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-kicker">Feature showcase · yorph-semantic-join</div>
-  <h1>Same thing, 300 ways — all matched.</h1>
+  <h1>Same thing, many ways — all matched.</h1>
   <p class="hero-sub">
-    Reps type product names however they want — shorthand, abbreviations, descriptive words, whatever's fastest.
-    No two entries match exactly. Yorph's semantic join figures out what they all mean and resolves 850 messy entries
-    to a 60-product catalog at 94% accuracy.
+    People type product names however they want — shorthand, abbreviations, descriptive words, whatever's fastest.
+    No two entries match exactly. Yorph's semantic join figures out what they all mean and resolves them to the
+    official catalog at 94% accuracy.
   </p>
   <div class="hero-stats">
     <div class="hero-stat">
-      <div class="hero-stat-num good">94.4%</div>
-      <div class="hero-stat-label">Match accuracy</div>
+      <div class="hero-stat-num bad">0%</div>
+      <div class="hero-stat-label">Exact matches<br>in the raw data</div>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-num good">99.9%</div>
-      <div class="hero-stat-label">Match rate</div>
+      <div class="hero-stat-label">Entries matched<br>by semantic join</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num neutral">300 → 60</div>
-      <div class="hero-stat-label">Variants resolved</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num bad">0%</div>
-      <div class="hero-stat-label">Exact matches</div>
+      <div class="hero-stat-num good">94.4%</div>
+      <div class="hero-stat-label">Of those matches,<br>correct</div>
     </div>
   </div>
 </div>
@@ -494,15 +490,15 @@
 <!-- PROBLEM -->
 <section>
   <div class="section-label">The problem</div>
-  <div class="section-title">60 products. 300 ways people typed them. Zero matches.</div>
+  <div class="section-title">Same products, dozens of ways. Zero matches.</div>
   <div class="section-sub">
-    Real-shape sales data from 12 reps across 15 stores. Every rep types product names their own way — some use
-    abbreviations, some describe by size or flavor, some just guess. Not a single entry matches the official catalog exactly.
+    Real-shape sales data where every entry is typed by hand — some use abbreviations, some describe by size or flavor,
+    some just guess. Not a single entry matches the official catalog exactly.
   </div>
 
   <div class="problem-grid">
     <div class="problem-box">
-      <div class="problem-box-head">sales_transactions.csv — as entered by reps</div>
+      <div class="problem-box-head">sales_transactions.csv — as originally entered</div>
       <div class="problem-row header-row"><span>txn_id</span><span>product_name_entered</span><span>qty</span></div>
       <div class="problem-row"><span>TXN-00003</span><span class="messy">Coke Zero 12pk</span><span>8</span></div>
       <div class="problem-row"><span>TXN-00005</span><span class="messy">frosted flakes lg box</span><span>6</span></div>
@@ -558,7 +554,7 @@
           <div class="search-col">
             <div class="search-col-label">Without semantic join</div>
             <div class="search-col-num bad">$284</div>
-            <div class="search-col-sub">6 rows · keyword match only</div>
+            <div class="search-col-sub">catches ~40% of true matches</div>
           </div>
           <div class="search-col">
             <div class="search-col-label">With semantic join</div>
@@ -584,7 +580,7 @@
           <div class="search-col">
             <div class="search-col-label">Without semantic join</div>
             <div class="search-col-num bad">$418</div>
-            <div class="search-col-sub">9 rows · keyword match only</div>
+            <div class="search-col-sub">catches ~40% of true matches</div>
           </div>
           <div class="search-col">
             <div class="search-col-label">With semantic join</div>
@@ -611,7 +607,7 @@
   <div class="challenge-list">
 
     <div class="challenge-item">
-      <div class="challenge-item-label">~75% of rows</div>
+      <div class="challenge-item-label">~75% of entries</div>
       <div class="challenge-item-title">Abbreviations with no shared letters</div>
       <p>Reps use initials and shorthand that share almost nothing in common with the full name. Letter-matching can't bridge this gap — it has to <em>know</em> what the short form means.</p>
       <div class="challenge-example">
@@ -622,7 +618,7 @@
     </div>
 
     <div class="challenge-item">
-      <div class="challenge-item-label">~20% of rows</div>
+      <div class="challenge-item-label">~20% of entries</div>
       <div class="challenge-item-title">Descriptions instead of sizes</div>
       <p>People describe products the way they remember them — "small can", "large box" — instead of looking up the exact size. The join has to map descriptive words to specific SKUs.</p>
       <div class="challenge-example">
@@ -632,7 +628,7 @@
     </div>
 
     <div class="challenge-item">
-      <div class="challenge-item-label">~40% of rows</div>
+      <div class="challenge-item-label">~40% of entries</div>
       <div class="challenge-item-title">Brand names written many ways</div>
       <p>Brand names get abbreviated, misspelled, or skipped entirely. The system has to recognize that different spellings refer to the same company's product.</p>
       <div class="challenge-example">
@@ -642,7 +638,7 @@
     </div>
 
     <div class="challenge-item">
-      <div class="challenge-item-label">~3% of rows</div>
+      <div class="challenge-item-label">~3% of entries</div>
       <div class="challenge-item-title">Genuinely unclear entries</div>
       <p>Some entries can't be resolved for sure — and the system flags those honestly instead of guessing. Low-confidence rows go to human review, not the final total.</p>
       <div class="challenge-example">
@@ -656,10 +652,10 @@
       <div class="challenge-item-title">Honest scoring, not just a match</div>
       <p>Every resolution includes a confidence score and a runner-up candidate. Low-confidence rows are surfaced for review — not silently wrong.</p>
       <div class="challenge-example">
-        High confidence (auto-accept): <span class="arrow">757 rows</span><br>
-        Medium confidence:             <span class="arrow"> 45 rows</span><br>
-        Low confidence (flagged):      <span class="arrow"> 47 rows</span><br>
-        Unmatched:                     <span class="arrow">  1 row</span>
+        High confidence (auto-accept): <span class="arrow">~89%</span><br>
+        Medium confidence:             <span class="arrow">~5%</span><br>
+        Low confidence (flagged):      <span class="arrow">~6%</span><br>
+        Unmatched:                     <span class="arrow">&lt;1%</span>
       </div>
     </div>
 
@@ -684,7 +680,7 @@
     <div class="phase">
       <div class="phase-num">Stage 2</div>
       <div class="phase-title">Find likely matches</div>
-      <p>Compare the cleaned-up entry against the catalog using word-level and character-level similarity. This narrows 60 possible matches down to the top few candidates — fast, without calling any AI model.</p>
+      <p>Compare the cleaned-up entry against the catalog using word-level and character-level similarity. This narrows the catalog down to the top few candidates — fast, without calling any AI model.</p>
       <div class="phase-tag">TF-IDF · word + character n-grams</div>
     </div>
     <div class="phase">
@@ -699,7 +695,7 @@
     <div class="callout-quote">
       Zero exact matches. 94% accuracy. No letter-matching method comes close.
     </div>
-    <div class="callout-attr">Semantic join demo · CPG sales dataset · 850 transactions</div>
+    <div class="callout-attr">Semantic join demo · CPG sales dataset</div>
   </div>
 </section>
 
@@ -707,7 +703,7 @@
 
 <footer>
   <span>yorph-data-analyst · <code>yorph-semantic-join</code> showcase</span>
-  <span>Dataset: 850 transactions across 60 products</span>
+  <span>CPG sales dataset</span>
 </footer>
 
 </body>
