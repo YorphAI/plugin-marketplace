@@ -98,6 +98,14 @@ flowchart TD
 
 ---
 
+## Unique skill: semantic join
+
+**[Semantic Join Demo →](https://htmlpreview.github.io/?https://raw.githubusercontent.com/YorphAI/plugin-marketplace/main/showcase/yorph-data-analyst/examples/semantic-join-demo.html)**
+
+See how `yorph-semantic-join` resolves the problem of messy and inconsistent text data on the fly.
+
+---
+
 ## Installation
 
 **Option A — via the Yorph GitHub marketplace**
