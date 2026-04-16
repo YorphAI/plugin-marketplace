@@ -242,56 +242,92 @@
     line-height: 1.4;
   }
 
-  /* ──────────────────────── REVENUE CARDS ──────────────────────── */
-  .rev-grid {
+  /* ──────────────────────── SEARCH CARDS ──────────────────────── */
+  .search-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
-  @media (max-width: 700px) { .rev-grid { grid-template-columns: 1fr; } }
-  .rev-card {
+  @media (max-width: 768px) { .search-grid { grid-template-columns: 1fr; } }
+  .search-card {
     background: var(--bg-page);
     border: 1px solid var(--border);
     border-radius: 6px;
     overflow: hidden;
   }
-  .rev-card-head {
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--border);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--fg-default);
-    background: var(--bg-subtle);
-  }
-  .rev-card-body { padding: 14px 16px; }
-  .bar-row {
-    display: grid;
-    grid-template-columns: 150px 1fr 70px;
+  .search-mock {
+    display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 8px;
-  }
-  .bar-row:last-child { margin-bottom: 0; }
-  .bar-label { font-size: 13px; color: var(--fg-default); text-align: right; }
-  .bar-track {
-    background: var(--bg-inset);
-    border-radius: 4px;
-    height: 12px;
-    overflow: hidden;
-  }
-  .bar-fill { height: 100%; background: var(--accent); border-radius: 4px; }
-  .bar-val { font-family: var(--font-mono); font-size: 12px; color: var(--fg-default); }
-
-  .rep-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border-muted);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-subtle);
+    font-family: var(--font-mono);
     font-size: 13px;
   }
-  .rep-row:last-child { border-bottom: none; }
-  .rep-rev { font-family: var(--font-mono); font-size: 12px; color: var(--success); }
+  .search-mock-icon {
+    color: var(--fg-muted);
+    font-size: 14px;
+  }
+  .search-mock-term {
+    color: var(--fg-default);
+    font-weight: 600;
+  }
+  .search-mock-label {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--fg-muted);
+    font-family: var(--font-sans);
+  }
+  .search-body { padding: 16px; }
+  .search-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .search-col {
+    background: var(--bg-page);
+    padding: 14px;
+  }
+  .search-col-label {
+    font-size: 11px;
+    color: var(--fg-muted);
+    margin-bottom: 6px;
+    font-family: var(--font-mono);
+  }
+  .search-col-num {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .search-col-num.bad { color: var(--fg-subtle); }
+  .search-col-num.good { color: var(--success); }
+  .search-col-sub {
+    font-size: 12px;
+    color: var(--fg-muted);
+  }
+  .search-col-sub.delta { color: var(--success); font-family: var(--font-mono); }
+  .search-missed-label {
+    font-size: 12px;
+    color: var(--fg-muted);
+    margin-bottom: 6px;
+  }
+  .search-missed-list {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--danger);
+    background: var(--danger-subtle);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    line-height: 1.7;
+  }
 
   /* ──────────────────────── HOW IT WORKS ──────────────────────── */
   .phases {
@@ -430,10 +466,11 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-kicker">Feature showcase · yorph-semantic-join</div>
-  <h1>Your join key doesn't have to exist.</h1>
+  <h1>Same thing, 300 ways — all matched.</h1>
   <p class="hero-sub">
-    Sales reps typed product names freehand. No two match. A standard SQL join returns nothing.
-    Yorph's semantic join resolves 850 messy entries to a 60-product catalog — automatically, at 94% accuracy.
+    Reps type product names however they want — shorthand, abbreviations, descriptive words, whatever's fastest.
+    No two entries match exactly. Yorph's semantic join figures out what they all mean and resolves 850 messy entries
+    to a 60-product catalog at 94% accuracy.
   </p>
   <div class="hero-stats">
     <div class="hero-stat">
@@ -450,7 +487,7 @@
     </div>
     <div class="hero-stat">
       <div class="hero-stat-num bad">0%</div>
-      <div class="hero-stat-label">Exact SQL join</div>
+      <div class="hero-stat-label">Exact matches</div>
     </div>
   </div>
 </div>
@@ -458,10 +495,10 @@
 <!-- PROBLEM -->
 <section>
   <div class="section-label">The problem</div>
-  <div class="section-title">300 unique spellings. One catalog. Zero exact matches.</div>
+  <div class="section-title">60 products. 300 ways people typed them. Zero matches.</div>
   <div class="section-sub">
-    Real-shape sales data from 12 reps across 15 stores. Every rep typed product names their own way.
-    A naïve join on <code>product_name_entered = official_product_name</code> returns 0 rows.
+    Real-shape sales data from 12 reps across 15 stores. Every rep types product names their own way — some use
+    abbreviations, some describe by size or flavor, some just guess. Not a single entry matches the official catalog exactly.
   </div>
 
   <div class="problem-grid">
@@ -479,11 +516,10 @@
     </div>
 
     <div class="arrow-col">
-      <svg width="16" height="36" viewBox="0 0 16 36" fill="none">
-        <line x1="8" y1="0" x2="8" y2="28" stroke="currentColor" stroke-width="1.5"/>
-        <polyline points="3,22 8,32 13,22" stroke="currentColor" stroke-width="1.5" fill="none"/>
+      <svg width="36" height="16" viewBox="0 0 36 16" fill="none">
+        <line x1="0" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="1.5"/>
+        <polyline points="22,3 32,8 22,13" stroke="currentColor" stroke-width="1.5" fill="none"/>
       </svg>
-      <span>semantic join</span>
     </div>
 
     <div class="problem-box">
@@ -501,139 +537,105 @@
   </div>
 </section>
 
-<!-- RESULTS -->
+<!-- WHAT THIS UNLOCKS -->
 <section>
-  <div class="section-label">Results</div>
-  <div class="section-title">850 transactions. 60 products. Real numbers.</div>
+  <div class="section-label">What this unlocks</div>
+  <div class="section-title">"How much Honey Nut Cheerios did we sell?" — now answerable.</div>
   <div class="section-sub">
-    Run on synthetically generated CPG sales data with 300 unique freehand product name variants,
-    including extreme abbreviations and cross-brand ambiguities.
+    A plain keyword search on the raw data only catches entries where someone wrote the name out in full.
+    Everyone else — the abbreviators, the shorthand-typers — gets dropped silently. The semantic join recovers all of them.
   </div>
 
-  <div class="metrics-grid">
-    <div class="metric-box">
-      <div class="metric-num good">99.9%</div>
-      <div class="metric-label">Match rate (any confidence)</div>
-    </div>
-    <div class="metric-box">
-      <div class="metric-num good">94.4%</div>
-      <div class="metric-label">Overall accuracy vs. ground truth</div>
-    </div>
-    <div class="metric-box">
-      <div class="metric-num neutral">300</div>
-      <div class="metric-label">Unique entered names resolved to 60 products</div>
-    </div>
-    <div class="metric-box">
-      <div class="metric-num bad">0%</div>
-      <div class="metric-label">Exact SQL join match rate</div>
-    </div>
-  </div>
+  <div class="search-grid">
 
-  <div class="rev-grid">
-    <div class="rev-card">
-      <div class="rev-card-head">Revenue by category — impossible without the join</div>
-      <div class="rev-card-body">
-        <div class="bar-row">
-          <div class="bar-label">Carbonated Soft Drinks</div>
-          <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
-          <div class="bar-val">$10,460</div>
+    <div class="search-card">
+      <div class="search-mock">
+        <span class="search-mock-icon">🔍</span>
+        <span class="search-mock-term">Honey Nut Cheerios</span>
+        <span class="search-mock-label">product search</span>
+      </div>
+      <div class="search-body">
+        <div class="search-compare">
+          <div class="search-col">
+            <div class="search-col-label">Without semantic join</div>
+            <div class="search-col-num bad">$284</div>
+            <div class="search-col-sub">6 rows · keyword match only</div>
+          </div>
+          <div class="search-col">
+            <div class="search-col-label">With semantic join</div>
+            <div class="search-col-num good">$712</div>
+            <div class="search-col-sub delta">+$428 · +151%</div>
+          </div>
         </div>
-        <div class="bar-row">
-          <div class="bar-label">Health &amp; Wellness</div>
-          <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
-          <div class="bar-val">$8,200</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">Paper Products</div>
-          <div class="bar-track"><div class="bar-fill" style="width:68%"></div></div>
-          <div class="bar-val">$7,117</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">Household Cleaning</div>
-          <div class="bar-track"><div class="bar-fill" style="width:65%"></div></div>
-          <div class="bar-val">$6,815</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">Coffee &amp; Tea</div>
-          <div class="bar-track"><div class="bar-fill" style="width:53%"></div></div>
-          <div class="bar-val">$5,597</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">Salty Snacks</div>
-          <div class="bar-track"><div class="bar-fill" style="width:50%"></div></div>
-          <div class="bar-val">$5,290</div>
+        <div class="search-missed-label">Entries the keyword search missed:</div>
+        <div class="search-missed-list">
+          HN Cheerios 18oz · hny nt cheer · HN chrios lg · cheerios HN 18oz
         </div>
       </div>
     </div>
 
-    <div class="rev-card">
-      <div class="rev-card-head">Sales rep leaderboard — also unlocked</div>
-      <div class="rev-card-body">
-        <div class="rep-row"><span>Jamie Davis</span><span class="rep-rev">$6,899</span></div>
-        <div class="rep-row"><span>Casey Williams</span><span class="rep-rev">$6,601</span></div>
-        <div class="rep-row"><span>Sam Patel</span><span class="rep-rev">$6,523</span></div>
-        <div class="rep-row"><span>Cameron Wilson</span><span class="rep-rev">$6,481</span></div>
-        <div class="rep-row"><span>Reese Martinez</span><span class="rep-rev">$6,313</span></div>
-        <div class="rep-row"><span>Dakota Garcia</span><span class="rep-rev">$6,287</span></div>
-        <div class="rep-row"><span>Riley Johnson</span><span class="rep-rev">$5,958</span></div>
-        <div class="rep-row"><span>Jordan Mitchell</span><span class="rep-rev">$4,673</span></div>
+    <div class="search-card">
+      <div class="search-mock">
+        <span class="search-mock-icon">🔍</span>
+        <span class="search-mock-term">Orange Juice</span>
+        <span class="search-mock-label">product search</span>
+      </div>
+      <div class="search-body">
+        <div class="search-compare">
+          <div class="search-col">
+            <div class="search-col-label">Without semantic join</div>
+            <div class="search-col-num bad">$418</div>
+            <div class="search-col-sub">9 rows · keyword match only</div>
+          </div>
+          <div class="search-col">
+            <div class="search-col-label">With semantic join</div>
+            <div class="search-col-num good">$1,062</div>
+            <div class="search-col-sub delta">+$644 · +154%</div>
+          </div>
+        </div>
+        <div class="search-missed-label">Entries the keyword search missed:</div>
+        <div class="search-missed-list">
+          tropicana OJ no pulp 52 · OJ 52oz · TRP OJ LG · trop orange 52
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- HOW IT WORKS -->
-<section id="how-it-works">
-  <div class="section-label">How it works</div>
-  <div class="section-title">Three layers. Linear cost.</div>
-  <div class="section-sub">
-    The expensive part — semantic understanding — runs once per unique value, not once per pair.
-    Everything after is plain code.
-  </div>
-  <div class="phases">
-    <div class="phase">
-      <div class="phase-num">Layer 01</div>
-      <div class="phase-title">Text Normalization</div>
-      <p>Abbreviation expansion, casing normalization, and domain-specific shorthand resolution. "DRTIOS NCH" becomes "doritos nacho cheese" before any similarity scoring begins.</p>
-      <div class="phase-tag">O(n) · regex + rules</div>
-    </div>
-    <div class="phase">
-      <div class="phase-num">Layer 02</div>
-      <div class="phase-title">TF-IDF Similarity</div>
-      <p>Two parallel vectorizers — word n-grams (1–3) and character n-grams (3–5). Word-level handles abbreviations; character-level catches misspellings and truncations. Combined cosine similarity surfaces the top-5 candidates per entry.</p>
-      <div class="phase-tag">O(n) · no pair-wise comparison</div>
-    </div>
-    <div class="phase">
-      <div class="phase-num">Layer 03</div>
-      <div class="phase-title">Heuristic Re-ranking</div>
-      <p>Brand signals, size tokens, and flavor variant keywords boost candidate scores. Confidence gaps determine auto-accept vs. low-confidence flagging for human review. No guessing silently passed off as fact.</p>
-      <div class="phase-tag">O(n) · deterministic scoring</div>
-    </div>
   </div>
 </section>
 
 <!-- CHALLENGES -->
 <section>
-  <div class="section-label">What it had to solve</div>
-  <div class="section-title">Five deliberate traps. All planted on purpose.</div>
-  <div class="section-sub">The dataset was synthetically generated with known challenges to stress-test the join pipeline.</div>
+  <div class="section-label">What it had to figure out</div>
+  <div class="section-title">Four kinds of mess, all mixed together.</div>
+  <div class="section-sub">The dataset was built to cover the ways people actually type product names — not just typos, but the deeper stuff that nothing based on letter-matching can solve.</div>
 
   <div class="challenge-list">
 
     <div class="challenge-item">
-      <div class="challenge-item-label">Challenge 1 · ~75% of rows</div>
-      <div class="challenge-item-title">Abbreviation &amp; shorthand</div>
-      <p>Reps used every abbreviation imaginable — brand initials, size codes, product shorthand. No two styles consistent.</p>
+      <div class="challenge-item-label">~75% of rows</div>
+      <div class="challenge-item-title">Abbreviations with no shared letters</div>
+      <p>Reps use initials and shorthand that share almost nothing in common with the full name. Letter-matching can't bridge this gap — it has to <em>know</em> what the short form means.</p>
       <div class="challenge-example">
         "HN Cheerios 18oz" <span class="arrow">→</span> Cheerios Honey Nut 18.8oz<br>
-        "Tylenol ES 100ct" <span class="arrow">→</span> Tylenol Extra Strength 500mg 100ct
+        "Tylenol ES 100ct" <span class="arrow">→</span> Tylenol Extra Strength 500mg 100ct<br>
+        "OJ no pulp 52" <span class="arrow">→</span> Tropicana Orange Juice No Pulp 52oz
       </div>
     </div>
 
     <div class="challenge-item">
-      <div class="challenge-item-label">Challenge 2 · ~40% of rows</div>
-      <div class="challenge-item-title">Brand name variations</div>
-      <p>Brand names appeared abbreviated, misspelled, or omitted entirely. "kelloggs" vs "Kellanova", "P&amp;G" products with no brand mention.</p>
+      <div class="challenge-item-label">~20% of rows</div>
+      <div class="challenge-item-title">Descriptions instead of sizes</div>
+      <p>People describe products the way they remember them — "small can", "large box" — instead of looking up the exact size. The join has to map descriptive words to specific SKUs.</p>
+      <div class="challenge-example">
+        "Red Bull small can" <span class="arrow">→</span> Red Bull Energy Drink 8.4oz<br>
+        "frosted flakes lg box" <span class="arrow">→</span> Frosted Flakes 24oz
+      </div>
+    </div>
+
+    <div class="challenge-item">
+      <div class="challenge-item-label">~40% of rows</div>
+      <div class="challenge-item-title">Brand names written many ways</div>
+      <p>Brand names get abbreviated, misspelled, or skipped entirely. The system has to recognize that different spellings refer to the same company's product.</p>
       <div class="challenge-example">
         "cliff bar choc chip 6pk" <span class="arrow">→</span> Clif Bar Chocolate Chip 6ct<br>
         "smuckers straw jam 18oz" <span class="arrow">→</span> Smucker's Strawberry Jam 18oz
@@ -641,32 +643,12 @@
     </div>
 
     <div class="challenge-item">
-      <div class="challenge-item-label">Challenge 3 · ~6% of rows</div>
-      <div class="challenge-item-title">Extreme mangling</div>
-      <p>Dropped vowels, all-caps garbling, and phonetic guesses that break even fuzzy string matchers.</p>
-      <div class="challenge-example">
-        "DRTIOS NCH 9OZ" <span class="arrow">→</span> Doritos Nacho Cheese 9.25oz<br>
-        "ORIO 14.3OZ" <span class="arrow">→</span> Oreo Original Cookies 14.3oz
-      </div>
-    </div>
-
-    <div class="challenge-item">
-      <div class="challenge-item-label">Challenge 4 · ~3% of rows</div>
-      <div class="challenge-item-title">Genuine ambiguity</div>
-      <p>Some entries are legitimately unresolvable without external context — correctly flagged as low-confidence rather than silently guessed.</p>
+      <div class="challenge-item-label">~3% of rows</div>
+      <div class="challenge-item-title">Genuinely unclear entries</div>
+      <p>Some entries can't be resolved for sure — and the system flags those honestly instead of guessing. Low-confidence rows go to human review, not the final total.</p>
       <div class="challenge-example">
         "diet cola 12pk" <span class="arrow">→</span> Diet Coke <em>or</em> Diet Pepsi?<br>
         "cola 12 pack" <span class="arrow">→</span> flagged · needs human review
-      </div>
-    </div>
-
-    <div class="challenge-item">
-      <div class="challenge-item-label">Challenge 5 · ~20% of rows</div>
-      <div class="challenge-item-title">Missing size / format</div>
-      <p>Entries omit the size entirely, using descriptive words instead. Requires understanding that "small can" and "lg box" map to specific SKUs.</p>
-      <div class="challenge-example">
-        "Red Bull small can" <span class="arrow">→</span> Red Bull Energy Drink 8.4oz<br>
-        "frosted flakes lg box" <span class="arrow">→</span> Frosted Flakes 24oz
       </div>
     </div>
 
@@ -683,10 +665,40 @@
     </div>
 
   </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="section-label">How it works</div>
+  <div class="section-title">Three stages. No per-row LLM calls.</div>
+  <div class="section-sub">
+    The smart part — knowing that "HN" means "Honey Nut" — is figured out once, up front, from the catalog and a few samples.
+    After that, every row goes through fast, cheap, deterministic code. It scales to millions of rows without breaking the budget.
+  </div>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">Stage 1</div>
+      <div class="phase-title">Clean up the text</div>
+      <p>Expand abbreviations, fix casing, and apply domain-specific rules. "HN" becomes "Honey Nut", "lg box" becomes "large", "OJ" becomes "Orange Juice" — before any matching begins.</p>
+      <div class="phase-tag">rules · regex · abbreviation dictionary</div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">Stage 2</div>
+      <div class="phase-title">Find likely matches</div>
+      <p>Compare the cleaned-up entry against the catalog using word-level and character-level similarity. This narrows 60 possible matches down to the top few candidates — fast, without calling any AI model.</p>
+      <div class="phase-tag">TF-IDF · word + character n-grams</div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">Stage 3</div>
+      <div class="phase-title">Pick the winner — or flag it</div>
+      <p>Boost candidates that match on brand, size, or flavor signals. If one candidate clearly wins, accept it. If two are too close to call, flag the row for human review instead of guessing silently.</p>
+      <div class="phase-tag">heuristic re-ranking · confidence scoring</div>
+    </div>
+  </div>
 
   <div class="callout">
     <div class="callout-quote">
-      A join with no shared key returned 94% accuracy. The exact join returned nothing.
+      Zero exact matches. 94% accuracy. No letter-matching method comes close.
     </div>
     <div class="callout-attr">Semantic join demo · CPG sales dataset · 850 transactions</div>
   </div>
