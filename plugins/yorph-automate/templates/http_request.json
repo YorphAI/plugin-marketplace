@@ -1,0 +1,25 @@
+{
+  "id": "http_request",
+  "name": "HTTP Request",
+  "description": "Makes an HTTP request. Use for calling external APIs, Slack webhooks, etc.",
+  "kind": "action",
+  "effect": "external_mutation",
+  "danger": "medium",
+  "shell_fields": ["url"],
+  "config_schema": {
+    "method":  { "type": "string", "required": true, "description": "GET, POST, PUT, DELETE, PATCH." },
+    "url":     { "type": "string", "required": true, "description": "Full URL. Supports {{input.*}} / {{config.*}} interpolation." },
+    "headers": { "type": "object", "required": false, "description": "Key-value map of request headers." },
+    "body":    { "type": "any",    "required": false, "description": "Request body. If an object, serialized as JSON with a JSON content-type unless headers override." },
+    "timeout_seconds": { "type": "number", "required": false, "description": "Default 30." }
+  },
+  "inputs": [
+    { "name": "body", "type": "any", "description": "Optional body override. If provided, replaces config.body." }
+  ],
+  "outputs": [
+    { "name": "status", "type": "number", "description": "HTTP status code." },
+    { "name": "body",   "type": "any",    "description": "Response body. Parsed as JSON if content-type is JSON-ish, otherwise raw string." },
+    { "name": "headers","type": "object", "description": "Response headers." }
+  ],
+  "runtime": { "type": "http_request" }
+}

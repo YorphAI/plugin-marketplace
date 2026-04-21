@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>yorph-automate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">◆</span>
+    <span class="brand-name">yorph-automate</span>
+  </div>
+  <div class="topbar-meta" id="topbar-meta"></div>
+</header>
+
+<main class="split">
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <span class="section-label">Workflows</span>
+      <button class="icon-btn" id="refresh-btn" title="Refresh">↻</button>
+    </div>
+    <ul class="workflow-list" id="workflow-list">
+      <li class="empty-hint">Loading…</li>
+    </ul>
+  </aside>
+
+  <section class="main">
+    <div class="empty-state" id="empty-state">
+      <h2>No workflow selected</h2>
+      <p>Pick a workflow from the left. Or ask Claude in chat to <em>make a workflow that…</em> — it'll create one in <code>~/.yorph/automate/workflows/</code>.</p>
+    </div>
+
+    <div class="workflow-view" id="workflow-view" hidden>
+      <div class="workflow-header">
+        <div>
+          <h1 id="wf-name">—</h1>
+          <p id="wf-desc" class="muted"></p>
+          <div class="chip-row" id="wf-chips"></div>
+        </div>
+        <button class="primary-btn" id="run-btn">
+          <span class="run-icon">▶</span> Run
+        </button>
+      </div>
+
+      <section class="panel">
+        <div class="panel-header">
+          <span class="section-label">DAG</span>
+        </div>
+        <div class="mermaid-wrap" id="mermaid-wrap">
+          <div class="mermaid" id="mermaid-target"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <span class="section-label">Run history</span>
+          <span class="muted small" id="runs-count"></span>
+        </div>
+        <div class="runs" id="runs"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header clickable" id="raw-toggle">
+          <span class="section-label">Raw JSON</span>
+          <span class="chev" id="raw-chev">▸</span>
+        </div>
+        <pre class="raw-json" id="raw-json" hidden></pre>
+      </section>
+    </div>
+  </section>
+
+</main>
+
+<!-- Run result modal -->
+<div class="modal-backdrop" id="run-modal" hidden>
+  <div class="modal">
+    <div class="modal-header">
+      <span id="run-modal-title">Run</span>
+      <button class="icon-btn" id="run-modal-close">✕</button>
+    </div>
+    <div class="modal-body" id="run-modal-body"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

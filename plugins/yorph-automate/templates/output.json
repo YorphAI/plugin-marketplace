@@ -1,0 +1,16 @@
+{
+  "id": "output",
+  "name": "Output",
+  "description": "Terminal node. Stores the incoming value under a label so it surfaces prominently in the viewer's run panel.",
+  "kind": "action",
+  "effect": "read_only",
+  "danger": "low",
+  "config_schema": {
+    "label": { "type": "string", "required": true, "description": "Human-readable label for this output (shown in the viewer)." }
+  },
+  "inputs": [
+    { "name": "value", "type": "any", "required": true, "description": "The value to store as a named final output of the run." }
+  ],
+  "outputs": [],
+  "runtime": { "type": "output" }
+}

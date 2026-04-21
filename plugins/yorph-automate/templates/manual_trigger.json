@@ -1,0 +1,14 @@
+{
+  "id": "manual_trigger",
+  "name": "Manual Trigger",
+  "description": "Starts a workflow when a user presses Run in the viewer or via the `run` skill. The payload supplied at trigger time becomes the node's `payload` output.",
+  "kind": "trigger",
+  "effect": "read_only",
+  "danger": "low",
+  "config_schema": {},
+  "inputs": [],
+  "outputs": [
+    { "name": "payload", "type": "any", "description": "Whatever JSON was supplied at trigger time; may be null." }
+  ],
+  "runtime": { "type": "noop" }
+}

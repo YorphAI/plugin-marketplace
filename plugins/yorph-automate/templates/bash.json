@@ -1,0 +1,23 @@
+{
+  "id": "bash",
+  "name": "Bash",
+  "description": "Runs a shell command via `/bin/bash -c`. Captures stdout, stderr, and exit code. Be careful with untrusted input.",
+  "kind": "action",
+  "effect": "local_mutation",
+  "danger": "high",
+  "shell_fields": ["command", "cwd"],
+  "config_schema": {
+    "command":         { "type": "string", "required": true, "description": "Shell command to execute. Supports interpolation." },
+    "cwd":             { "type": "string", "required": false, "description": "Working directory. Default is the server's CWD." },
+    "timeout_seconds": { "type": "number", "required": false, "description": "Default 120." }
+  },
+  "inputs": [
+    { "name": "stdin", "type": "string", "description": "Optional string piped to the command's stdin." }
+  ],
+  "outputs": [
+    { "name": "stdout",     "type": "string", "description": "Captured stdout." },
+    { "name": "stderr",     "type": "string", "description": "Captured stderr." },
+    { "name": "exit_code",  "type": "number", "description": "Process exit code (0 = success)." }
+  ],
+  "runtime": { "type": "bash" }
+}

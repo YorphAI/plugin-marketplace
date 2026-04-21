@@ -1,0 +1,8 @@
+{
+  "name": "yorph-automate",
+  "version": "0.1.0",
+  "description": "Zapier/n8n-style workflow automation for Claude Code. Author workflows through chat, run them locally, and leverage your Claude CLI subscription for AI-powered steps — no API key required. Workflows are transparent, reusable JSON DAGs.",
+  "author": {
+    "name": "Yorph AI"
+  }
+}

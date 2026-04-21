@@ -1,0 +1,19 @@
+{
+  "id": "branch",
+  "name": "Branch (Conditional)",
+  "description": "Evaluates a condition against the input. Downstream edges connected to the `true` output fire when the condition is truthy; edges on `false` fire when falsy.",
+  "kind": "control",
+  "effect": "read_only",
+  "danger": "low",
+  "config_schema": {
+    "condition": { "type": "string", "required": true, "description": "A simple comparison expression, e.g. `input.value > 10` or `input.status == \"ok\"`. Supports ==, !=, >, >=, <, <=, and truthiness of `input`." }
+  },
+  "inputs": [
+    { "name": "data", "type": "any", "description": "Bound as `input` inside the condition expression." }
+  ],
+  "outputs": [
+    { "name": "true",  "type": "any", "description": "Equal to `data` when the condition is truthy; otherwise undefined (edges on this output do not fire)." },
+    { "name": "false", "type": "any", "description": "Equal to `data` when the condition is falsy; otherwise undefined." }
+  ],
+  "runtime": { "type": "branch" }
+}

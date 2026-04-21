@@ -1,0 +1,21 @@
+{
+  "id": "claude_prompt",
+  "name": "Claude Prompt",
+  "description": "Runs a prompt through the Claude CLI (`claude -p`). Uses the user's logged-in subscription — no API key needed. The response is captured and passed downstream.",
+  "kind": "action",
+  "effect": "external_mutation",
+  "danger": "high",
+  "config_schema": {
+    "prompt": { "type": "string", "required": true, "description": "Prompt text. Supports {{input.context}} and {{nodes.<id>.output.<name>}} interpolation." },
+    "allowed_tools": { "type": "array", "required": false, "description": "Optional list of tool names to allow, e.g. [\"WebSearch\",\"Read\"]. Passed to --allowedTools." },
+    "output_format": { "type": "string", "required": false, "description": "`json` (default) or `text`. When `json`, the `result` field of the CLI output becomes the response." },
+    "timeout_seconds": { "type": "number", "required": false, "description": "Per-call timeout. Default 600." }
+  },
+  "inputs": [
+    { "name": "context", "type": "any", "description": "Optional upstream value interpolated into the prompt via {{input.context}}." }
+  ],
+  "outputs": [
+    { "name": "response", "type": "string", "description": "Claude's response text." }
+  ],
+  "runtime": { "type": "claude_prompt" }
+}

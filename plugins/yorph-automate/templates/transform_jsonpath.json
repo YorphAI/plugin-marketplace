@@ -1,0 +1,18 @@
+{
+  "id": "transform_jsonpath",
+  "name": "Transform (JSONPath)",
+  "description": "Extracts or reshapes JSON data using a simple dotted path expression. Example: `items.0.name` or `user.email`.",
+  "kind": "transform",
+  "effect": "read_only",
+  "danger": "low",
+  "config_schema": {
+    "expr": { "type": "string", "required": true, "description": "Dotted path expression evaluated against the `data` input. Supports `.`, array indices, and `*` to flatten arrays." }
+  },
+  "inputs": [
+    { "name": "data", "type": "any", "required": true, "description": "The JSON value to extract from." }
+  ],
+  "outputs": [
+    { "name": "result", "type": "any", "description": "The extracted value, or null if the path is missing." }
+  ],
+  "runtime": { "type": "jsonpath" }
+}
