@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Source this script (don't run it) to populate TAGGY_RW, TAGGY_RO, and
+# TAGGY_ACTOR from ~/.yorph/taggy/config.json (or $YORPH_TAGGY_HOME/config.json).
+#
+#     . /path/to/yorph-taggy/bin/taggy-env
+#     psql "$TAGGY_RO" -c "SELECT count(*) FROM items"
+#
+# If the config file is missing, prints a hint and returns 1 so callers can
+# fail fast.
+
+__taggy_home="${YORPH_TAGGY_HOME:-$HOME/.yorph/taggy}"
+__taggy_config="$__taggy_home/config.json"
+
+if [ ! -f "$__taggy_config" ]; then
+  echo "yorph-taggy: $__taggy_config not found. Run yorph-taggy:setup first." >&2
+  unset __taggy_home __taggy_config
+  return 1 2>/dev/null || exit 1
+fi
+
+# Three single-purpose calls so a malformed JSON fails before anything is set.
+TAGGY_RW=$(python3 -c "import json,sys;print(json.load(open('$__taggy_config'))['db_url_rw'])") || return 1
+TAGGY_RO=$(python3 -c "import json,sys;print(json.load(open('$__taggy_config'))['db_url_ro'])") || return 1
+TAGGY_ACTOR=$(python3 -c "import json,sys;print(json.load(open('$__taggy_config'))['actor'])") || return 1
+export TAGGY_RW TAGGY_RO TAGGY_ACTOR
+unset __taggy_home __taggy_config

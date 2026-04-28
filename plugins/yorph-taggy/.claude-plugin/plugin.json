@@ -1,0 +1,8 @@
+{
+  "name": "yorph-taggy",
+  "version": "0.1.0",
+  "description": "A lightweight Jira replacement where chat with Claude is the only interface and Postgres is the only datastore. Issues, sprints, epics, comments, releases, docs — everything collapses into items, parent links, and tags. New concepts are just new tag prefixes; zero schema changes.",
+  "author": {
+    "name": "Yorph AI"
+  }
+}
